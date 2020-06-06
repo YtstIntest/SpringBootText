@@ -1,38 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE generatorConfiguration
-       PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-       "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
-<generatorConfiguration>
-    <classPathEntry  location="/Users/xialiang/.m2/repository/mysql/mysql-connector-java/8.0.20/mysql-connector-java-8.0.20.jar"/>
-   <context id="DB2Tables"  targetRuntime="MyBatis3">
-       <commentGenerator>
-           <property name="suppressDate" value="true"/>
-           
-           <property name="suppressAllComments" value="true"/>
-       </commentGenerator>
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE generatorConfiguration-->
+<!--       PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"-->
+<!--       "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">-->
+<!--<generatorConfiguration>-->
+<!--    <classPathEntry  location="/Users/xialiang/.m2/repository/mysql/mysql-connector-java/8.0.20/mysql-connector-java-8.0.20.jar"/>-->
+<!--   <context id="DB2Tables"  targetRuntime="MyBatis3">-->
+<!--       <commentGenerator>-->
+<!--           <property name="suppressDate" value="true"/>-->
+<!--           -->
+<!--           <property name="suppressAllComments" value="true"/>-->
+<!--       </commentGenerator>-->
 
-       <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/user?characterEncoding=utf8" userId="root" password="xialiang">
-       </jdbcConnection>
-       <javaTypeResolver>
-           <property name="forceBigDecimals" value="false"/>
-       </javaTypeResolver>
-   
-       <javaModelGenerator targetPackage="com.example.asd.entity" targetProject="src/main/java">
-           <property name="enableSubPackages" value="true"/>
-           <property name="trimStrings" value="true"/>
-       </javaModelGenerator>
-    
-       <sqlMapGenerator targetPackage="resources.mapper" targetProject="src/main">
-           <property name="enableSubPackages" value="true"/>
-       </sqlMapGenerator>
-    
-       <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.asd.dao" targetProject="src/main/java">
-           <property name="enableSubPackages" value="true"/>
-       </javaClientGenerator>
+<!--       <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/user?characterEncoding=utf8" userId="root" password="xialiang">-->
+<!--       </jdbcConnection>-->
+<!--       <javaTypeResolver>-->
+<!--           <property name="forceBigDecimals" value="false"/>-->
+<!--       </javaTypeResolver>-->
+<!--   -->
+<!--       <javaModelGenerator targetPackage="com.example.asd.entity" targetProject="src/main/java">-->
+<!--           <property name="enableSubPackages" value="true"/>-->
+<!--           <property name="trimStrings" value="true"/>-->
+<!--       </javaModelGenerator>-->
+<!--    -->
+<!--       <sqlMapGenerator targetPackage="resources.mapper" targetProject="src/main">-->
+<!--           <property name="enableSubPackages" value="true"/>-->
+<!--       </sqlMapGenerator>-->
+<!--    -->
+<!--       <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.asd.dao" targetProject="src/main/java">-->
+<!--           <property name="enableSubPackages" value="true"/>-->
+<!--       </javaClientGenerator>-->
 
-       <table tableName="person" domainObjectName="Person" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-       <table tableName="gradle" domainObjectName="Gradle" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-       <table tableName="classes" domainObjectName="Classes" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<!--       <table tableName="person" domainObjectName="Person" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+<!--       <table tableName="gradle" domainObjectName="Gradle" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+<!--       <table tableName="classes" domainObjectName="Classes" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 
-   </context>
-</generatorConfiguration>
+<!--   </context>-->
+<!--</generatorConfiguration>-->
