@@ -12,4 +12,9 @@ public class HelloController {
         return "user撒打算打算打算";
     }
 
+    @RequestMapping(value = "/index/ddd", method = RequestMethod.POST)
+    public String kis(){
+        return "user撒打算打算打算1231231231";
+    }
+
 }
