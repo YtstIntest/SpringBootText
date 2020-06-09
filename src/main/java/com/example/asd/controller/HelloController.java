@@ -14,7 +14,7 @@ public class HelloController {
 
     @RequestMapping(value = "/index/ddd", method = RequestMethod.POST)
     public String kis(){
-        return "2222222222";
+        return "876666666";
     }
 
 }
