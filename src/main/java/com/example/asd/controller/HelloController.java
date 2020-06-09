@@ -1,15 +1,19 @@
 package com.example.asd.controller;
 
 import com.example.asd.entity.SelectorBean;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Api(produces = "选项卡API接口")
 @RestController
 public class HelloController {
 
+
+    @ApiOperation(value="", notes="", produces="application/json")
     @RequestMapping(value = "/fota/zt/selector", method = RequestMethod.POST)
     public SelectorBean selector(){
         SelectorBean bean=new SelectorBean();

@@ -1,7 +1,11 @@
 package com.example.asd.entity;
 
+import io.swagger.annotations.ApiModel;
+
 import java.util.List;
 
+
+@ApiModel(value = "选项卡对象模型")
 public class SelectorBean {
 
     private List<DataBean> data;
