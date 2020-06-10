@@ -1,6 +1,7 @@
 package com.example.asd.entity;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class SelectorBean {
          * id : 222
          * checked : false
          */
-
+        @ApiModelProperty(value = "这是一个id")
         private int id;
         private boolean checked;
         private List<RowListBean> rowList;
