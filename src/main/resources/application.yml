@@ -1,4 +1,3 @@
-
 #端口号配置
 server:
   port: 8768
@@ -17,32 +16,29 @@ spring:
     static-locations: classpath:/static,classpath:/META-INF/resources,classpath:/templates/
   #jdbc配置
   datasource:
-    url: jdbc:mysql://localhost:3306/user?useUnicode=true&characterEncoding=utf8
-    username: root
-    password: xialiang
-    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:oracle:thin:@192.168.1.79:1521:ney
+    username: ZT_FOTA
+    password: intest
+    driver-class-name: oracle.jdbc.driver.OracleDriver
     #redis配置
-  redis:
-    # Redis数据库索引（默认为0）
-    database: 0
-    # Redis服务器地址
-    host: 10.10.20.61
-    # Redis服务器连接端口
-    port: 6379
-    # Redis服务器连接密码（默认为空）
-    password:
-    jedis:
-      pool:
+redis:
+      # Redis服务器地址
+  host: 10.10.20.61
+      # Redis服务器连接端口
+  port: 6379
+      # Redis服务器连接密码（默认为空）
+  password:
+      # 连接超时时间（毫秒）
+  timeout: 10000
+  pool:
         # 连接池最大连接数（使用负值表示没有限制）
-        max-active: -1
-        # 连接池中的最大空闲连接
-        max-idle: 10
-        # 连接池中的最小空闲连接
-        min-idle: 0
+    max-active: 200
         # 连接池最大阻塞等待时间（使用负值表示没有限制）
-        max-wait: -1
-    # 连接超时时间（毫秒）
-    timeout: 1000
+    max-wait: -1
+        # 连接池中的最大空闲连接
+    max-idle: 8
+        # 连接池中的最小空闲连接
+    min-idle: 0
 #mybatis配置
 mybatis:
   #映射文件路径
