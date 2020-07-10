@@ -51,11 +51,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <version>11.2.0.2.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.oracle</groupId>-->
+<!--            <artifactId>ojdbc8</artifactId>-->
+<!--            <version>11.2.0.2.0</version>-->
+<!--        </dependency>-->
         <!-- Shiro -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
