@@ -49,7 +49,7 @@ public class UserController {
         }
         UserBto userBto = userService.getUserByname(userName);
         if (userBto == null) {
-            throw new CustomException("查询失败,该账号未注册(Query Failure)");
+            throw new CustomException("查询失败,该账号未注册(Query Failures)");
         }
         int accountStatus = userBto.getAccountStatus();
         if (accountStatus == 0) {
