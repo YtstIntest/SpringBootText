@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.asd.dao.ToolbarBtoMapper">
+  <resultMap id="BaseResultMap" type="com.example.asd.entity.ToolbarBto">
+    <constructor>
+      <idArg column="TOOLBAR_ID" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="CHARECKED" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="REMARK" javaType="java.lang.String" jdbcType="NVARCHAR" />
+      <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="UPDATEBY" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="FK_TABLE_ID" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    TOOLBAR_ID, CHARECKED, REMARK, ISDELETE, CREATEAT, CREATEBY, UPDATEAT, UPDATEBY, 
+    FK_TABLE_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from F_TOOLBAR
+    where TOOLBAR_ID = #{toolbarId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from F_TOOLBAR
+    where TOOLBAR_ID = #{toolbarId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.asd.entity.ToolbarBto">
+    insert into F_TOOLBAR (TOOLBAR_ID, CHARECKED, REMARK, 
+      ISDELETE, CREATEAT, CREATEBY, 
+      UPDATEAT, UPDATEBY, FK_TABLE_ID
+      )
+    values (#{toolbarId,jdbcType=CHAR}, #{charecked,jdbcType=NUMERIC}, #{remark,jdbcType=NVARCHAR}, 
+      #{isdelete,jdbcType=NUMERIC}, #{createat,jdbcType=TIMESTAMP}, #{createby,jdbcType=CHAR}, 
+      #{updateat,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, #{fkTableId,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.asd.entity.ToolbarBto">
+    insert into F_TOOLBAR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="toolbarId != null">
+        TOOLBAR_ID,
+      </if>
+      <if test="charecked != null">
+        CHARECKED,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="isdelete != null">
+        ISDELETE,
+      </if>
+      <if test="createat != null">
+        CREATEAT,
+      </if>
+      <if test="createby != null">
+        CREATEBY,
+      </if>
+      <if test="updateat != null">
+        UPDATEAT,
+      </if>
+      <if test="updateby != null">
+        UPDATEBY,
+      </if>
+      <if test="fkTableId != null">
+        FK_TABLE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="toolbarId != null">
+        #{toolbarId,jdbcType=CHAR},
+      </if>
+      <if test="charecked != null">
+        #{charecked,jdbcType=NUMERIC},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete,jdbcType=NUMERIC},
+      </if>
+      <if test="createat != null">
+        #{createat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updateat != null">
+        #{updateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null">
+        #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="fkTableId != null">
+        #{fkTableId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.asd.entity.ToolbarBto">
+    update F_TOOLBAR
+    <set>
+      <if test="charecked != null">
+        CHARECKED = #{charecked,jdbcType=NUMERIC},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="isdelete != null">
+        ISDELETE = #{isdelete,jdbcType=NUMERIC},
+      </if>
+      <if test="createat != null">
+        CREATEAT = #{createat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null">
+        CREATEBY = #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updateat != null">
+        UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null">
+        UPDATEBY = #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="fkTableId != null">
+        FK_TABLE_ID = #{fkTableId,jdbcType=CHAR},
+      </if>
+    </set>
+    where TOOLBAR_ID = #{toolbarId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.asd.entity.ToolbarBto">
+    update F_TOOLBAR
+    set CHARECKED = #{charecked,jdbcType=NUMERIC},
+      REMARK = #{remark,jdbcType=NVARCHAR},
+      ISDELETE = #{isdelete,jdbcType=NUMERIC},
+      CREATEAT = #{createat,jdbcType=TIMESTAMP},
+      CREATEBY = #{createby,jdbcType=CHAR},
+      UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
+      UPDATEBY = #{updateby,jdbcType=CHAR},
+      FK_TABLE_ID = #{fkTableId,jdbcType=CHAR}
+    where TOOLBAR_ID = #{toolbarId,jdbcType=CHAR}
+  </update>
+</mapper>

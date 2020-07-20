@@ -17,6 +17,5 @@ public interface UserBtoMapper {
 
     int updateByPrimaryKey(UserBto record);
 
-    UserBto selectByName(String name);
-
+    UserBto selectByName(String accound);
 }

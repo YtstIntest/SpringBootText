@@ -1,9 +1,9 @@
 package com.example.asd.dto;
 
-public class LoginOutDto {
+public class LoginOutResponse {
     private int isCanLogout;
 
-    public LoginOutDto(int isCanLogout) {
+    public LoginOutResponse(int isCanLogout) {
         this.isCanLogout = isCanLogout;
     }
 

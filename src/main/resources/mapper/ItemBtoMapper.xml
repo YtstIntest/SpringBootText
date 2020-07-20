@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.asd.dao.ItemBtoMapper">
+  <resultMap id="BaseResultMap" type="com.example.asd.entity.ItemBto">
+    <constructor>
+      <idArg column="ITEM_ID" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+      <arg column="FK_ITEM_ID" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="UPDATEBY" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="ICON" javaType="java.lang.String" jdbcType="NVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ITEM_ID, NAME, FK_ITEM_ID, REMARK, ISDELETE, CREATEAT, CREATEBY, UPDATEAT, UPDATEBY, 
+    ICON
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from F_ITEM
+    where ITEM_ID = #{itemId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from F_ITEM
+    where ITEM_ID = #{itemId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.asd.entity.ItemBto">
+    insert into F_ITEM (ITEM_ID, NAME, FK_ITEM_ID, 
+      REMARK, ISDELETE, CREATEAT, 
+      CREATEBY, UPDATEAT, UPDATEBY, 
+      ICON)
+    values (#{itemId,jdbcType=CHAR}, #{name,jdbcType=NVARCHAR}, #{fkItemId,jdbcType=CHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{isdelete,jdbcType=NUMERIC}, #{createat,jdbcType=TIMESTAMP}, 
+      #{createby,jdbcType=CHAR}, #{updateat,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, 
+      #{icon,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.asd.entity.ItemBto">
+    insert into F_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="fkItemId != null">
+        FK_ITEM_ID,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="isdelete != null">
+        ISDELETE,
+      </if>
+      <if test="createat != null">
+        CREATEAT,
+      </if>
+      <if test="createby != null">
+        CREATEBY,
+      </if>
+      <if test="updateat != null">
+        UPDATEAT,
+      </if>
+      <if test="updateby != null">
+        UPDATEBY,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        #{itemId,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="fkItemId != null">
+        #{fkItemId,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete,jdbcType=NUMERIC},
+      </if>
+      <if test="createat != null">
+        #{createat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updateat != null">
+        #{updateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null">
+        #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.asd.entity.ItemBto">
+    update F_ITEM
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="fkItemId != null">
+        FK_ITEM_ID = #{fkItemId,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null">
+        ISDELETE = #{isdelete,jdbcType=NUMERIC},
+      </if>
+      <if test="createat != null">
+        CREATEAT = #{createat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null">
+        CREATEBY = #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updateat != null">
+        UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null">
+        UPDATEBY = #{updateby,jdbcType=CHAR},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ITEM_ID = #{itemId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.asd.entity.ItemBto">
+    update F_ITEM
+    set NAME = #{name,jdbcType=NVARCHAR},
+      FK_ITEM_ID = #{fkItemId,jdbcType=CHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      ISDELETE = #{isdelete,jdbcType=NUMERIC},
+      CREATEAT = #{createat,jdbcType=TIMESTAMP},
+      CREATEBY = #{createby,jdbcType=CHAR},
+      UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
+      UPDATEBY = #{updateby,jdbcType=CHAR},
+      ICON = #{icon,jdbcType=NVARCHAR}
+    where ITEM_ID = #{itemId,jdbcType=CHAR}
+  </update>
+</mapper>

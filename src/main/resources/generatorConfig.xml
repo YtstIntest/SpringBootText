@@ -1,44 +1,49 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<!DOCTYPE generatorConfiguration-->
-<!--       PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"-->
-<!--       "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">-->
-<!--<generatorConfiguration>-->
-<!--&lt;!&ndash;    <classPathEntry  location="/Users/xialiang/.m2/repository/com/oracle/ojdbc8/11.2.0.2.0/ojdbc8-11.2.0.2.0.jar"/>&ndash;&gt;-->
-<!--&lt;!&ndash;    <properties resource="/generator.properties"></properties>&ndash;&gt;-->
-<!--    <classPathEntry  location="/var/jenkins_home/.m2/repository/com/oracle/ojdbc8/11.2.0.2.0/ojdbc8-11.2.0.2.0.jar"/>-->
-<!--&lt;!&ndash;    <classPathEntry  location="/lib/ojdbc8-11.2.0.2.0.jar"/>&ndash;&gt;-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+       PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+       "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry  location="/Users/xialiang/.m2/repository/com/oracle/ojdbc8/11.2.0.2.0/ojdbc8-11.2.0.2.0.jar"/>
+
+    <context id="DB2Tables"  targetRuntime="MyBatis3">
+        <property name="beginningDelimiter" value=""/>
+        <property name="endingDelimiter" value=""/>
+       <commentGenerator>
+           <property name="suppressDate" value="true"/>
+
+           <property name="suppressAllComments" value="true"/>
+       </commentGenerator>
+
+       <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@192.168.1.79:1521:ney" userId="ZT_FOTA" password="intest">
+       </jdbcConnection>
+       <javaTypeResolver>
+           <property name="forceBigDecimals" value="false"/>
+       </javaTypeResolver>
 
 
-<!--    <context id="DB2Tables"  targetRuntime="MyBatis3">-->
-<!--        <property name="beginningDelimiter" value=""/>-->
-<!--        <property name="endingDelimiter" value=""/>-->
-<!--       <commentGenerator>-->
-<!--           <property name="suppressDate" value="true"/>-->
+       <javaModelGenerator targetPackage="com.example.asd.entity" targetProject="./src/main/java">
+           <property name="enableSubPackages" value="true"/>
+           <property name="trimStrings" value="true"/>
+           <property name="constructorBased" value="true"/>
+       </javaModelGenerator>
 
-<!--           <property name="suppressAllComments" value="true"/>-->
-<!--       </commentGenerator>-->
+       <sqlMapGenerator targetPackage="resources.mapper" targetProject="./src/main">
+           <property name="enableSubPackages" value="true"/>
+       </sqlMapGenerator>
 
-<!--       <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@192.168.1.79:1521:ney" userId="ZT_FOTA" password="intest">-->
-<!--       </jdbcConnection>-->
-<!--       <javaTypeResolver>-->
-<!--           <property name="forceBigDecimals" value="false"/>-->
-<!--       </javaTypeResolver>-->
+       <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.asd.dao" targetProject="./src/main/java">
+           <property name="enableSubPackages" value="true"/>
+       </javaClientGenerator>
 
-
-<!--       <javaModelGenerator targetPackage="com.example.asd.entity" targetProject="/src/main/java">-->
-<!--           <property name="enableSubPackages" value="true"/>-->
-<!--           <property name="trimStrings" value="true"/>-->
-<!--       </javaModelGenerator>-->
-
-<!--       <sqlMapGenerator targetPackage="resources.mapper" targetProject="/src/main">-->
-<!--           <property name="enableSubPackages" value="true"/>-->
-<!--       </sqlMapGenerator>-->
-
-<!--       <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.asd.dao" targetProject="/src/main/java">-->
-<!--           <property name="enableSubPackages" value="true"/>-->
-<!--       </javaClientGenerator>-->
-
-<!--       <table tableName="F_USER" domainObjectName="UserBto" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-
-<!--   </context>-->
-<!--</generatorConfiguration>-->
+<!--       <table tableName="F_USER" domainObjectName="UserBto"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table tableName="F_OPTION" domainObjectName="OptionBto" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table tableName="F_COLUMN" domainObjectName="ColumnBto"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table tableName="F_COLUMNOPTION" domainObjectName="ColumnOptionBto"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table tableName="F_ITEM" domainObjectName="ItemBto"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table tableName="F_MENU" domainObjectName="MeunBto"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table tableName="F_TABLE" domainObjectName="TableBto"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table tableName="F_TABLECOLUMN" domainObjectName="TableColumnBto"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <table tableName="F_TOOLBAR" domainObjectName="ToolbarBto"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<!--        <table tableName="F_TOOLBARITEM" domainObjectName="ToolbarItemBto"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+    </context>
+</generatorConfiguration>

@@ -44,4 +44,4 @@ mybatis:
   #映射文件路径
   mapper-locations: classpath:mapper/*.xml
   #模型所在的保命
-  type-aliases-package: com.server.entity
+  type-aliases-package: com.example.asd.entity

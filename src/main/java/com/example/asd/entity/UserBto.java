@@ -3,11 +3,10 @@ package com.example.asd.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @ApiModel("UserBto用户注册对象")
-public class UserBto implements Serializable {
+public class UserBto {
     @ApiModelProperty(value = "主键，账户ID")
     private String userId;
 
@@ -39,7 +38,7 @@ public class UserBto implements Serializable {
     private String note;
 
     @ApiModelProperty(value = "账号类型（1-系统用户账户；2-服务账户；）")
-    private Short accountKind = 1;
+    private Short accountKind = 2;
 
     @ApiModelProperty(value = "上次登录时间")
     private Date lastLoginat;
@@ -65,29 +64,31 @@ public class UserBto implements Serializable {
     @ApiModelProperty(value = "修改人")
     private String updateby;
 
-    @Override
-    public String toString() {
-        return "UserBto{" +
-                "userId='" + userId + '\'' +
-                ", loginName='" + loginName + '\'' +
-                ", loginPassword='" + loginPassword + '\'' +
-                ", csprng='" + csprng + '\'' +
-                ", realName='" + realName + '\'' +
-                ", jobNumber='" + jobNumber + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", companyEmail='" + companyEmail + '\'' +
-                ", sex=" + sex +
-                ", note='" + note + '\'' +
-                ", accountKind=" + accountKind +
-                ", lastLoginat=" + lastLoginat +
-                ", passwordRetryCount=" + passwordRetryCount +
-                ", accountStatus=" + accountStatus +
-                ", isdelete=" + isdelete +
-                ", createat=" + createat +
-                ", createby='" + createby + '\'' +
-                ", updateat=" + updateat +
-                ", updateby='" + updateby + '\'' +
-                '}';
+
+    public UserBto(String userId, String loginName, String loginPassword, String csprng, String realName, String jobNumber, String mobile, String companyEmail, Short sex, String note, Short accountKind, Date lastLoginat, Integer passwordRetryCount, Short accountStatus, Short isdelete, Date createat, String createby, Date updateat, String updateby) {
+        this.userId = userId;
+        this.loginName = loginName;
+        this.loginPassword = loginPassword;
+        this.csprng = csprng;
+        this.realName = realName;
+        this.jobNumber = jobNumber;
+        this.mobile = mobile;
+        this.companyEmail = companyEmail;
+        this.sex = sex;
+        this.note = note;
+        this.accountKind = accountKind;
+        this.lastLoginat = lastLoginat;
+        this.passwordRetryCount = passwordRetryCount;
+        this.accountStatus = accountStatus;
+        this.isdelete = isdelete;
+        this.createat = createat;
+        this.createby = createby;
+        this.updateat = updateat;
+        this.updateby = updateby;
+    }
+
+    public UserBto() {
+        super();
     }
 
     public String getUserId() {

@@ -2,25 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.asd.dao.UserBtoMapper">
   <resultMap id="BaseResultMap" type="com.example.asd.entity.UserBto">
-    <id column="USER_ID" jdbcType="CHAR" property="userId" />
-    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
-    <result column="LOGIN_PASSWORD" jdbcType="VARCHAR" property="loginPassword" />
-    <result column="CSPRNG" jdbcType="VARCHAR" property="csprng" />
-    <result column="REAL_NAME" jdbcType="VARCHAR" property="realName" />
-    <result column="JOB_NUMBER" jdbcType="NVARCHAR" property="jobNumber" />
-    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
-    <result column="COMPANY_EMAIL" jdbcType="VARCHAR" property="companyEmail" />
-    <result column="SEX" jdbcType="NUMERIC" property="sex" />
-    <result column="NOTE" jdbcType="VARCHAR" property="note" />
-    <result column="ACCOUNT_KIND" jdbcType="NUMERIC" property="accountKind" />
-    <result column="LAST_LOGINAT" jdbcType="TIMESTAMP" property="lastLoginat" />
-    <result column="PASSWORD_RETRY_COUNT" jdbcType="NUMERIC" property="passwordRetryCount" />
-    <result column="ACCOUNT_STATUS" jdbcType="NUMERIC" property="accountStatus" />
-    <result column="ISDELETE" jdbcType="NUMERIC" property="isdelete" />
-    <result column="CREATEAT" jdbcType="TIMESTAMP" property="createat" />
-    <result column="CREATEBY" jdbcType="CHAR" property="createby" />
-    <result column="UPDATEAT" jdbcType="TIMESTAMP" property="updateat" />
-    <result column="UPDATEBY" jdbcType="CHAR" property="updateby" />
+    <constructor>
+      <idArg column="USER_ID" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="LOGIN_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="LOGIN_PASSWORD" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CSPRNG" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="REAL_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="JOB_NUMBER" javaType="java.lang.String" jdbcType="NVARCHAR" />
+      <arg column="MOBILE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="COMPANY_EMAIL" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SEX" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="NOTE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ACCOUNT_KIND" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="LAST_LOGINAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="PASSWORD_RETRY_COUNT" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="ACCOUNT_STATUS" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="UPDATEBY" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
   </resultMap>
   <sql id="Base_Column_List">
     USER_ID, LOGIN_NAME, LOGIN_PASSWORD, CSPRNG, REAL_NAME, JOB_NUMBER, MOBILE, COMPANY_EMAIL, 
@@ -256,13 +258,11 @@
       UPDATEBY = #{updateby,jdbcType=CHAR}
     where USER_ID = #{userId,jdbcType=CHAR}
   </update>
-
   <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from F_USER
     where LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
   </select>
-
 
 </mapper>

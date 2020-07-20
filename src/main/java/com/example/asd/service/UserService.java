@@ -10,5 +10,4 @@ public interface UserService {
     int updateUser(UserBto person);
 
     boolean deleteUser(String name);
-
 }

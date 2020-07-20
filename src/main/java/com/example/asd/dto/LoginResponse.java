@@ -1,11 +1,11 @@
 package com.example.asd.dto;
 
-public class LoginDto {
+public class LoginResponse {
     private int isCanLogin;
     private String token;
     private int failNum;
 
-    public LoginDto(int isCanLogin, String token, int failNum) {
+    public LoginResponse(int isCanLogin, String token, int failNum) {
         this.isCanLogin = isCanLogin;
         this.token = token;
         this.failNum = failNum;

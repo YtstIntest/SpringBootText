@@ -3,13 +3,14 @@ package com.example.asd.controller;
 import com.example.asd.common.ResponseBean;
 import com.example.asd.common.constant.Constant;
 import com.example.asd.config.helper.ValidateHelper;
+import com.example.asd.config.jwt.AuthToken;
 import com.example.asd.config.jwt.BcrptTokenGenerator;
 import com.example.asd.config.redis.JedisUtil;
-import com.example.asd.dto.LoginDto;
-import com.example.asd.dto.LoginOutDto;
+import com.example.asd.dto.LoginResponse;
+import com.example.asd.dto.LoginOutResponse;
 import com.example.asd.entity.UserBto;
 import com.example.asd.exception.CustomException;
-import com.example.asd.service.UserServiceImpl;
+import com.example.asd.service.impl.UserServiceImpl;
 import com.example.asd.util.BCrypt;
 import com.example.asd.util.CheckPwd;
 
@@ -37,20 +38,23 @@ public class UserController {
     /**
      * 用户登录
      *
-     * @param userName
-     * @param password
+     * @param userBtos
      * @return
      */
     @ApiOperation("用户登录接口")
     @RequestMapping(value = "/infota/product/inLogin", method = RequestMethod.POST)
-    public ResponseBean inLogin(@ApiParam(value = "账号", required = true) String userName, @ApiParam(value = "密码", required = true)String password) {
-        if (!StringUtils.isNotEmptyStr(userName) && !StringUtils.isNotEmptyStr(password)) {
-            throw new CustomException("账户、密码不能为空(Query Failure)");
-        }
-        UserBto userBto = userService.getUserByname(userName);
+    public ResponseBean inLogin(@RequestBody UserBto userBtos) {
+        UserBto userBto = userService.getUserByname(userBtos.getLoginName());
         if (userBto == null) {
             throw new CustomException("查询失败,该账号未注册(Query Failure)");
         }
+        String userName=userBto.getLoginName();
+        String password=userBto.getLoginPassword();
+        if (!StringUtils.isNotEmptyStr(userName) && !StringUtils.isNotEmptyStr(password)) {
+            throw new CustomException("账户、密码不能为空(Query Failure)");
+        }
+
+
         int accountStatus = userBto.getAccountStatus();
         if (accountStatus == 0) {
             throw new CustomException("账户被冻结，请联系管理员(Account Failure)");
@@ -64,7 +68,7 @@ public class UserController {
             }
             userBto.setPasswordRetryCount(errorNumber);
             userService.updateUser(userBto);
-            return new ResponseBean(1, "密码错误(Passworld Failure)", new LoginDto(2, "", errorNumber));
+            return new ResponseBean(1, "密码错误(Passworld Failure)", new LoginResponse(2, "", errorNumber));
         }
         if (JedisUtil.exists(Constant.PREFIX_SHIRO_CACHE + userName)) {
             throw new CustomException("登陆失败,该账号已登陆(Login Failure)");
@@ -74,7 +78,7 @@ public class UserController {
             JedisUtil.setObject(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token, userName, Constant.EXRP_DAY);
             userBto.setPasswordRetryCount(5);
             userService.updateUser(userBto);
-            return new ResponseBean(1, "登陆成功", new LoginDto(1, token, 0));
+            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token, 0));
         }
     }
 
@@ -85,15 +89,16 @@ public class UserController {
      * @return
      */
     @ApiOperation("用户登出接口")
-    @RequestMapping(value = "/infota/product/exitLogin", method = RequestMethod.POST)
+    @AuthToken
+    @RequestMapping(value = "/infota/product/exitLogin", method = RequestMethod.GET)
     public ResponseBean exitLogin(@ApiParam(value = "账号", required = true)String userName) {
         if (JedisUtil.exists(Constant.PREFIX_SHIRO_CACHE + userName)) {
             Object token = JedisUtil.getObject(Constant.PREFIX_SHIRO_CACHE + userName);
             JedisUtil.delKey(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token);
             JedisUtil.delKey(Constant.PREFIX_SHIRO_CACHE + userName);
-            return new ResponseBean(1, "成功退出登陆", new LoginOutDto(1));
+            return new ResponseBean(1, "成功退出登陆", new LoginOutResponse(1));
         } else {
-            return new ResponseBean(0, "登出失败", new LoginOutDto(2));
+            return new ResponseBean(0, "登出失败", new LoginOutResponse(2));
         }
 
     }

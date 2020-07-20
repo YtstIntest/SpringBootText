@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.asd.dao.TableColumnBtoMapper">
+  <resultMap id="BaseResultMap" type="com.example.asd.entity.TableColumnBto">
+    <constructor>
+      <idArg column="TABLECOLUMN_ID" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="FK_TABLE_ID" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="FK_COLUMN_ID" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="ORDER_NUM" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="WIDTH" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="CHECKED" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="SORT" javaType="java.lang.String" jdbcType="NVARCHAR" />
+      <arg column="ISCANSORT" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="UPDATEBY" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    TABLECOLUMN_ID, FK_TABLE_ID, FK_COLUMN_ID, ORDER_NUM, WIDTH, CHECKED, SORT, ISCANSORT, 
+    ISDELETE, CREATEAT, CREATEBY, UPDATEAT, UPDATEBY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from F_TABLECOLUMN
+    where TABLECOLUMN_ID = #{tablecolumnId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from F_TABLECOLUMN
+    where TABLECOLUMN_ID = #{tablecolumnId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.asd.entity.TableColumnBto">
+    insert into F_TABLECOLUMN (TABLECOLUMN_ID, FK_TABLE_ID, FK_COLUMN_ID, 
+      ORDER_NUM, WIDTH, CHECKED, 
+      SORT, ISCANSORT, ISDELETE, 
+      CREATEAT, CREATEBY, UPDATEAT, 
+      UPDATEBY)
+    values (#{tablecolumnId,jdbcType=CHAR}, #{fkTableId,jdbcType=CHAR}, #{fkColumnId,jdbcType=CHAR}, 
+      #{orderNum,jdbcType=NUMERIC}, #{width,jdbcType=NUMERIC}, #{checked,jdbcType=NUMERIC}, 
+      #{sort,jdbcType=NVARCHAR}, #{iscansort,jdbcType=NUMERIC}, #{isdelete,jdbcType=NUMERIC}, 
+      #{createat,jdbcType=TIMESTAMP}, #{createby,jdbcType=CHAR}, #{updateat,jdbcType=TIMESTAMP}, 
+      #{updateby,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.asd.entity.TableColumnBto">
+    insert into F_TABLECOLUMN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tablecolumnId != null">
+        TABLECOLUMN_ID,
+      </if>
+      <if test="fkTableId != null">
+        FK_TABLE_ID,
+      </if>
+      <if test="fkColumnId != null">
+        FK_COLUMN_ID,
+      </if>
+      <if test="orderNum != null">
+        ORDER_NUM,
+      </if>
+      <if test="width != null">
+        WIDTH,
+      </if>
+      <if test="checked != null">
+        CHECKED,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="iscansort != null">
+        ISCANSORT,
+      </if>
+      <if test="isdelete != null">
+        ISDELETE,
+      </if>
+      <if test="createat != null">
+        CREATEAT,
+      </if>
+      <if test="createby != null">
+        CREATEBY,
+      </if>
+      <if test="updateat != null">
+        UPDATEAT,
+      </if>
+      <if test="updateby != null">
+        UPDATEBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tablecolumnId != null">
+        #{tablecolumnId,jdbcType=CHAR},
+      </if>
+      <if test="fkTableId != null">
+        #{fkTableId,jdbcType=CHAR},
+      </if>
+      <if test="fkColumnId != null">
+        #{fkColumnId,jdbcType=CHAR},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=NUMERIC},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=NUMERIC},
+      </if>
+      <if test="checked != null">
+        #{checked,jdbcType=NUMERIC},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=NVARCHAR},
+      </if>
+      <if test="iscansort != null">
+        #{iscansort,jdbcType=NUMERIC},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete,jdbcType=NUMERIC},
+      </if>
+      <if test="createat != null">
+        #{createat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updateat != null">
+        #{updateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null">
+        #{updateby,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.asd.entity.TableColumnBto">
+    update F_TABLECOLUMN
+    <set>
+      <if test="fkTableId != null">
+        FK_TABLE_ID = #{fkTableId,jdbcType=CHAR},
+      </if>
+      <if test="fkColumnId != null">
+        FK_COLUMN_ID = #{fkColumnId,jdbcType=CHAR},
+      </if>
+      <if test="orderNum != null">
+        ORDER_NUM = #{orderNum,jdbcType=NUMERIC},
+      </if>
+      <if test="width != null">
+        WIDTH = #{width,jdbcType=NUMERIC},
+      </if>
+      <if test="checked != null">
+        CHECKED = #{checked,jdbcType=NUMERIC},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=NVARCHAR},
+      </if>
+      <if test="iscansort != null">
+        ISCANSORT = #{iscansort,jdbcType=NUMERIC},
+      </if>
+      <if test="isdelete != null">
+        ISDELETE = #{isdelete,jdbcType=NUMERIC},
+      </if>
+      <if test="createat != null">
+        CREATEAT = #{createat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null">
+        CREATEBY = #{createby,jdbcType=CHAR},
+      </if>
+      <if test="updateat != null">
+        UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null">
+        UPDATEBY = #{updateby,jdbcType=CHAR},
+      </if>
+    </set>
+    where TABLECOLUMN_ID = #{tablecolumnId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.asd.entity.TableColumnBto">
+    update F_TABLECOLUMN
+    set FK_TABLE_ID = #{fkTableId,jdbcType=CHAR},
+      FK_COLUMN_ID = #{fkColumnId,jdbcType=CHAR},
+      ORDER_NUM = #{orderNum,jdbcType=NUMERIC},
+      WIDTH = #{width,jdbcType=NUMERIC},
+      CHECKED = #{checked,jdbcType=NUMERIC},
+      SORT = #{sort,jdbcType=NVARCHAR},
+      ISCANSORT = #{iscansort,jdbcType=NUMERIC},
+      ISDELETE = #{isdelete,jdbcType=NUMERIC},
+      CREATEAT = #{createat,jdbcType=TIMESTAMP},
+      CREATEBY = #{createby,jdbcType=CHAR},
+      UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
+      UPDATEBY = #{updateby,jdbcType=CHAR}
+    where TABLECOLUMN_ID = #{tablecolumnId,jdbcType=CHAR}
+  </update>
+</mapper>
