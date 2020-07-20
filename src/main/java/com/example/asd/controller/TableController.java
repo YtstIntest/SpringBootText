@@ -52,9 +52,10 @@ public class TableController {
                 throw new CustomException("您输入的菜单ID错误！");
             }
             for(ColumnBto column:tableBto.getColumn()){
-                if(columnImpl.getColumnById(column.getColumnId())==null){
+                if(columnImpl.getColumnById(column.getColumnId())==null){//新增列
 
-                }else{
+
+                }else{//修改列
 
                 }
             }

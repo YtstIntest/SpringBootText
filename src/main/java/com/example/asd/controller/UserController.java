@@ -9,6 +9,7 @@ import com.example.asd.config.redis.JedisUtil;
 import com.example.asd.dto.LoginResponse;
 import com.example.asd.dto.LoginOutResponse;
 import com.example.asd.entity.UserBto;
+import com.example.asd.entity.base.UserRequest;
 import com.example.asd.exception.CustomException;
 import com.example.asd.service.impl.UserServiceImpl;
 import com.example.asd.util.BCrypt;
@@ -38,13 +39,13 @@ public class UserController {
     /**
      * 用户登录
      *
-     * @param userBtos
+     * @param userRequest
      * @return
      */
     @ApiOperation("用户登录接口")
     @RequestMapping(value = "/infota/product/inLogin", method = RequestMethod.POST)
-    public ResponseBean inLogin(@RequestBody UserBto userBtos) {
-        UserBto userBto = userService.getUserByname(userBtos.getLoginName());
+    public ResponseBean inLogin(@RequestBody UserRequest userRequest) {
+        UserBto userBto = userService.getUserByname(userRequest.getUserName());
         if (userBto == null) {
             throw new CustomException("查询失败,该账号未注册(Query Failure)");
         }
