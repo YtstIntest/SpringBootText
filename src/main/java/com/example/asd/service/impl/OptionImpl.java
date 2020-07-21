@@ -17,13 +17,13 @@ public class OptionImpl implements OptionService {
     }
 
     @Override
-    public int addOption(OptionBto OptionBto) {
-        return optionBtoMapper.insert(OptionBto);
+    public int addOption(OptionBto optionBto) {
+        return optionBtoMapper.insert(optionBto);
     }
 
     @Override
-    public int updateOption(OptionBto OptionBto) {
-        return optionBtoMapper.updateByPrimaryKey(OptionBto);
+    public int updateOption(OptionBto optionBto) {
+        return optionBtoMapper.updateByPrimaryKey(optionBto);
     }
 
     @Override

@@ -57,7 +57,7 @@ public class TableRequest {
         this.toolbar = toolbar;
     }
 
-    public class ColumnBean {
+    public static class ColumnBean {
         private String columnId;
 
         private String columnName;
@@ -151,7 +151,7 @@ public class TableRequest {
         }
     }
 
-    public class OptionBean {
+    public static class OptionBean {
         private String optionId;
 
         private int kind;
@@ -178,13 +178,12 @@ public class TableRequest {
 
         private String text;
 
-        private String dateField;
-
         private int dateSourceKind;
 
         private String valueRange;
+        private String fieldText;
 
-        public OptionBean(String optionId, int kind, int dateType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, String listoffilter, String value, String text, String dateField, int dateSourceKind, String valueRange) {
+        public OptionBean(String optionId, int kind, int dateType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, String listoffilter, String value, String text,  int dateSourceKind, String valueRange,String fieldText) {
             this.optionId = optionId;
             this.kind = kind;
             this.dateType = dateType;
@@ -198,9 +197,9 @@ public class TableRequest {
             this.listoffilter = listoffilter;
             this.value = value;
             this.text = text;
-            this.dateField = dateField;
             this.dateSourceKind = dateSourceKind;
             this.valueRange = valueRange;
+            this.fieldText=fieldText;
         }
 
         public String getOptionId() {
@@ -307,14 +306,6 @@ public class TableRequest {
             this.text = text;
         }
 
-        public String getDateField() {
-            return dateField;
-        }
-
-        public void setDateField(String dateField) {
-            this.dateField = dateField;
-        }
-
         public int getDateSourceKind() {
             return dateSourceKind;
         }
@@ -330,22 +321,30 @@ public class TableRequest {
         public void setValueRange(String valueRange) {
             this.valueRange = valueRange;
         }
+
+        public String getFieldText() {
+            return fieldText;
+        }
+
+        public void setFieldText(String fieldText) {
+            this.fieldText = fieldText;
+        }
     }
 
-    public class ToolbarBean {
-        private int checked;
+    public static class ToolbarBean {
+        private boolean checked;
         private List<ItemBean> items;
 
-        public ToolbarBean(int checked, List<ItemBean> items) {
+        public ToolbarBean(boolean checked, List<ItemBean> items) {
             this.checked = checked;
             this.items = items;
         }
 
-        public int isChecked() {
+        public boolean isChecked() {
             return checked;
         }
 
-        public void setChecked(int checked) {
+        public void setChecked(boolean checked) {
             this.checked = checked;
         }
 
@@ -358,7 +357,7 @@ public class TableRequest {
         }
     }
 
-    public class ItemBean {
+    public static class ItemBean {
         private String itemId;
         private boolean isSelect;
 

@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @RestController
-@Api(tags={"用户登陆/登出/注册接口"})
+@Api(tags = {"用户登陆/登出/注册接口"})
 public class UserController {
     @Autowired
     BcrptTokenGenerator bcrptTokenGenerator;
@@ -49,37 +49,36 @@ public class UserController {
         if (userBto == null) {
             throw new CustomException("查询失败,该账号未注册(Query Failure)");
         }
-        String userName=userRequest.getUserName();
-        String password=userRequest.getPassword();
+        String userName = userRequest.getUserName();
+        String password = userRequest.getPassword();
         if (!StringUtils.isNotEmptyStr(userName) && !StringUtils.isNotEmptyStr(password)) {
             throw new CustomException("账户、密码不能为空(Query Failure)");
         }
-
-
         int accountStatus = userBto.getAccountStatus();
         if (accountStatus == 0) {
             throw new CustomException("账户被冻结，请联系管理员(Account Failure)");
         }
         int errorNumber = userBto.getPasswordRetryCount();
         String sqlPassworld = userBto.getLoginPassword();
-        System.out.println();
         if (!BCrypt.checkpw(password, sqlPassworld)) {
             errorNumber -= 1;
-            if(errorNumber==0){
+            if (errorNumber == 0) {
                 userBto.setAccountStatus((short) 0);
             }
             userBto.setPasswordRetryCount(errorNumber);
             userService.updateUser(userBto);
             return new ResponseBean(1, "密码错误(Passworld Failure)", new LoginResponse(2, "", errorNumber));
         }
+        userBto.setPasswordRetryCount(5);
+        userService.updateUser(userBto);
         if (JedisUtil.exists(Constant.PREFIX_SHIRO_CACHE + userName)) {
-            throw new CustomException("登陆失败,该账号已登陆(Login Failure)");
+            Object token = JedisUtil.getObject(Constant.PREFIX_SHIRO_CACHE + userName);
+            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token + "", 0));
+
         } else {
             String token = bcrptTokenGenerator.generate(userName);
             JedisUtil.setObject(Constant.PREFIX_SHIRO_CACHE + userName, token, Constant.EXRP_DAY);
             JedisUtil.setObject(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token, userName, Constant.EXRP_DAY);
-            userBto.setPasswordRetryCount(5);
-            userService.updateUser(userBto);
             return new ResponseBean(1, "登陆成功", new LoginResponse(1, token, 0));
         }
     }
@@ -93,7 +92,7 @@ public class UserController {
     @ApiOperation("用户登出接口")
     @AuthToken
     @RequestMapping(value = "/infota/product/exitLogin", method = RequestMethod.GET)
-    public ResponseBean exitLogin(@ApiParam(value = "账号", required = true)String userName) {
+    public ResponseBean exitLogin(@ApiParam(value = "账号", required = true) String userName) {
         if (JedisUtil.exists(Constant.PREFIX_SHIRO_CACHE + userName)) {
             Object token = JedisUtil.getObject(Constant.PREFIX_SHIRO_CACHE + userName);
             JedisUtil.delKey(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token);

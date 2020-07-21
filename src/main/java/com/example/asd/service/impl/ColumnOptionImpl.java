@@ -17,13 +17,13 @@ public class ColumnOptionImpl implements ColumnOptionService {
     }
 
     @Override
-    public int addColumnOption(ColumnOptionBto ColumnOptionBto) {
-        return columnOptionBtoMapper.insert(ColumnOptionBto);
+    public int addColumnOption(ColumnOptionBto columnOptionBto) {
+        return columnOptionBtoMapper.insert(columnOptionBto);
     }
 
     @Override
-    public int updateColumnOption(ColumnOptionBto ColumnOptionBto) {
-        return columnOptionBtoMapper.updateByPrimaryKey(ColumnOptionBto);
+    public int updateColumnOption(ColumnOptionBto columnOptionBto) {
+        return columnOptionBtoMapper.updateByPrimaryKey(columnOptionBto);
     }
 
     @Override

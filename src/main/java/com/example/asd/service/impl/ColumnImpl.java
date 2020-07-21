@@ -19,13 +19,13 @@ public class ColumnImpl implements ColumnService {
     }
 
     @Override
-    public int addColumn(ColumnBto ColumnBto) {
-        return columnBtoMapper.insert(ColumnBto);
+    public int addColumn(ColumnBto columnBto) {
+        return columnBtoMapper.insert(columnBto);
     }
 
     @Override
-    public int updateColumn(ColumnBto ColumnBto) {
-        return columnBtoMapper.updateByPrimaryKey(ColumnBto);
+    public int updateColumn(ColumnBto columnBto) {
+        return columnBtoMapper.updateByPrimaryKey(columnBto);
     }
 
     @Override

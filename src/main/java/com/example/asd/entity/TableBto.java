@@ -19,12 +19,23 @@ public class TableBto {
 
     private String updateby;
 
+    public TableBto(String tableId, String fkMenuId, String remark, int isdelete, Date createat, String createby, Date updateat, String updateby) {
+        this.tableId = tableId;
+        this.fkMenuId = fkMenuId;
+        this.remark = remark;
+        this.isdelete = isdelete;
+        this.createat = createat;
+        this.createby = createby;
+        this.updateat = updateat;
+        this.updateby = updateby;
+    }
 
     public TableBto(String tableId, String fkMenuId, String remark) {
         this.tableId = tableId;
         this.fkMenuId = fkMenuId;
         this.remark = remark;
     }
+
 
     public TableBto() {
         super();

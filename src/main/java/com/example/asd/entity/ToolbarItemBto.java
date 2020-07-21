@@ -9,28 +9,22 @@ public class ToolbarItemBto {
 
     private String fkItemId;
 
-    private Short intdex;
+    private int intdex = 1;
 
-    private Short isdelete;
+    private int isdelete = 1;
 
-    private Date createat;
+    private Date createat = new Date();
 
-    private String createby;
+    private String createby = "admin";
 
     private Date updateat;
 
     private String updateby;
 
-    public ToolbarItemBto(String toolbaritemId, String fkToolbarId, String fkItemId, Short intdex, Short isdelete, Date createat, String createby, Date updateat, String updateby) {
+    public ToolbarItemBto(String toolbaritemId, String fkToolbarId, String fkItemId) {
         this.toolbaritemId = toolbaritemId;
         this.fkToolbarId = fkToolbarId;
         this.fkItemId = fkItemId;
-        this.intdex = intdex;
-        this.isdelete = isdelete;
-        this.createat = createat;
-        this.createby = createby;
-        this.updateat = updateat;
-        this.updateby = updateby;
     }
 
     public ToolbarItemBto() {
@@ -61,19 +55,19 @@ public class ToolbarItemBto {
         this.fkItemId = fkItemId == null ? null : fkItemId.trim();
     }
 
-    public Short getIntdex() {
+    public int getIntdex() {
         return intdex;
     }
 
-    public void setIntdex(Short intdex) {
+    public void setIntdex(int intdex) {
         this.intdex = intdex;
     }
 
-    public Short getIsdelete() {
+    public int getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Short isdelete) {
+    public void setIsdelete(int isdelete) {
         this.isdelete = isdelete;
     }
 

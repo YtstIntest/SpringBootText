@@ -18,13 +18,13 @@ public class ItemImpl implements ItemService {
     }
 
     @Override
-    public int addItem(ItemBto ItemBto) {
-        return itemBtoMapper.insert(ItemBto);
+    public int addItem(ItemBto itemBto) {
+        return itemBtoMapper.insert(itemBto);
     }
 
     @Override
-    public int updateItem(ItemBto ItemBto) {
-        return itemBtoMapper.updateByPrimaryKey(ItemBto);
+    public int updateItem(ItemBto itemBto) {
+        return itemBtoMapper.updateByPrimaryKey(itemBto);
     }
 
     @Override

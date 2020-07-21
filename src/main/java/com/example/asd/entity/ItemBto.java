@@ -11,11 +11,11 @@ public class ItemBto {
 
     private String remark;
 
-    private Short isdelete;
+    private int isdelete=1;
 
-    private Date createat;
+    private Date createat=new Date();
 
-    private String createby;
+    private String createby="admin";
 
     private Date updateat;
 
@@ -23,17 +23,16 @@ public class ItemBto {
 
     private String icon;
 
-    public ItemBto(String itemId, String name, String fkItemId, String remark, Short isdelete, Date createat, String createby, Date updateat, String updateby, String icon) {
+    public ItemBto(String itemId, String name, String fkItemId, String remark, String icon) {
         this.itemId = itemId;
         this.name = name;
         this.fkItemId = fkItemId;
         this.remark = remark;
-        this.isdelete = isdelete;
-        this.createat = createat;
-        this.createby = createby;
-        this.updateat = updateat;
-        this.updateby = updateby;
         this.icon = icon;
+    }
+
+    public ItemBto(String itemId) {
+        this.itemId = itemId;
     }
 
     public ItemBto() {
@@ -72,11 +71,11 @@ public class ItemBto {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public Short getIsdelete() {
+    public int getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Short isdelete) {
+    public void setIsdelete(int isdelete) {
         this.isdelete = isdelete;
     }
 
