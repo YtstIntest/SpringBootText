@@ -49,8 +49,8 @@ public class UserController {
         if (userBto == null) {
             throw new CustomException("查询失败,该账号未注册(Query Failure)");
         }
-        String userName=userBto.getLoginName();
-        String password=userBto.getLoginPassword();
+        String userName=userRequest.getUserName();
+        String password=userRequest.getPassword();
         if (!StringUtils.isNotEmptyStr(userName) && !StringUtils.isNotEmptyStr(password)) {
             throw new CustomException("账户、密码不能为空(Query Failure)");
         }
@@ -62,6 +62,7 @@ public class UserController {
         }
         int errorNumber = userBto.getPasswordRetryCount();
         String sqlPassworld = userBto.getLoginPassword();
+        System.out.println();
         if (!BCrypt.checkpw(password, sqlPassworld)) {
             errorNumber -= 1;
             if(errorNumber==0){

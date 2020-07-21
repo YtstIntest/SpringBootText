@@ -1,7 +1,6 @@
 package com.example.asd.entity;
 
 import java.util.Date;
-import java.util.List;
 
 public class TableBto {
     private String tableId;
@@ -10,29 +9,21 @@ public class TableBto {
 
     private String remark;
 
-    private Short isdelete;
+    private int isdelete = 1;
 
-    private Date createat;
+    private Date createat = new Date();
 
-    private String createby;
+    private String createby = "admin";
 
     private Date updateat;
 
     private String updateby;
 
-    private List<ColumnBto> column;
 
-    private List<ItemBto> toolbar;
-
-    public TableBto(String tableId, String fkMenuId, String remark, Short isdelete, Date createat, String createby, Date updateat, String updateby) {
+    public TableBto(String tableId, String fkMenuId, String remark) {
         this.tableId = tableId;
         this.fkMenuId = fkMenuId;
         this.remark = remark;
-        this.isdelete = isdelete;
-        this.createat = createat;
-        this.createby = createby;
-        this.updateat = updateat;
-        this.updateby = updateby;
     }
 
     public TableBto() {
@@ -63,11 +54,11 @@ public class TableBto {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public Short getIsdelete() {
+    public int getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Short isdelete) {
+    public void setIsdelete(int isdelete) {
         this.isdelete = isdelete;
     }
 
@@ -103,19 +94,4 @@ public class TableBto {
         this.updateby = updateby == null ? null : updateby.trim();
     }
 
-    public List<ColumnBto> getColumn() {
-        return column;
-    }
-
-    public void setColumn(List<ColumnBto> column) {
-        this.column = column;
-    }
-
-    public List<ItemBto> getToolbar() {
-        return toolbar;
-    }
-
-    public void setToolbar(List<ItemBto> toolbar) {
-        this.toolbar = toolbar;
-    }
 }

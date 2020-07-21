@@ -1,7 +1,9 @@
 package com.example.asd.dao;
 
 import com.example.asd.entity.OptionBto;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface OptionBtoMapper {
     int deleteByPrimaryKey(String optionId);
 

@@ -8,42 +8,35 @@ public class ColumnBto {
 
     private String columnName;
 
-    private Short orderNum;
+    private int orderNum;
 
-    private Short width;
+    private int width;
 
-    private Short checked;
+    private int checked;
 
-    private String sort;
+    private String sort="null";
 
-    private Short iscansort;
+    private int iscansort;
 
-    private Short isdelete;
+    private int isdelete=1;
 
-    private Date createat;
+    private Date createat=new Date();
 
-    private String createby;
+    private String createby="admin";
 
     private Date updateat;
 
     private String updateby;
 
-    private List<OptionBto> option;
 
-    public ColumnBto(String columnId, String columnName, Short orderNum, Short width, Short checked, String sort, Short iscansort, Short isdelete, Date createat, String createby, Date updateat, String updateby, List<OptionBto> option) {
+    public ColumnBto(String columnId, String columnName, int orderNum, int width, int checked, int iscansort) {
         this.columnId = columnId;
         this.columnName = columnName;
         this.orderNum = orderNum;
         this.width = width;
         this.checked = checked;
-        this.sort = sort;
         this.iscansort = iscansort;
-        this.isdelete = isdelete;
-        this.createat = createat;
-        this.createby = createby;
-        this.updateat = updateat;
-        this.updateby = updateby;
-        this.option = option;
+
     }
 
     public ColumnBto() {
@@ -66,27 +59,27 @@ public class ColumnBto {
         this.columnName = columnName == null ? null : columnName.trim();
     }
 
-    public Short getOrderNum() {
+    public int getOrderNum() {
         return orderNum;
     }
 
-    public void setOrderNum(Short orderNum) {
+    public void setOrderNum(int orderNum) {
         this.orderNum = orderNum;
     }
 
-    public Short getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(Short width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public Short getChecked() {
+    public int getChecked() {
         return checked;
     }
 
-    public void setChecked(Short checked) {
+    public void setChecked(int checked) {
         this.checked = checked;
     }
 
@@ -98,19 +91,19 @@ public class ColumnBto {
         this.sort = sort == null ? null : sort.trim();
     }
 
-    public Short getIscansort() {
+    public int getIscansort() {
         return iscansort;
     }
 
-    public void setIscansort(Short iscansort) {
+    public void setIscansort(int iscansort) {
         this.iscansort = iscansort;
     }
 
-    public Short getIsdelete() {
+    public int getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Short isdelete) {
+    public void setIsdelete(int isdelete) {
         this.isdelete = isdelete;
     }
 
@@ -146,11 +139,5 @@ public class ColumnBto {
         this.updateby = updateby == null ? null : updateby.trim();
     }
 
-    public List<OptionBto> getOption() {
-        return option;
-    }
 
-    public void setOption(List<OptionBto> option) {
-        this.option = option;
-    }
 }

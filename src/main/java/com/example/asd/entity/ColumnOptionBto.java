@@ -9,28 +9,22 @@ public class ColumnOptionBto {
 
     private String fkColumnId;
 
-    private Short intdex;
+    private int intdex = 1;
 
-    private Short isdelete;
+    private int isdelete = 1;
 
-    private Date createat;
+    private Date createat = new Date();
 
-    private String createby;
+    private String createby = "admin";
 
     private Date updateat;
 
     private String updateby;
 
-    public ColumnOptionBto(String columnoptionId, String fkOptionId, String fkColumnId, Short intdex, Short isdelete, Date createat, String createby, Date updateat, String updateby) {
+    public ColumnOptionBto(String columnoptionId, String fkOptionId, String fkColumnId) {
         this.columnoptionId = columnoptionId;
         this.fkOptionId = fkOptionId;
         this.fkColumnId = fkColumnId;
-        this.intdex = intdex;
-        this.isdelete = isdelete;
-        this.createat = createat;
-        this.createby = createby;
-        this.updateat = updateat;
-        this.updateby = updateby;
     }
 
     public ColumnOptionBto() {
@@ -61,19 +55,19 @@ public class ColumnOptionBto {
         this.fkColumnId = fkColumnId == null ? null : fkColumnId.trim();
     }
 
-    public Short getIntdex() {
+    public int getIntdex() {
         return intdex;
     }
 
-    public void setIntdex(Short intdex) {
+    public void setIntdex(int intdex) {
         this.intdex = intdex;
     }
 
-    public Short getIsdelete() {
+    public int getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Short isdelete) {
+    public void setIsdelete(int isdelete) {
         this.isdelete = isdelete;
     }
 

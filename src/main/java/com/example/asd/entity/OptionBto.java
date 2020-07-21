@@ -5,17 +5,17 @@ import java.util.Date;
 public class OptionBto {
     private String optionId;
 
-    private Short kind;
+    private int kind;
 
-    private Short dateType;
+    private int dateType;
 
-    private Short maxLength;
+    private int maxLength;
 
-    private Short minLength;
+    private int minLength;
 
-    private Short maxNum;
+    private int maxNum;
 
-    private Short minNum;
+    private int minNum;
 
     private String regularText;
 
@@ -31,21 +31,21 @@ public class OptionBto {
 
     private String dateField;
 
-    private Short dateSourceKind;
+    private int dateSourceKind;
 
     private String valueRange;
 
-    private Short isdelete;
+    private int isdelete=1;
 
-    private Date createat;
+    private Date createat=new Date();
 
-    private String createby;
+    private String createby="admin";
 
     private Date updateat;
 
     private String updateby;
 
-    public OptionBto(String optionId, Short kind, Short dateType, Short maxLength, Short minLength, Short maxNum, Short minNum, String regularText, String dateFormat, String queryFields, String listoffilter, String value, String text, String dateField, Short dateSourceKind, String valueRange, Short isdelete, Date createat, String createby, Date updateat, String updateby) {
+    public OptionBto(String optionId, int kind, int dateType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, String listoffilter, String value, String text, String dateField, int dateSourceKind, String valueRange) {
         this.optionId = optionId;
         this.kind = kind;
         this.dateType = dateType;
@@ -62,11 +62,6 @@ public class OptionBto {
         this.dateField = dateField;
         this.dateSourceKind = dateSourceKind;
         this.valueRange = valueRange;
-        this.isdelete = isdelete;
-        this.createat = createat;
-        this.createby = createby;
-        this.updateat = updateat;
-        this.updateby = updateby;
     }
 
     public OptionBto() {
@@ -81,51 +76,51 @@ public class OptionBto {
         this.optionId = optionId == null ? null : optionId.trim();
     }
 
-    public Short getKind() {
+    public int getKind() {
         return kind;
     }
 
-    public void setKind(Short kind) {
+    public void setKind(int kind) {
         this.kind = kind;
     }
 
-    public Short getDateType() {
+    public int getDateType() {
         return dateType;
     }
 
-    public void setDateType(Short dateType) {
+    public void setDateType(int dateType) {
         this.dateType = dateType;
     }
 
-    public Short getMaxLength() {
+    public int getMaxLength() {
         return maxLength;
     }
 
-    public void setMaxLength(Short maxLength) {
+    public void setMaxLength(int maxLength) {
         this.maxLength = maxLength;
     }
 
-    public Short getMinLength() {
+    public int getMinLength() {
         return minLength;
     }
 
-    public void setMinLength(Short minLength) {
+    public void setMinLength(int minLength) {
         this.minLength = minLength;
     }
 
-    public Short getMaxNum() {
+    public int getMaxNum() {
         return maxNum;
     }
 
-    public void setMaxNum(Short maxNum) {
+    public void setMaxNum(int maxNum) {
         this.maxNum = maxNum;
     }
 
-    public Short getMinNum() {
+    public int getMinNum() {
         return minNum;
     }
 
-    public void setMinNum(Short minNum) {
+    public void setMinNum(int minNum) {
         this.minNum = minNum;
     }
 
@@ -185,11 +180,11 @@ public class OptionBto {
         this.dateField = dateField == null ? null : dateField.trim();
     }
 
-    public Short getDateSourceKind() {
+    public int getDateSourceKind() {
         return dateSourceKind;
     }
 
-    public void setDateSourceKind(Short dateSourceKind) {
+    public void setDateSourceKind(int dateSourceKind) {
         this.dateSourceKind = dateSourceKind;
     }
 
@@ -201,11 +196,11 @@ public class OptionBto {
         this.valueRange = valueRange == null ? null : valueRange.trim();
     }
 
-    public Short getIsdelete() {
+    public int getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Short isdelete) {
+    public void setIsdelete(int isdelete) {
         this.isdelete = isdelete;
     }
 

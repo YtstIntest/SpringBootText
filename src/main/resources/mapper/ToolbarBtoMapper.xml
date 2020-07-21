@@ -141,4 +141,11 @@
       FK_TABLE_ID = #{fkTableId,jdbcType=CHAR}
     where TOOLBAR_ID = #{toolbarId,jdbcType=CHAR}
   </update>
+  <select id="selectByTableId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from F_TOOLBAR
+    where FK_TABLE_ID = #{fkTableId,jdbcType=CHAR}
+  </select>
+
 </mapper>
