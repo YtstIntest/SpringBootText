@@ -54,6 +54,40 @@ public class TableController {
 
     @RequestMapping(value = "/api/basic/table/gettoolbar", method = RequestMethod.GET)
     public ResponseBean gettoolbar(String tableId) {
+        ToolbarBto toolbarBto = toolbarImpl.getToolbarByTableId(tableId);
+        List<ItemBto> itemBtoList = itemImpl.getAllItem();
+        List<ToolbarResponse.ToolbarItem> toolbar = new ArrayList<>();
+        List<ToolbarResponse.StyleItem> style = new ArrayList<>();
+        List<ToolbarResponse.ToolbarItem> subItem = null;
+        for (ItemBto itemBto : itemBtoList) {
+            ToolbarResponse.ToolbarItem toolbarItem = new ToolbarResponse.ToolbarItem(toolbarBto.getToolbarId(), itemBto.getName(), itemBto.getIcon());
+            toolbar.add(toolbarItem);
+            if (StringUtils.isNotEmptyStr(itemBto.getFkItemId())) {
+                subItem = new ArrayList<>();
+                ItemBto itemBto1 = itemImpl.getItemById(itemBto.getFkItemId());
+                ToolbarResponse.ToolbarItem item = new ToolbarResponse.ToolbarItem(toolbarBto.getToolbarId(), itemBto1.getName(), itemBto1.getIcon());
+                subItem.add(item);
+            }
+        }
+        ToolbarResponse.StyleItem styleItem = new ToolbarResponse.StyleItem(toolbarBto.getCharecked() == 1 ? true : false);
+        style.add(styleItem);
+        return new ResponseBean(1, "查询成功", new ToolbarResponse(toolbar, style, subItem));
+    }
+
+    @RequestMapping(value = "/api/basic/table/gettoolbar", method = RequestMethod.POST)
+    public ResponseBean getcolumn(@RequestBody ColumnRequest columnRequest) {
+//        TableBto tableBto = editSaveTableImpl.getTableByID(columnRequest.getTableId());
+        List<ColumnRequest.StyleBean> styleBeanList = columnRequest.getStyle();
+        for (ColumnRequest.StyleBean styleBean : styleBeanList) {
+            ColumnBto columnBto = columnImpl.getColumnById(styleBean.getColumnId());
+            columnBto.setColumnName(styleBean.getColumnName());
+            columnBto.setOrderNum(styleBean.getOrderNum());
+            columnBto.setWidth(styleBean.getWidth());
+            columnBto.setChecked(styleBean.isChecked() ? 1 : 0);
+            columnBto.setSort(styleBean.getSort());
+            columnBto.setIscansort(styleBean.isCanSort() ? 1 : 0);
+            columnImpl.updateColumn(columnBto);
+        }
         return null;
     }
 
@@ -78,7 +112,7 @@ public class TableController {
         path.insert(0, name + "/");
         if (StringUtils.isNotEmptyStr(meunBto.getFkMenuId())) {
             MeunBto fatherMeun = meunImpl.getMeunById(meunBto.getFkMenuId());
-            if(fatherMeun==null){
+            if (fatherMeun == null) {
                 throw new CustomException("未找到上层MenuId！");
             }
             path(meunImpl.getMeunById(meunBto.getFkMenuId()), path);
@@ -243,11 +277,15 @@ public class TableController {
                 return new ResponseBean(0, "修改失败", new TableEditResponse(0));
             }
         } else {//新建
+            ValidateHelper.validateNull(tableRequest, new String[]{"menuId", "column", "toolbar"});
             if (meunImpl.getMeunById(tableRequest.getMenuId()) == null) {
                 throw new CustomException("您输入的menuId不存在！");
             }
             TableBto tableBto = new TableBto(UUID.randomUUID() + "", tableRequest.getMenuId(), tableRequest.getRemark());
             for (TableRequest.ColumnBean column : tableRequest.getColumn()) {
+                if (!StringUtils.isNotEmptyStr(column.getColumnId())) {
+                    throw new CustomException("columnId不能为空！");
+                }
                 ColumnBto columnBto = new ColumnBto(column.getColumnId(), column.getColumnName(), column.getOrderNum(), column.getWidth(), column.getChecked(), column.getIsCanSort());
                 if (columnImpl.getColumnById(column.getColumnId()) != null) {
                     throw new CustomException("columnId已经存在！");
@@ -256,6 +294,9 @@ public class TableController {
                     throw new CustomException("存储column数据失败！");
                 }
                 for (TableRequest.OptionBean optionBean : column.getOption()) {
+                    if (!StringUtils.isNotEmptyStr(optionBean.getOptionId())) {
+                        throw new CustomException("optionId不能为空！");
+                    }
                     OptionBto optionBto = new OptionBto(optionBean.getOptionId(), optionBean.getKind(), optionBean.getDateType(), optionBean.getMaxLength(), optionBean.getMinLength(), optionBean.getMaxNum(), optionBean.getMinNum(), optionBean.getRegularText(), optionBean.getDateFormat(), optionBean.getQueryFields(), optionBean.getListoffilter(), optionBean.getValue(), optionBean.getText(), optionBean.getDateSourceKind(), optionBean.getValueRange(), optionBean.getFieldText());
                     if (optionImpl.getOptionById(optionBean.getOptionId()) != null) {
                         throw new CustomException("optionId已经存在！");
