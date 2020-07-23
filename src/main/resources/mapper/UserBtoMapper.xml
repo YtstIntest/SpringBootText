@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.asd.dao.UserBtoMapper">
-  <resultMap id="BaseResultMap" type="com.example.asd.entity.UserBto">
-    <constructor>
-      <idArg column="USER_ID" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="LOGIN_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="LOGIN_PASSWORD" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="CSPRNG" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="REAL_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="JOB_NUMBER" javaType="java.lang.String" jdbcType="NVARCHAR" />
-      <arg column="MOBILE" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="COMPANY_EMAIL" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="SEX" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="NOTE" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="ACCOUNT_KIND" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="LAST_LOGINAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="PASSWORD_RETRY_COUNT" javaType="java.lang.Integer" jdbcType="NUMERIC" />
-      <arg column="ACCOUNT_STATUS" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="UPDATEBY" javaType="java.lang.String" jdbcType="CHAR" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.example.asd.entity.UserBto">
+        <constructor>
+            <idArg column="USER_ID" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="LOGIN_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LOGIN_PASSWORD" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="CSPRNG" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="REAL_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="JOB_NUMBER" javaType="java.lang.String" jdbcType="NVARCHAR"/>
+            <arg column="MOBILE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="COMPANY_EMAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="SEX" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+            <arg column="NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="ACCOUNT_KIND" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+            <arg column="LAST_LOGINAT" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="PASSWORD_RETRY_COUNT" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
+            <arg column="ACCOUNT_STATUS" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+            <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC"/>
+            <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="UPDATEBY" javaType="java.lang.String" jdbcType="CHAR"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
     USER_ID, LOGIN_NAME, LOGIN_PASSWORD, CSPRNG, REAL_NAME, JOB_NUMBER, MOBILE, COMPANY_EMAIL, 
     SEX, NOTE, ACCOUNT_KIND, LAST_LOGINAT, PASSWORD_RETRY_COUNT, ACCOUNT_STATUS, ISDELETE, 
     CREATEAT, CREATEBY, UPDATEAT, UPDATEBY
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from F_USER
-    where USER_ID = #{userId,jdbcType=CHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from F_USER
+        where USER_ID = #{userId,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from F_USER
     where USER_ID = #{userId,jdbcType=CHAR}
   </delete>
-  <insert id="insert" parameterType="com.example.asd.entity.UserBto">
+    <insert id="insert" parameterType="com.example.asd.entity.UserBto">
     insert into F_USER (USER_ID, LOGIN_NAME, LOGIN_PASSWORD, 
       CSPRNG, REAL_NAME, JOB_NUMBER, 
       MOBILE, COMPANY_EMAIL, SEX, 
@@ -55,188 +55,188 @@
       #{createat,jdbcType=TIMESTAMP}, #{createby,jdbcType=CHAR}, #{updateat,jdbcType=TIMESTAMP}, 
       #{updateby,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.asd.entity.UserBto">
-    insert into F_USER
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        USER_ID,
-      </if>
-      <if test="loginName != null">
-        LOGIN_NAME,
-      </if>
-      <if test="loginPassword != null">
-        LOGIN_PASSWORD,
-      </if>
-      <if test="csprng != null">
-        CSPRNG,
-      </if>
-      <if test="realName != null">
-        REAL_NAME,
-      </if>
-      <if test="jobNumber != null">
-        JOB_NUMBER,
-      </if>
-      <if test="mobile != null">
-        MOBILE,
-      </if>
-      <if test="companyEmail != null">
-        COMPANY_EMAIL,
-      </if>
-      <if test="sex != null">
-        SEX,
-      </if>
-      <if test="note != null">
-        NOTE,
-      </if>
-      <if test="accountKind != null">
-        ACCOUNT_KIND,
-      </if>
-      <if test="lastLoginat != null">
-        LAST_LOGINAT,
-      </if>
-      <if test="passwordRetryCount != null">
-        PASSWORD_RETRY_COUNT,
-      </if>
-      <if test="accountStatus != null">
-        ACCOUNT_STATUS,
-      </if>
-      <if test="isdelete != null">
-        ISDELETE,
-      </if>
-      <if test="createat != null">
-        CREATEAT,
-      </if>
-      <if test="createby != null">
-        CREATEBY,
-      </if>
-      <if test="updateat != null">
-        UPDATEAT,
-      </if>
-      <if test="updateby != null">
-        UPDATEBY,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=CHAR},
-      </if>
-      <if test="loginName != null">
-        #{loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="loginPassword != null">
-        #{loginPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="csprng != null">
-        #{csprng,jdbcType=VARCHAR},
-      </if>
-      <if test="realName != null">
-        #{realName,jdbcType=VARCHAR},
-      </if>
-      <if test="jobNumber != null">
-        #{jobNumber,jdbcType=NVARCHAR},
-      </if>
-      <if test="mobile != null">
-        #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="companyEmail != null">
-        #{companyEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=NUMERIC},
-      </if>
-      <if test="note != null">
-        #{note,jdbcType=VARCHAR},
-      </if>
-      <if test="accountKind != null">
-        #{accountKind,jdbcType=NUMERIC},
-      </if>
-      <if test="lastLoginat != null">
-        #{lastLoginat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="passwordRetryCount != null">
-        #{passwordRetryCount,jdbcType=NUMERIC},
-      </if>
-      <if test="accountStatus != null">
-        #{accountStatus,jdbcType=NUMERIC},
-      </if>
-      <if test="isdelete != null">
-        #{isdelete,jdbcType=NUMERIC},
-      </if>
-      <if test="createat != null">
-        #{createat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createby != null">
-        #{createby,jdbcType=CHAR},
-      </if>
-      <if test="updateat != null">
-        #{updateat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateby != null">
-        #{updateby,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.asd.entity.UserBto">
-    update F_USER
-    <set>
-      <if test="loginName != null">
-        LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="loginPassword != null">
-        LOGIN_PASSWORD = #{loginPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="csprng != null">
-        CSPRNG = #{csprng,jdbcType=VARCHAR},
-      </if>
-      <if test="realName != null">
-        REAL_NAME = #{realName,jdbcType=VARCHAR},
-      </if>
-      <if test="jobNumber != null">
-        JOB_NUMBER = #{jobNumber,jdbcType=NVARCHAR},
-      </if>
-      <if test="mobile != null">
-        MOBILE = #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="companyEmail != null">
-        COMPANY_EMAIL = #{companyEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        SEX = #{sex,jdbcType=NUMERIC},
-      </if>
-      <if test="note != null">
-        NOTE = #{note,jdbcType=VARCHAR},
-      </if>
-      <if test="accountKind != null">
-        ACCOUNT_KIND = #{accountKind,jdbcType=NUMERIC},
-      </if>
-      <if test="lastLoginat != null">
-        LAST_LOGINAT = #{lastLoginat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="passwordRetryCount != null">
-        PASSWORD_RETRY_COUNT = #{passwordRetryCount,jdbcType=NUMERIC},
-      </if>
-      <if test="accountStatus != null">
-        ACCOUNT_STATUS = #{accountStatus,jdbcType=NUMERIC},
-      </if>
-      <if test="isdelete != null">
-        ISDELETE = #{isdelete,jdbcType=NUMERIC},
-      </if>
-      <if test="createat != null">
-        CREATEAT = #{createat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createby != null">
-        CREATEBY = #{createby,jdbcType=CHAR},
-      </if>
-      <if test="updateat != null">
-        UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateby != null">
-        UPDATEBY = #{updateby,jdbcType=CHAR},
-      </if>
-    </set>
-    where USER_ID = #{userId,jdbcType=CHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.asd.entity.UserBto">
+    <insert id="insertSelective" parameterType="com.example.asd.entity.UserBto">
+        insert into F_USER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="loginName != null">
+                LOGIN_NAME,
+            </if>
+            <if test="loginPassword != null">
+                LOGIN_PASSWORD,
+            </if>
+            <if test="csprng != null">
+                CSPRNG,
+            </if>
+            <if test="realName != null">
+                REAL_NAME,
+            </if>
+            <if test="jobNumber != null">
+                JOB_NUMBER,
+            </if>
+            <if test="mobile != null">
+                MOBILE,
+            </if>
+            <if test="companyEmail != null">
+                COMPANY_EMAIL,
+            </if>
+            <if test="sex != null">
+                SEX,
+            </if>
+            <if test="note != null">
+                NOTE,
+            </if>
+            <if test="accountKind != null">
+                ACCOUNT_KIND,
+            </if>
+            <if test="lastLoginat != null">
+                LAST_LOGINAT,
+            </if>
+            <if test="passwordRetryCount != null">
+                PASSWORD_RETRY_COUNT,
+            </if>
+            <if test="accountStatus != null">
+                ACCOUNT_STATUS,
+            </if>
+            <if test="isdelete != null">
+                ISDELETE,
+            </if>
+            <if test="createat != null">
+                CREATEAT,
+            </if>
+            <if test="createby != null">
+                CREATEBY,
+            </if>
+            <if test="updateat != null">
+                UPDATEAT,
+            </if>
+            <if test="updateby != null">
+                UPDATEBY,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=CHAR},
+            </if>
+            <if test="loginName != null">
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPassword != null">
+                #{loginPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="csprng != null">
+                #{csprng,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobNumber != null">
+                #{jobNumber,jdbcType=NVARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="companyEmail != null">
+                #{companyEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=NUMERIC},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=VARCHAR},
+            </if>
+            <if test="accountKind != null">
+                #{accountKind,jdbcType=NUMERIC},
+            </if>
+            <if test="lastLoginat != null">
+                #{lastLoginat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="passwordRetryCount != null">
+                #{passwordRetryCount,jdbcType=NUMERIC},
+            </if>
+            <if test="accountStatus != null">
+                #{accountStatus,jdbcType=NUMERIC},
+            </if>
+            <if test="isdelete != null">
+                #{isdelete,jdbcType=NUMERIC},
+            </if>
+            <if test="createat != null">
+                #{createat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createby != null">
+                #{createby,jdbcType=CHAR},
+            </if>
+            <if test="updateat != null">
+                #{updateat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateby != null">
+                #{updateby,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.asd.entity.UserBto">
+        update F_USER
+        <set>
+            <if test="loginName != null">
+                LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPassword != null">
+                LOGIN_PASSWORD = #{loginPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="csprng != null">
+                CSPRNG = #{csprng,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                REAL_NAME = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobNumber != null">
+                JOB_NUMBER = #{jobNumber,jdbcType=NVARCHAR},
+            </if>
+            <if test="mobile != null">
+                MOBILE = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="companyEmail != null">
+                COMPANY_EMAIL = #{companyEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                SEX = #{sex,jdbcType=NUMERIC},
+            </if>
+            <if test="note != null">
+                NOTE = #{note,jdbcType=VARCHAR},
+            </if>
+            <if test="accountKind != null">
+                ACCOUNT_KIND = #{accountKind,jdbcType=NUMERIC},
+            </if>
+            <if test="lastLoginat != null">
+                LAST_LOGINAT = #{lastLoginat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="passwordRetryCount != null">
+                PASSWORD_RETRY_COUNT = #{passwordRetryCount,jdbcType=NUMERIC},
+            </if>
+            <if test="accountStatus != null">
+                ACCOUNT_STATUS = #{accountStatus,jdbcType=NUMERIC},
+            </if>
+            <if test="isdelete != null">
+                ISDELETE = #{isdelete,jdbcType=NUMERIC},
+            </if>
+            <if test="createat != null">
+                CREATEAT = #{createat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createby != null">
+                CREATEBY = #{createby,jdbcType=CHAR},
+            </if>
+            <if test="updateat != null">
+                UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateby != null">
+                UPDATEBY = #{updateby,jdbcType=CHAR},
+            </if>
+        </set>
+        where USER_ID = #{userId,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.asd.entity.UserBto">
     update F_USER
     set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
       LOGIN_PASSWORD = #{loginPassword,jdbcType=VARCHAR},
@@ -258,11 +258,11 @@
       UPDATEBY = #{updateby,jdbcType=CHAR}
     where USER_ID = #{userId,jdbcType=CHAR}
   </update>
-  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from F_USER
-    where LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
-  </select>
+    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from F_USER
+        where LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+    </select>
 
 </mapper>

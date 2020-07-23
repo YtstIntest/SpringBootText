@@ -23,7 +23,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     //日志操作
     private static Logger logger = LoggerFactory.getLogger(ExceptionAdvice.class);
     //存放鉴权信息的Header名称，默认是Authorization
-    private String httpHeaderName = "Authorization";
+    private String httpHeaderName = "token";
 
 
     @Override

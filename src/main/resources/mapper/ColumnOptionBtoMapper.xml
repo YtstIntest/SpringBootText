@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.asd.dao.ColumnOptionBtoMapper">
-  <resultMap id="BaseResultMap" type="com.example.asd.entity.ColumnOptionBto">
-    <constructor>
-      <idArg column="COLUMNOPTION_ID" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="FK_OPTION_ID" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="FK_COLUMN_ID" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="INTDEX" javaType="java.lang.Integer" jdbcType="NUMERIC" />
-      <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC" />
-      <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="UPDATEBY" javaType="java.lang.String" jdbcType="CHAR" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.example.asd.entity.ColumnOptionBto">
+        <constructor>
+            <idArg column="COLUMNOPTION_ID" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="FK_OPTION_ID" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="FK_COLUMN_ID" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="INTDEX" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
+            <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
+            <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="UPDATEBY" javaType="java.lang.String" jdbcType="CHAR"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
     COLUMNOPTION_ID, FK_OPTION_ID, FK_COLUMN_ID, INTDEX, ISDELETE, CREATEAT, CREATEBY, 
     UPDATEAT, UPDATEBY
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from F_COLUMNOPTION
-    where COLUMNOPTION_ID = #{columnoptionId,jdbcType=CHAR}
-  </select>
-  <select id="selectAllByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from F_COLUMNOPTION
-    where FK_COLUMN_ID = #{fkColumnId,jdbcType=CHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from F_COLUMNOPTION
+        where COLUMNOPTION_ID = #{columnoptionId,jdbcType=CHAR}
+    </select>
+    <select id="selectAllByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from F_COLUMNOPTION
+        where FK_COLUMN_ID = #{fkColumnId,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from F_COLUMNOPTION
     where COLUMNOPTION_ID = #{columnoptionId,jdbcType=CHAR}
   </delete>
-  <insert id="insert" parameterType="com.example.asd.entity.ColumnOptionBto">
+    <insert id="insert" parameterType="com.example.asd.entity.ColumnOptionBto">
     insert into F_COLUMNOPTION (COLUMNOPTION_ID, FK_OPTION_ID, FK_COLUMN_ID, 
       INTDEX, ISDELETE, CREATEAT, 
       CREATEBY, UPDATEAT, UPDATEBY
@@ -44,98 +44,98 @@
       #{createby,jdbcType=CHAR}, #{updateat,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.asd.entity.ColumnOptionBto">
-    insert into F_COLUMNOPTION
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="columnoptionId != null">
-        COLUMNOPTION_ID,
-      </if>
-      <if test="fkOptionId != null">
-        FK_OPTION_ID,
-      </if>
-      <if test="fkColumnId != null">
-        FK_COLUMN_ID,
-      </if>
-      <if test="intdex != null">
-        INTDEX,
-      </if>
-      <if test="isdelete != null">
-        ISDELETE,
-      </if>
-      <if test="createat != null">
-        CREATEAT,
-      </if>
-      <if test="createby != null">
-        CREATEBY,
-      </if>
-      <if test="updateat != null">
-        UPDATEAT,
-      </if>
-      <if test="updateby != null">
-        UPDATEBY,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="columnoptionId != null">
-        #{columnoptionId,jdbcType=CHAR},
-      </if>
-      <if test="fkOptionId != null">
-        #{fkOptionId,jdbcType=CHAR},
-      </if>
-      <if test="fkColumnId != null">
-        #{fkColumnId,jdbcType=CHAR},
-      </if>
-      <if test="intdex != null">
-        #{intdex,jdbcType=NUMERIC},
-      </if>
-      <if test="isdelete != null">
-        #{isdelete,jdbcType=NUMERIC},
-      </if>
-      <if test="createat != null">
-        #{createat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createby != null">
-        #{createby,jdbcType=CHAR},
-      </if>
-      <if test="updateat != null">
-        #{updateat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateby != null">
-        #{updateby,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.asd.entity.ColumnOptionBto">
-    update F_COLUMNOPTION
-    <set>
-      <if test="fkOptionId != null">
-        FK_OPTION_ID = #{fkOptionId,jdbcType=CHAR},
-      </if>
-      <if test="fkColumnId != null">
-        FK_COLUMN_ID = #{fkColumnId,jdbcType=CHAR},
-      </if>
-      <if test="intdex != null">
-        INTDEX = #{intdex,jdbcType=NUMERIC},
-      </if>
-      <if test="isdelete != null">
-        ISDELETE = #{isdelete,jdbcType=NUMERIC},
-      </if>
-      <if test="createat != null">
-        CREATEAT = #{createat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createby != null">
-        CREATEBY = #{createby,jdbcType=CHAR},
-      </if>
-      <if test="updateat != null">
-        UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateby != null">
-        UPDATEBY = #{updateby,jdbcType=CHAR},
-      </if>
-    </set>
-    where COLUMNOPTION_ID = #{columnoptionId,jdbcType=CHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.asd.entity.ColumnOptionBto">
+    <insert id="insertSelective" parameterType="com.example.asd.entity.ColumnOptionBto">
+        insert into F_COLUMNOPTION
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="columnoptionId != null">
+                COLUMNOPTION_ID,
+            </if>
+            <if test="fkOptionId != null">
+                FK_OPTION_ID,
+            </if>
+            <if test="fkColumnId != null">
+                FK_COLUMN_ID,
+            </if>
+            <if test="intdex != null">
+                INTDEX,
+            </if>
+            <if test="isdelete != null">
+                ISDELETE,
+            </if>
+            <if test="createat != null">
+                CREATEAT,
+            </if>
+            <if test="createby != null">
+                CREATEBY,
+            </if>
+            <if test="updateat != null">
+                UPDATEAT,
+            </if>
+            <if test="updateby != null">
+                UPDATEBY,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="columnoptionId != null">
+                #{columnoptionId,jdbcType=CHAR},
+            </if>
+            <if test="fkOptionId != null">
+                #{fkOptionId,jdbcType=CHAR},
+            </if>
+            <if test="fkColumnId != null">
+                #{fkColumnId,jdbcType=CHAR},
+            </if>
+            <if test="intdex != null">
+                #{intdex,jdbcType=NUMERIC},
+            </if>
+            <if test="isdelete != null">
+                #{isdelete,jdbcType=NUMERIC},
+            </if>
+            <if test="createat != null">
+                #{createat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createby != null">
+                #{createby,jdbcType=CHAR},
+            </if>
+            <if test="updateat != null">
+                #{updateat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateby != null">
+                #{updateby,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.asd.entity.ColumnOptionBto">
+        update F_COLUMNOPTION
+        <set>
+            <if test="fkOptionId != null">
+                FK_OPTION_ID = #{fkOptionId,jdbcType=CHAR},
+            </if>
+            <if test="fkColumnId != null">
+                FK_COLUMN_ID = #{fkColumnId,jdbcType=CHAR},
+            </if>
+            <if test="intdex != null">
+                INTDEX = #{intdex,jdbcType=NUMERIC},
+            </if>
+            <if test="isdelete != null">
+                ISDELETE = #{isdelete,jdbcType=NUMERIC},
+            </if>
+            <if test="createat != null">
+                CREATEAT = #{createat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createby != null">
+                CREATEBY = #{createby,jdbcType=CHAR},
+            </if>
+            <if test="updateat != null">
+                UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateby != null">
+                UPDATEBY = #{updateby,jdbcType=CHAR},
+            </if>
+        </set>
+        where COLUMNOPTION_ID = #{columnoptionId,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.asd.entity.ColumnOptionBto">
     update F_COLUMNOPTION
     set FK_OPTION_ID = #{fkOptionId,jdbcType=CHAR},
       FK_COLUMN_ID = #{fkColumnId,jdbcType=CHAR},

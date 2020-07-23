@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.asd.dao.TableBtoMapper">
-  <resultMap id="BaseResultMap" type="com.example.asd.entity.TableBto">
-    <constructor>
-      <idArg column="TABLE_ID" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="FK_MENU_ID" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="REMARK" javaType="java.lang.String" jdbcType="NVARCHAR" />
-      <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC" />
-      <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="UPDATEBY" javaType="java.lang.String" jdbcType="CHAR" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.example.asd.entity.TableBto">
+        <constructor>
+            <idArg column="TABLE_ID" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="FK_MENU_ID" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="REMARK" javaType="java.lang.String" jdbcType="NVARCHAR"/>
+            <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
+            <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="UPDATEBY" javaType="java.lang.String" jdbcType="CHAR"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
     TABLE_ID, FK_MENU_ID, REMARK, ISDELETE, CREATEAT, CREATEBY, UPDATEAT, UPDATEBY
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from F_TABLE
-    where TABLE_ID = #{tableId,jdbcType=CHAR}
-  </select>
-  <select id="selectByMenuId" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from F_TABLE
-    where FK_MENU_ID = #{fkMenuId,jdbcType=CHAR}
-  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from F_TABLE
+        where TABLE_ID = #{tableId,jdbcType=CHAR}
+    </select>
+    <select id="selectByMenuId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from F_TABLE
+        where FK_MENU_ID = #{fkMenuId,jdbcType=CHAR}
+    </select>
 
-  <select id="getAllTable"  resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from F_TABLE
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <select id="getAllTable" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from F_TABLE
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from F_TABLE
     where TABLE_ID = #{tableId,jdbcType=CHAR}
   </delete>
-  <insert id="insert" parameterType="com.example.asd.entity.TableBto">
+    <insert id="insert" parameterType="com.example.asd.entity.TableBto">
     insert into F_TABLE (TABLE_ID, FK_MENU_ID, REMARK, 
       ISDELETE, CREATEAT, CREATEBY, 
       UPDATEAT, UPDATEBY)
@@ -46,89 +46,89 @@
       #{isdelete,jdbcType=NUMERIC}, #{createat,jdbcType=TIMESTAMP}, #{createby,jdbcType=CHAR}, 
       #{updateat,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.asd.entity.TableBto">
-    insert into F_TABLE
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="tableId != null">
-        TABLE_ID,
-      </if>
-      <if test="fkMenuId != null">
-        FK_MENU_ID,
-      </if>
-      <if test="remark != null">
-        REMARK,
-      </if>
-      <if test="isdelete != null">
-        ISDELETE,
-      </if>
-      <if test="createat != null">
-        CREATEAT,
-      </if>
-      <if test="createby != null">
-        CREATEBY,
-      </if>
-      <if test="updateat != null">
-        UPDATEAT,
-      </if>
-      <if test="updateby != null">
-        UPDATEBY,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="tableId != null">
-        #{tableId,jdbcType=CHAR},
-      </if>
-      <if test="fkMenuId != null">
-        #{fkMenuId,jdbcType=CHAR},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=NVARCHAR},
-      </if>
-      <if test="isdelete != null">
-        #{isdelete,jdbcType=NUMERIC},
-      </if>
-      <if test="createat != null">
-        #{createat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createby != null">
-        #{createby,jdbcType=CHAR},
-      </if>
-      <if test="updateat != null">
-        #{updateat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateby != null">
-        #{updateby,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.asd.entity.TableBto">
-    update F_TABLE
-    <set>
-      <if test="fkMenuId != null">
-        FK_MENU_ID = #{fkMenuId,jdbcType=CHAR},
-      </if>
-      <if test="remark != null">
-        REMARK = #{remark,jdbcType=NVARCHAR},
-      </if>
-      <if test="isdelete != null">
-        ISDELETE = #{isdelete,jdbcType=NUMERIC},
-      </if>
-      <if test="createat != null">
-        CREATEAT = #{createat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createby != null">
-        CREATEBY = #{createby,jdbcType=CHAR},
-      </if>
-      <if test="updateat != null">
-        UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateby != null">
-        UPDATEBY = #{updateby,jdbcType=CHAR},
-      </if>
-    </set>
-    where TABLE_ID = #{tableId,jdbcType=CHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.asd.entity.TableBto">
+    <insert id="insertSelective" parameterType="com.example.asd.entity.TableBto">
+        insert into F_TABLE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tableId != null">
+                TABLE_ID,
+            </if>
+            <if test="fkMenuId != null">
+                FK_MENU_ID,
+            </if>
+            <if test="remark != null">
+                REMARK,
+            </if>
+            <if test="isdelete != null">
+                ISDELETE,
+            </if>
+            <if test="createat != null">
+                CREATEAT,
+            </if>
+            <if test="createby != null">
+                CREATEBY,
+            </if>
+            <if test="updateat != null">
+                UPDATEAT,
+            </if>
+            <if test="updateby != null">
+                UPDATEBY,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tableId != null">
+                #{tableId,jdbcType=CHAR},
+            </if>
+            <if test="fkMenuId != null">
+                #{fkMenuId,jdbcType=CHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=NVARCHAR},
+            </if>
+            <if test="isdelete != null">
+                #{isdelete,jdbcType=NUMERIC},
+            </if>
+            <if test="createat != null">
+                #{createat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createby != null">
+                #{createby,jdbcType=CHAR},
+            </if>
+            <if test="updateat != null">
+                #{updateat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateby != null">
+                #{updateby,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.asd.entity.TableBto">
+        update F_TABLE
+        <set>
+            <if test="fkMenuId != null">
+                FK_MENU_ID = #{fkMenuId,jdbcType=CHAR},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=NVARCHAR},
+            </if>
+            <if test="isdelete != null">
+                ISDELETE = #{isdelete,jdbcType=NUMERIC},
+            </if>
+            <if test="createat != null">
+                CREATEAT = #{createat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createby != null">
+                CREATEBY = #{createby,jdbcType=CHAR},
+            </if>
+            <if test="updateat != null">
+                UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateby != null">
+                UPDATEBY = #{updateby,jdbcType=CHAR},
+            </if>
+        </set>
+        where TABLE_ID = #{tableId,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.asd.entity.TableBto">
     update F_TABLE
     set FK_MENU_ID = #{fkMenuId,jdbcType=CHAR},
       REMARK = #{remark,jdbcType=NVARCHAR},

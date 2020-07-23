@@ -93,7 +93,7 @@ public class UserController {
     @AuthToken
     @RequestMapping(value = "/infota/product/exitLogin", method = RequestMethod.GET)
     public ResponseBean exitLogin(HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
+        String token = request.getHeader("token");
         if (JedisUtil.exists(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token)) {
             Object userName = JedisUtil.getObject(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token);
             JedisUtil.delKey(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token);

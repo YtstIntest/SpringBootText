@@ -61,6 +61,9 @@ public class TableController {
     @RequestMapping(value = "/api/basic/table/getmenu", method = RequestMethod.GET)
     public ResponseBean getmenu() {
         List<MeunBto> meunBtos = meunImpl.getMeun();
+        if (meunBtos.size() == 0) {
+            return new ResponseBean(1, "查询成功", null);
+        }
         List<MenuResponse.MenuItemBean> data = new ArrayList<>();
         for (MeunBto meunBto : meunBtos) {
             MenuResponse.MenuItemBean menuItemBean = new MenuResponse.MenuItemBean(meunBto.getMenuId(), path(meunBto, new StringBuffer()).toString(), meunBto.getMenulink());
@@ -74,6 +77,10 @@ public class TableController {
         String name = meunBto.getMenudisplayname();
         path.insert(0, name + "/");
         if (StringUtils.isNotEmptyStr(meunBto.getFkMenuId())) {
+            MeunBto fatherMeun = meunImpl.getMeunById(meunBto.getFkMenuId());
+            if(fatherMeun==null){
+                throw new CustomException("未找到上层MenuId！");
+            }
             path(meunImpl.getMeunById(meunBto.getFkMenuId()), path);
             return path;
         } else {
