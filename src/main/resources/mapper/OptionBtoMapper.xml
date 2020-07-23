@@ -4,21 +4,21 @@
   <resultMap id="BaseResultMap" type="com.example.asd.entity.OptionBto">
     <constructor>
       <idArg column="OPTION_ID" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="KIND" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="DATE_TYPE" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="MAX_LENGTH" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="MIN_LENGTH" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="MAX_NUM" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="MIN_NUM" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="KIND" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="DATE_TYPE" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="MAX_LENGTH" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="MIN_LENGTH" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="MAX_NUM" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="MIN_NUM" javaType="java.lang.Integer" jdbcType="NUMERIC" />
       <arg column="REGULAR_TEXT" javaType="java.lang.String" jdbcType="NVARCHAR" />
       <arg column="DATE_FORMAT" javaType="java.lang.String" jdbcType="NVARCHAR" />
       <arg column="QUERY_FIELDS" javaType="java.lang.String" jdbcType="NVARCHAR" />
       <arg column="LISTOFFILTER" javaType="java.lang.String" jdbcType="NVARCHAR" />
       <arg column="VALUE" javaType="java.lang.String" jdbcType="NVARCHAR" />
       <arg column="TEXT" javaType="java.lang.String" jdbcType="NVARCHAR" />
-      <arg column="DATE_SOURCE_KIND" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="DATE_SOURCE_KIND" javaType="java.lang.Integer" jdbcType="NUMERIC" />
       <arg column="VALUE_RANGE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-      <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC" />
       <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />

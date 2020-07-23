@@ -13,15 +13,15 @@ public class MeunBto {
 
     private String icon;
 
-    private Short isshow;
+    private Integer isshow;
 
-    private Short ispage;
+    private Integer ispage;
 
-    private Short orderno;
+    private Integer orderno;
 
     private String note;
 
-    private Short isdelete;
+    private Integer isdelete;
 
     private Date createat;
 
@@ -31,7 +31,7 @@ public class MeunBto {
 
     private String updateby;
 
-    public MeunBto(String menuId, String fkMenuId, String menudisplayname, String menulink, String icon, Short isshow, Short ispage, Short orderno, String note, Short isdelete, Date createat, String createby, Date updateat, String updateby) {
+    public MeunBto(String menuId, String fkMenuId, String menudisplayname, String menulink, String icon, Integer isshow, Integer ispage, Integer orderno, String note, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
         this.menuId = menuId;
         this.fkMenuId = fkMenuId;
         this.menudisplayname = menudisplayname;
@@ -92,27 +92,27 @@ public class MeunBto {
         this.icon = icon == null ? null : icon.trim();
     }
 
-    public Short getIsshow() {
+    public Integer getIsshow() {
         return isshow;
     }
 
-    public void setIsshow(Short isshow) {
+    public void setIsshow(Integer isshow) {
         this.isshow = isshow;
     }
 
-    public Short getIspage() {
+    public Integer getIspage() {
         return ispage;
     }
 
-    public void setIspage(Short ispage) {
+    public void setIspage(Integer ispage) {
         this.ispage = ispage;
     }
 
-    public Short getOrderno() {
+    public Integer getOrderno() {
         return orderno;
     }
 
-    public void setOrderno(Short orderno) {
+    public void setOrderno(Integer orderno) {
         this.orderno = orderno;
     }
 
@@ -124,11 +124,11 @@ public class MeunBto {
         this.note = note == null ? null : note.trim();
     }
 
-    public Short getIsdelete() {
+    public Integer getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Short isdelete) {
+    public void setIsdelete(Integer isdelete) {
         this.isdelete = isdelete;
     }
 

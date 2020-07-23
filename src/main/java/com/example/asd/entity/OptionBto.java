@@ -5,17 +5,17 @@ import java.util.Date;
 public class OptionBto {
     private String optionId;
 
-    private int kind;
+    private Integer kind;
 
-    private int dateType;
+    private Integer dateType;
 
-    private int maxLength;
+    private Integer maxLength;
 
-    private int minLength;
+    private Integer minLength;
 
-    private int maxNum;
+    private Integer maxNum;
 
-    private int minNum;
+    private Integer minNum;
 
     private String regularText;
 
@@ -29,11 +29,11 @@ public class OptionBto {
 
     private String text;
 
-    private int dateSourceKind;
+    private Integer dateSourceKind;
 
     private String valueRange;
 
-    private int isdelete = 1;
+    private Integer isdelete = 1;
 
     private Date createat = new Date();
 
@@ -45,7 +45,32 @@ public class OptionBto {
 
     private String fieldText;
 
-    public OptionBto(String optionId, int kind, int dateType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, String listoffilter, String value, String text, int dateSourceKind, String valueRange,  String fieldText) {
+
+    public OptionBto(String optionId, Integer kind, Integer dateType, Integer maxLength, Integer minLength, Integer maxNum, Integer minNum, String regularText, String dateFormat, String queryFields, String listoffilter, String value, String text, Integer dateSourceKind, String valueRange, Integer isdelete, Date createat, String createby, Date updateat, String updateby, String fieldText) {
+        this.optionId = optionId;
+        this.kind = kind;
+        this.dateType = dateType;
+        this.maxLength = maxLength;
+        this.minLength = minLength;
+        this.maxNum = maxNum;
+        this.minNum = minNum;
+        this.regularText = regularText;
+        this.dateFormat = dateFormat;
+        this.queryFields = queryFields;
+        this.listoffilter = listoffilter;
+        this.value = value;
+        this.text = text;
+        this.dateSourceKind = dateSourceKind;
+        this.valueRange = valueRange;
+        this.isdelete = isdelete;
+        this.createat = createat;
+        this.createby = createby;
+        this.updateat = updateat;
+        this.updateby = updateby;
+        this.fieldText = fieldText;
+    }
+
+    public OptionBto(String optionId, Integer kind, Integer dateType, Integer maxLength, Integer minLength, Integer maxNum, Integer minNum, String regularText, String dateFormat, String queryFields, String listoffilter, String value, String text, Integer dateSourceKind, String valueRange, String fieldText) {
         this.optionId = optionId;
         this.kind = kind;
         this.dateType = dateType;
@@ -64,6 +89,33 @@ public class OptionBto {
         this.fieldText = fieldText;
     }
 
+    @Override
+    public String toString() {
+        return "OptionBto{" +
+                "optionId='" + optionId + '\'' +
+                ", kind=" + kind +
+                ", dateType=" + dateType +
+                ", maxLength=" + maxLength +
+                ", minLength=" + minLength +
+                ", maxNum=" + maxNum +
+                ", minNum=" + minNum +
+                ", regularText='" + regularText + '\'' +
+                ", dateFormat='" + dateFormat + '\'' +
+                ", queryFields='" + queryFields + '\'' +
+                ", listoffilter='" + listoffilter + '\'' +
+                ", value='" + value + '\'' +
+                ", text='" + text + '\'' +
+                ", dateSourceKind=" + dateSourceKind +
+                ", valueRange='" + valueRange + '\'' +
+                ", isdelete=" + isdelete +
+                ", createat=" + createat +
+                ", createby='" + createby + '\'' +
+                ", updateat=" + updateat +
+                ", updateby='" + updateby + '\'' +
+                ", fieldText='" + fieldText + '\'' +
+                '}';
+    }
+
     public OptionBto() {
         super();
     }
@@ -76,51 +128,51 @@ public class OptionBto {
         this.optionId = optionId == null ? null : optionId.trim();
     }
 
-    public int getKind() {
+    public Integer getKind() {
         return kind;
     }
 
-    public void setKind(int kind) {
+    public void setKind(Integer kind) {
         this.kind = kind;
     }
 
-    public int getDateType() {
+    public Integer getDateType() {
         return dateType;
     }
 
-    public void setDateType(int dateType) {
+    public void setDateType(Integer dateType) {
         this.dateType = dateType;
     }
 
-    public int getMaxLength() {
+    public Integer getMaxLength() {
         return maxLength;
     }
 
-    public void setMaxLength(int maxLength) {
+    public void setMaxLength(Integer maxLength) {
         this.maxLength = maxLength;
     }
 
-    public int getMinLength() {
+    public Integer getMinLength() {
         return minLength;
     }
 
-    public void setMinLength(int minLength) {
+    public void setMinLength(Integer minLength) {
         this.minLength = minLength;
     }
 
-    public int getMaxNum() {
+    public Integer getMaxNum() {
         return maxNum;
     }
 
-    public void setMaxNum(int maxNum) {
+    public void setMaxNum(Integer maxNum) {
         this.maxNum = maxNum;
     }
 
-    public int getMinNum() {
+    public Integer getMinNum() {
         return minNum;
     }
 
-    public void setMinNum(int minNum) {
+    public void setMinNum(Integer minNum) {
         this.minNum = minNum;
     }
 
@@ -172,11 +224,11 @@ public class OptionBto {
         this.text = text == null ? null : text.trim();
     }
 
-    public int getDateSourceKind() {
+    public Integer getDateSourceKind() {
         return dateSourceKind;
     }
 
-    public void setDateSourceKind(int dateSourceKind) {
+    public void setDateSourceKind(Integer dateSourceKind) {
         this.dateSourceKind = dateSourceKind;
     }
 
@@ -188,11 +240,11 @@ public class OptionBto {
         this.valueRange = valueRange == null ? null : valueRange.trim();
     }
 
-    public int getIsdelete() {
+    public Integer getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(int isdelete) {
+    public void setIsdelete(Integer isdelete) {
         this.isdelete = isdelete;
     }
 

@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.UUID;
 
@@ -86,15 +87,15 @@ public class UserController {
     /**
      * 用户登出
      *
-     * @param userName
      * @return
      */
     @ApiOperation("用户登出接口")
     @AuthToken
     @RequestMapping(value = "/infota/product/exitLogin", method = RequestMethod.GET)
-    public ResponseBean exitLogin(@ApiParam(value = "账号", required = true) String userName) {
-        if (JedisUtil.exists(Constant.PREFIX_SHIRO_CACHE + userName)) {
-            Object token = JedisUtil.getObject(Constant.PREFIX_SHIRO_CACHE + userName);
+    public ResponseBean exitLogin(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        if (JedisUtil.exists(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token)) {
+            Object userName = JedisUtil.getObject(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token);
             JedisUtil.delKey(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token);
             JedisUtil.delKey(Constant.PREFIX_SHIRO_CACHE + userName);
             return new ResponseBean(1, "成功退出登陆", new LoginOutResponse(1));

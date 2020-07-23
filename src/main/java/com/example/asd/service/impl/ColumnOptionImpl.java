@@ -6,11 +6,18 @@ import com.example.asd.service.ColumnOptionService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ColumnOptionImpl implements ColumnOptionService {
     @Resource
     ColumnOptionBtoMapper columnOptionBtoMapper;
+
+    @Override
+    public List<ColumnOptionBto> getColumnOptionAllById(String columnId) {
+        return columnOptionBtoMapper.selectAllByPrimaryKey(columnId);
+    }
+
     @Override
     public ColumnOptionBto getColumnOptionById(String columnOptionId) {
         return columnOptionBtoMapper.selectByPrimaryKey(columnOptionId);

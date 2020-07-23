@@ -9,7 +9,7 @@ public class TableBto {
 
     private String remark;
 
-    private int isdelete = 1;
+    private Integer isdelete = 1;
 
     private Date createat = new Date();
 
@@ -19,7 +19,7 @@ public class TableBto {
 
     private String updateby;
 
-    public TableBto(String tableId, String fkMenuId, String remark, int isdelete, Date createat, String createby, Date updateat, String updateby) {
+    public TableBto(String tableId, String fkMenuId, String remark, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
         this.tableId = tableId;
         this.fkMenuId = fkMenuId;
         this.remark = remark;
@@ -65,11 +65,11 @@ public class TableBto {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public int getIsdelete() {
+    public Integer getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(int isdelete) {
+    public void setIsdelete(Integer isdelete) {
         this.isdelete = isdelete;
     }
 

@@ -6,6 +6,7 @@ import com.example.asd.service.MeunService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class MeunImpl implements MeunService {
@@ -16,6 +17,11 @@ public class MeunImpl implements MeunService {
     @Override
     public MeunBto getMeunById(String menuId) {
         return meunBtoMapper.selectByPrimaryKey(menuId);
+    }
+
+    @Override
+    public List<MeunBto> getMeun() {
+        return meunBtoMapper.selectAll();
     }
 
     @Override

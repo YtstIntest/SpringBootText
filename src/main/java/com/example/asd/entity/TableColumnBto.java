@@ -9,27 +9,27 @@ public class TableColumnBto {
 
     private String fkColumnId;
 
-    private Short orderNum;
+    private Integer orderNum;
 
-    private Short width;
+    private Integer width;
 
-    private Short checked;
+    private Integer checked;
 
-    private String sort;
+    private String sort="null";
 
-    private Short iscansort;
+    private Integer iscansort;
 
-    private Short isdelete;
+    private Integer isdelete = 1;
 
-    private Date createat;
+    private Date createat = new Date();
 
-    private String createby;
+    private String createby = "admin";
 
     private Date updateat;
 
     private String updateby;
 
-    public TableColumnBto(String tablecolumnId, String fkTableId, String fkColumnId, Short orderNum, Short width, Short checked, String sort, Short iscansort, Short isdelete, Date createat, String createby, Date updateat, String updateby) {
+    public TableColumnBto(String tablecolumnId, String fkTableId, String fkColumnId, Integer orderNum, Integer width, Integer checked, String sort, Integer iscansort, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
         this.tablecolumnId = tablecolumnId;
         this.fkTableId = fkTableId;
         this.fkColumnId = fkColumnId;
@@ -43,6 +43,16 @@ public class TableColumnBto {
         this.createby = createby;
         this.updateat = updateat;
         this.updateby = updateby;
+    }
+
+    public TableColumnBto(String tablecolumnId, String fkTableId, String fkColumnId, Integer orderNum, Integer width, Integer checked,  Integer iscansort) {
+        this.tablecolumnId = tablecolumnId;
+        this.fkTableId = fkTableId;
+        this.fkColumnId = fkColumnId;
+        this.orderNum = orderNum;
+        this.width = width;
+        this.checked = checked;
+        this.iscansort = iscansort;
     }
 
     public TableColumnBto() {
@@ -73,27 +83,27 @@ public class TableColumnBto {
         this.fkColumnId = fkColumnId == null ? null : fkColumnId.trim();
     }
 
-    public Short getOrderNum() {
+    public Integer getOrderNum() {
         return orderNum;
     }
 
-    public void setOrderNum(Short orderNum) {
+    public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum;
     }
 
-    public Short getWidth() {
+    public Integer getWidth() {
         return width;
     }
 
-    public void setWidth(Short width) {
+    public void setWidth(Integer width) {
         this.width = width;
     }
 
-    public Short getChecked() {
+    public Integer getChecked() {
         return checked;
     }
 
-    public void setChecked(Short checked) {
+    public void setChecked(Integer checked) {
         this.checked = checked;
     }
 
@@ -105,19 +115,19 @@ public class TableColumnBto {
         this.sort = sort == null ? null : sort.trim();
     }
 
-    public Short getIscansort() {
+    public Integer getIscansort() {
         return iscansort;
     }
 
-    public void setIscansort(Short iscansort) {
+    public void setIscansort(Integer iscansort) {
         this.iscansort = iscansort;
     }
 
-    public Short getIsdelete() {
+    public Integer getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Short isdelete) {
+    public void setIsdelete(Integer isdelete) {
         this.isdelete = isdelete;
     }
 

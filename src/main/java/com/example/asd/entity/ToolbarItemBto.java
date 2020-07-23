@@ -9,9 +9,9 @@ public class ToolbarItemBto {
 
     private String fkItemId;
 
-    private int intdex = 1;
+    private Integer intdex = 1;
 
-    private int isdelete = 1;
+    private Integer isdelete = 1;
 
     private Date createat = new Date();
 
@@ -20,6 +20,18 @@ public class ToolbarItemBto {
     private Date updateat;
 
     private String updateby;
+
+    public ToolbarItemBto(String toolbaritemId, String fkToolbarId, String fkItemId, Integer intdex, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
+        this.toolbaritemId = toolbaritemId;
+        this.fkToolbarId = fkToolbarId;
+        this.fkItemId = fkItemId;
+        intdex = intdex;
+        this.isdelete = isdelete;
+        this.createat = createat;
+        this.createby = createby;
+        this.updateat = updateat;
+        this.updateby = updateby;
+    }
 
     public ToolbarItemBto(String toolbaritemId, String fkToolbarId, String fkItemId) {
         this.toolbaritemId = toolbaritemId;
@@ -55,19 +67,19 @@ public class ToolbarItemBto {
         this.fkItemId = fkItemId == null ? null : fkItemId.trim();
     }
 
-    public int getIntdex() {
+    public Integer getIntdex() {
         return intdex;
     }
 
-    public void setIntdex(int intdex) {
+    public void setIntdex(Integer intdex) {
         this.intdex = intdex;
     }
 
-    public int getIsdelete() {
+    public Integer getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(int isdelete) {
+    public void setIsdelete(Integer isdelete) {
         this.isdelete = isdelete;
     }
 

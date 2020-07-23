@@ -8,17 +8,17 @@ public class ColumnBto {
 
     private String columnName;
 
-    private int orderNum;
+    private Integer orderNum;
 
-    private int width;
+    private Integer width;
 
-    private int checked;
+    private Integer checked;
 
     private String sort="null";
 
-    private int iscansort;
+    private Integer iscansort;
 
-    private int isdelete=1;
+    private Integer isdelete=1;
 
     private Date createat=new Date();
 
@@ -29,7 +29,22 @@ public class ColumnBto {
     private String updateby;
 
 
-    public ColumnBto(String columnId, String columnName, int orderNum, int width, int checked, int iscansort) {
+    public ColumnBto(String columnId, String columnName, Integer orderNum, Integer width, Integer checked, String sort, Integer iscansort, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
+        this.columnId = columnId;
+        this.columnName = columnName;
+        this.orderNum = orderNum;
+        this.width = width;
+        this.checked = checked;
+        this.sort = sort;
+        this.iscansort = iscansort;
+        this.isdelete = isdelete;
+        this.createat = createat;
+        this.createby = createby;
+        this.updateat = updateat;
+        this.updateby = updateby;
+    }
+
+    public ColumnBto(String columnId, String columnName, Integer orderNum, Integer width, Integer checked, Integer iscansort) {
         this.columnId = columnId;
         this.columnName = columnName;
         this.orderNum = orderNum;
@@ -59,27 +74,27 @@ public class ColumnBto {
         this.columnName = columnName == null ? null : columnName.trim();
     }
 
-    public int getOrderNum() {
+    public Integer getOrderNum() {
         return orderNum;
     }
 
-    public void setOrderNum(int orderNum) {
+    public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum;
     }
 
-    public int getWidth() {
+    public Integer getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(Integer width) {
         this.width = width;
     }
 
-    public int getChecked() {
+    public Integer getChecked() {
         return checked;
     }
 
-    public void setChecked(int checked) {
+    public void setChecked(Integer checked) {
         this.checked = checked;
     }
 
@@ -91,19 +106,19 @@ public class ColumnBto {
         this.sort = sort == null ? null : sort.trim();
     }
 
-    public int getIscansort() {
+    public Integer getIscansort() {
         return iscansort;
     }
 
-    public void setIscansort(int iscansort) {
+    public void setIscansort(Integer iscansort) {
         this.iscansort = iscansort;
     }
 
-    public int getIsdelete() {
+    public Integer getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(int isdelete) {
+    public void setIsdelete(Integer isdelete) {
         this.isdelete = isdelete;
     }
 

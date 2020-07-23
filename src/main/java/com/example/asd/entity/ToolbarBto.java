@@ -5,11 +5,11 @@ import java.util.Date;
 public class ToolbarBto {
     private String toolbarId;
 
-    private int charecked;
+    private Integer charecked;
 
     private String remark;
 
-    private int isdelete = 1;
+    private Integer isdelete = 1;
 
     private Date createat = new Date();
 
@@ -21,7 +21,19 @@ public class ToolbarBto {
 
     private String fkTableId;
 
-    public ToolbarBto(String toolbarId, int charecked, String remark,  String fkTableId) {
+    public ToolbarBto(String toolbarId, Integer charecked, String remark, Integer isdelete, Date createat, String createby, Date updateat, String updateby, String fkTableId) {
+        this.toolbarId = toolbarId;
+        this.charecked = charecked;
+        this.remark = remark;
+        this.isdelete = isdelete;
+        this.createat = createat;
+        this.createby = createby;
+        this.updateat = updateat;
+        this.updateby = updateby;
+        this.fkTableId = fkTableId;
+    }
+
+    public ToolbarBto(String toolbarId, Integer charecked, String remark, String fkTableId) {
         this.toolbarId = toolbarId;
         this.charecked = charecked;
         this.remark = remark;
@@ -40,11 +52,11 @@ public class ToolbarBto {
         this.toolbarId = toolbarId == null ? null : toolbarId.trim();
     }
 
-    public int getCharecked() {
+    public Integer getCharecked() {
         return charecked;
     }
 
-    public void setCharecked(int charecked) {
+    public void setCharecked(Integer charecked) {
         this.charecked = charecked;
     }
 
@@ -56,11 +68,11 @@ public class ToolbarBto {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public int getIsdelete() {
+    public Integer getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(int isdelete) {
+    public void setIsdelete(Integer isdelete) {
         this.isdelete = isdelete;
     }
 

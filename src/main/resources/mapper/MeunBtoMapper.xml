@@ -8,11 +8,11 @@
       <arg column="MENUDISPLAYNAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
       <arg column="MENULINK" javaType="java.lang.String" jdbcType="NVARCHAR" />
       <arg column="ICON" javaType="java.lang.String" jdbcType="NVARCHAR" />
-      <arg column="ISSHOW" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="ISPAGE" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="ORDERNO" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="ISSHOW" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="ISPAGE" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="ORDERNO" javaType="java.lang.Integer" jdbcType="NUMERIC" />
       <arg column="NOTE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-      <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC" />
       <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -28,6 +28,11 @@
     <include refid="Base_Column_List" />
     from F_MENU
     where MENU_ID = #{menuId,jdbcType=CHAR}
+  </select>
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from F_MENU
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from F_MENU

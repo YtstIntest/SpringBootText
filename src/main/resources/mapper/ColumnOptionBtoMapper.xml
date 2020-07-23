@@ -6,8 +6,8 @@
       <idArg column="COLUMNOPTION_ID" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="FK_OPTION_ID" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="FK_COLUMN_ID" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="INTDEX" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="INTDEX" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC" />
       <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -23,6 +23,12 @@
     <include refid="Base_Column_List" />
     from F_COLUMNOPTION
     where COLUMNOPTION_ID = #{columnoptionId,jdbcType=CHAR}
+  </select>
+  <select id="selectAllByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from F_COLUMNOPTION
+    where FK_COLUMN_ID = #{fkColumnId,jdbcType=CHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from F_COLUMNOPTION

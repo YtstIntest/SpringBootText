@@ -6,11 +6,18 @@ import com.example.asd.service.ToolbarItemService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ToolbarItemImpl implements ToolbarItemService {
     @Resource
     ToolbarItemBtoMapper toolbarItemBtoMapper;
+
+    @Override
+    public List<ToolbarItemBto> getToolbarAllItemById(String toolbarId) {
+        return toolbarItemBtoMapper.selectAllByPrimaryKey(toolbarId);
+    }
+
     @Override
     public ToolbarItemBto getToolbarItemById(String toolbarItemBtoId) {
         return toolbarItemBtoMapper.selectByPrimaryKey(toolbarItemBtoId);

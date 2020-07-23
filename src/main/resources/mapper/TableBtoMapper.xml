@@ -6,7 +6,7 @@
       <idArg column="TABLE_ID" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="FK_MENU_ID" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="REMARK" javaType="java.lang.String" jdbcType="NVARCHAR" />
-      <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC" />
       <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -21,6 +21,18 @@
     <include refid="Base_Column_List" />
     from F_TABLE
     where TABLE_ID = #{tableId,jdbcType=CHAR}
+  </select>
+  <select id="selectByMenuId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from F_TABLE
+    where FK_MENU_ID = #{fkMenuId,jdbcType=CHAR}
+  </select>
+
+  <select id="getAllTable"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from F_TABLE
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from F_TABLE

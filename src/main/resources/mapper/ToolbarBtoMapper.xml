@@ -4,9 +4,9 @@
   <resultMap id="BaseResultMap" type="com.example.asd.entity.ToolbarBto">
     <constructor>
       <idArg column="TOOLBAR_ID" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="CHARECKED" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="CHARECKED" javaType="java.lang.Integer" jdbcType="NUMERIC" />
       <arg column="REMARK" javaType="java.lang.String" jdbcType="NVARCHAR" />
-      <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC" />
       <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />

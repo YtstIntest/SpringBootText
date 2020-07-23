@@ -6,12 +6,12 @@
       <idArg column="TABLECOLUMN_ID" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="FK_TABLE_ID" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="FK_COLUMN_ID" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="ORDER_NUM" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="WIDTH" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="CHECKED" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="ORDER_NUM" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="WIDTH" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="CHECKED" javaType="java.lang.Integer" jdbcType="NUMERIC" />
       <arg column="SORT" javaType="java.lang.String" jdbcType="NVARCHAR" />
-      <arg column="ISCANSORT" javaType="java.lang.Short" jdbcType="NUMERIC" />
-      <arg column="ISDELETE" javaType="java.lang.Short" jdbcType="NUMERIC" />
+      <arg column="ISCANSORT" javaType="java.lang.Integer" jdbcType="NUMERIC" />
+      <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC" />
       <arg column="CREATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -28,6 +28,19 @@
     from F_TABLECOLUMN
     where TABLECOLUMN_ID = #{tablecolumnId,jdbcType=CHAR}
   </select>
+  <select id="selectListByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from F_TABLECOLUMN
+    where FK_TABLE_ID = #{fkTableId,jdbcType=CHAR}
+  </select>
+  <select id="selectByColumnId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from F_TABLECOLUMN
+    where FK_COLUMN_ID = #{fkTableId,jdbcType=CHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from F_TABLECOLUMN
     where TABLECOLUMN_ID = #{tablecolumnId,jdbcType=CHAR}

@@ -11,7 +11,7 @@ public class ItemBto {
 
     private String remark;
 
-    private int isdelete=1;
+    private Integer isdelete=1;
 
     private Date createat=new Date();
 
@@ -23,12 +23,41 @@ public class ItemBto {
 
     private String icon;
 
+    public ItemBto(String itemId, String name, String fkItemId, String remark, Integer isdelete, Date createat, String createby, Date updateat, String updateby, String icon) {
+        this.itemId = itemId;
+        this.name = name;
+        this.fkItemId = fkItemId;
+        this.remark = remark;
+        this.isdelete = isdelete;
+        this.createat = createat;
+        this.createby = createby;
+        this.updateat = updateat;
+        this.updateby = updateby;
+        this.icon = icon;
+    }
+
     public ItemBto(String itemId, String name, String fkItemId, String remark, String icon) {
         this.itemId = itemId;
         this.name = name;
         this.fkItemId = fkItemId;
         this.remark = remark;
         this.icon = icon;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemBto{" +
+                "itemId='" + itemId + '\'' +
+                ", name='" + name + '\'' +
+                ", fkItemId='" + fkItemId + '\'' +
+                ", remark='" + remark + '\'' +
+                ", isdelete=" + isdelete +
+                ", createat=" + createat +
+                ", createby='" + createby + '\'' +
+                ", updateat=" + updateat +
+                ", updateby='" + updateby + '\'' +
+                ", icon='" + icon + '\'' +
+                '}';
     }
 
     public ItemBto(String itemId) {
@@ -71,11 +100,11 @@ public class ItemBto {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public int getIsdelete() {
+    public Integer getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(int isdelete) {
+    public void setIsdelete(Integer isdelete) {
         this.isdelete = isdelete;
     }
 

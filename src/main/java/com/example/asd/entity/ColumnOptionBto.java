@@ -9,9 +9,9 @@ public class ColumnOptionBto {
 
     private String fkColumnId;
 
-    private int intdex = 1;
+    private Integer intdex = 1;
 
-    private int isdelete = 1;
+    private Integer isdelete = 1;
 
     private Date createat = new Date();
 
@@ -20,6 +20,18 @@ public class ColumnOptionBto {
     private Date updateat;
 
     private String updateby;
+
+    public ColumnOptionBto(String columnoptionId, String fkOptionId, String fkColumnId, Integer intdex, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
+        this.columnoptionId = columnoptionId;
+        this.fkOptionId = fkOptionId;
+        this.fkColumnId = fkColumnId;
+        intdex = intdex;
+        this.isdelete = isdelete;
+        this.createat = createat;
+        this.createby = createby;
+        this.updateat = updateat;
+        this.updateby = updateby;
+    }
 
     public ColumnOptionBto(String columnoptionId, String fkOptionId, String fkColumnId) {
         this.columnoptionId = columnoptionId;
@@ -55,19 +67,19 @@ public class ColumnOptionBto {
         this.fkColumnId = fkColumnId == null ? null : fkColumnId.trim();
     }
 
-    public int getIntdex() {
+    public Integer getIntdex() {
         return intdex;
     }
 
-    public void setIntdex(int intdex) {
+    public void setIntdex(Integer intdex) {
         this.intdex = intdex;
     }
 
-    public int getIsdelete() {
+    public Integer getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(int isdelete) {
+    public void setIsdelete(Integer isdelete) {
         this.isdelete = isdelete;
     }
 

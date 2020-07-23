@@ -6,12 +6,19 @@ import com.example.asd.service.ItemService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ItemImpl implements ItemService {
 
     @Resource
     ItemBtoMapper itemBtoMapper;
+
+    @Override
+    public List<ItemBto> getAllItem() {
+        return itemBtoMapper.selectAll();
+    }
+
     @Override
     public ItemBto getItemById(String itemId) {
         return itemBtoMapper.selectByPrimaryKey(itemId);
