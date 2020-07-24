@@ -284,7 +284,7 @@ public class TableController {
                 if (columnImpl.getColumnById(column.getColumnId()) == null) {
                     throw new CustomException("您输入的columnId不存在！");
                 }
-                ColumnBto columnBto = new ColumnBto(column.getColumnId(), column.getColumnName(), column.getOrderNum(), column.getWidth() == 0 ? 40 : column.getWidth(), column.getIsShow(), column.getIsCanSort());
+                ColumnBto columnBto = new ColumnBto(column.getColumnId(), column.getColumnName(), column.getOrderNum(), column.getWidth() == 0 ? 40 : column.getWidth(), column.getIsShow() ? 1 : 0, column.getIsCanSort() ? 1 : 0);
                 if (columnImpl.updateColumn(columnBto) != 1) {
                     throw new CustomException("修改columnId失败！");
                 }
@@ -310,8 +310,8 @@ public class TableController {
                     if (tableColumnBto == null) {
                         throw new CustomException("table_option数据不存在！");
                     }
-                    tableColumnBto.setChecked(column.getIsShow());
-                    tableColumnBto.setIscansort(column.getIsCanSort());
+                    tableColumnBto.setChecked(column.getIsShow() ? 1 : 0);
+                    tableColumnBto.setIscansort(column.getIsCanSort() ? 1 : 0);
                     tableColumnBto.setWidth(column.getWidth());
                     tableColumnBto.setOrderNum(column.getOrderNum());
                     if (tableColumnImpl.updateTableColumn(tableColumnBto) != 1) {
@@ -360,7 +360,7 @@ public class TableController {
             TableBto tableBto = new TableBto(UUID.randomUUID() + "", tableRequest.getMenuId(), tableRequest.getRemark());
             for (TableRequest.ColumnBean column : tableRequest.getColumn()) {
                 ValidateHelper.validateNull(column, new String[]{"columnId", "columnName"});
-                ColumnBto columnBto = new ColumnBto(column.getColumnId(), column.getColumnName(), column.getOrderNum(), column.getWidth(), column.getIsShow(), column.getIsCanSort());
+                ColumnBto columnBto = new ColumnBto(column.getColumnId(), column.getColumnName(), column.getOrderNum(), column.getWidth(), column.getIsShow() ? 1 : 0, column.getIsCanSort() ? 1 : 0);
                 if (columnImpl.getColumnById(column.getColumnId()) != null) {
                     throw new CustomException("columnId已经存在！");
                 }
@@ -386,7 +386,7 @@ public class TableController {
                             throw new CustomException("存储column_option数据失败！");
                         }
                     }
-                    TableColumnBto tableColumnBto = new TableColumnBto(UUID.randomUUID() + "", tableBto.getTableId(), column.getColumnId(), column.getOrderNum(), column.getWidth(), column.getIsShow(), column.getIsCanSort());
+                    TableColumnBto tableColumnBto = new TableColumnBto(UUID.randomUUID() + "", tableBto.getTableId(), column.getColumnId(), column.getOrderNum(), column.getWidth(), column.getIsShow() ? 1 : 0, column.getIsCanSort() ? 1 : 0);
                     if (tableColumnImpl.addTableColumn(tableColumnBto) != 1) {
                         throw new CustomException("存储table_column数据失败！");
                     }

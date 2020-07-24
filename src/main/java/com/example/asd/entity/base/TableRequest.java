@@ -66,16 +66,16 @@ public class TableRequest {
 
         private int width;
 
-        private int isShow;
+        private boolean isShow;
 
 
-        private int isCanSort;
+        private boolean isCanSort;
 
         private String fieldText;
 
         private List<OptionBean> option;
 
-        public ColumnBean(String columnId, String columnName, int orderNum, int width, int isShow, int isCanSort, String fieldText, List<OptionBean> option) {
+        public ColumnBean(String columnId, String columnName, int orderNum, int width, boolean isShow, boolean isCanSort, String fieldText, List<OptionBean> option) {
             this.columnId = columnId;
             this.columnName = columnName;
             this.orderNum = orderNum;
@@ -118,19 +118,19 @@ public class TableRequest {
             this.width = width;
         }
 
-        public int getIsShow() {
+        public boolean getIsShow() {
             return isShow;
         }
 
-        public void setIsShow(int isShow) {
+        public void setIsShow(boolean isShow) {
             this.isShow = isShow;
         }
 
-        public int getIsCanSort() {
+        public boolean getIsCanSort() {
             return isCanSort;
         }
 
-        public void setIsCanSort(int isCanSort) {
+        public void setIsCanSort(boolean isCanSort) {
             this.isCanSort = isCanSort;
         }
 

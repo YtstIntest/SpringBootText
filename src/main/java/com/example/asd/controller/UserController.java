@@ -80,6 +80,7 @@ public class UserController {
         userBto.setPasswordRetryCount(5);
         userService.updateUser(userBto);
         List<MeunBto> meunBtoList = meunImpl.getMeun();
+//        for ()
 
         if (JedisUtil.exists(Constant.PREFIX_SHIRO_CACHE + userName)) {
             Object token = JedisUtil.getObject(Constant.PREFIX_SHIRO_CACHE + userName);
