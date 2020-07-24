@@ -8,9 +8,11 @@ import com.example.asd.config.jwt.BcrptTokenGenerator;
 import com.example.asd.config.redis.JedisUtil;
 import com.example.asd.dto.LoginResponse;
 import com.example.asd.dto.LoginOutResponse;
+import com.example.asd.entity.MeunBto;
 import com.example.asd.entity.UserBto;
 import com.example.asd.entity.base.UserRequest;
 import com.example.asd.exception.CustomException;
+import com.example.asd.service.impl.MeunImpl;
 import com.example.asd.service.impl.UserServiceImpl;
 import com.example.asd.util.BCrypt;
 import com.example.asd.util.CheckPwd;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -36,6 +39,9 @@ public class UserController {
 
     @Autowired
     UserServiceImpl userService;
+
+    @Autowired
+    MeunImpl meunImpl;
 
     /**
      * 用户登录
@@ -69,20 +75,22 @@ public class UserController {
             userBto.setPasswordRetryCount(errorNumber);
             userService.updateUser(userBto);
 //            return new ResponseBean(1, "密码错误(Passworld Failure)", new LoginResponse(2, "", errorNumber));
-            return  null;
+            return null;
         }
         userBto.setPasswordRetryCount(5);
         userService.updateUser(userBto);
+        List<MeunBto> meunBtoList = meunImpl.getMeun();
+
         if (JedisUtil.exists(Constant.PREFIX_SHIRO_CACHE + userName)) {
             Object token = JedisUtil.getObject(Constant.PREFIX_SHIRO_CACHE + userName);
 //            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token + "", 0));
-            return  null;
+            return null;
         } else {
             String token = bcrptTokenGenerator.generate(userName);
             JedisUtil.setObject(Constant.PREFIX_SHIRO_CACHE + userName, token, Constant.EXRP_DAY);
             JedisUtil.setObject(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token, userName, Constant.EXRP_DAY);
 //            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token, 0));
-            return  null;
+            return null;
         }
     }
 

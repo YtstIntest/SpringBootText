@@ -294,8 +294,11 @@ public class TableController {
                         if (optionImpl.getOptionById(optionBean.getOptionId()) == null) {
                             throw new CustomException("您输入的optionId不存在！");
                         }
-
-                        OptionBto optionBto = new OptionBto(optionBean.getOptionId(), optionBean.getKind(), optionBean.getDateType(), optionBean.getMaxLength(), optionBean.getMinLength(), optionBean.getMaxNum(), optionBean.getMinNum(), optionBean.getRegularText(), optionBean.getDateFormat(), optionBean.getQueryFields(), JSONArray.toJSONString(optionBean.getListoffilter()), optionBean.getDateSourceKind(), optionBean.getValueRange(), optionBean.getFieldText());
+                        String beanList = null;
+                        if (optionBean.getListoffilter() != null) {
+                            beanList = JSONArray.toJSONString(optionBean.getListoffilter());
+                        }
+                        OptionBto optionBto = new OptionBto(optionBean.getOptionId(), optionBean.getKind(), optionBean.getDateType(), optionBean.getMaxLength(), optionBean.getMinLength(), optionBean.getMaxNum(), optionBean.getMinNum(), optionBean.getRegularText(), optionBean.getDateFormat(), optionBean.getQueryFields(), beanList, optionBean.getDateSourceKind(), optionBean.getValueRange(), optionBean.getFieldText());
                         if (optionImpl.updateOption(optionBto) != 1) {
                             throw new CustomException("修改option失败！");
                         }
@@ -367,7 +370,11 @@ public class TableController {
                 if (column.getOption() != null) {
                     for (TableRequest.OptionBean optionBean : column.getOption()) {
                         ValidateHelper.validateNull(optionBean, new String[]{"optionId"});
-                        OptionBto optionBto = new OptionBto(optionBean.getOptionId(), optionBean.getKind(), optionBean.getDateType(), optionBean.getMaxLength(), optionBean.getMinLength(), optionBean.getMaxNum(), optionBean.getMinNum(), optionBean.getRegularText(), optionBean.getDateFormat(), optionBean.getQueryFields(), JSONArray.toJSONString(optionBean.getListoffilter()), optionBean.getDateSourceKind(), optionBean.getValueRange(), optionBean.getFieldText());
+                        String beanList = null;
+                        if (optionBean.getListoffilter() != null) {
+                            beanList = JSONArray.toJSONString(optionBean.getListoffilter());
+                        }
+                        OptionBto optionBto = new OptionBto(optionBean.getOptionId(), optionBean.getKind(), optionBean.getDateType(), optionBean.getMaxLength(), optionBean.getMinLength(), optionBean.getMaxNum(), optionBean.getMinNum(), optionBean.getRegularText(), optionBean.getDateFormat(), optionBean.getQueryFields(), beanList, optionBean.getDateSourceKind(), optionBean.getValueRange(), optionBean.getFieldText());
                         if (optionImpl.getOptionById(optionBean.getOptionId()) != null) {
                             throw new CustomException("optionId已经存在！");
                         }
