@@ -165,6 +165,9 @@ public class TableController {
 
     @RequestMapping(value = "/api/basic/table/gettableinfo", method = RequestMethod.GET)
     public ResponseBean gettableinfo(String menuId) {
+        if (!StringUtils.isNotEmptyStr(menuId)) {
+            throw new CustomException("menuId不能为空！");
+        }
         List<TableBto> tableBtoList = editSaveTableImpl.getTableByMenuId(menuId);
         List<TableResponse.TableBean> tableBeanList = new ArrayList<>();
         for (TableBto tableBto : tableBtoList) {
@@ -174,7 +177,10 @@ public class TableController {
             for (TableColumnBto tableColumnBto : tableColumnBtoList) {
                 ColumnBto columnBto = columnImpl.getColumnById(tableColumnBto.getFkColumnId());//colum列信息
                 List<ColumnOptionBto> columnOptionBtoList = columnOptionImpl.getColumnOptionAllById(columnBto.getColumnId());
-                List<TableResponse.OptionBean> optionBeanList = new ArrayList<>();
+                List<TableResponse.OptionBean> optionBeanList = null;
+                if (columnOptionBtoList.size() != 0) {
+                    optionBeanList = new ArrayList<>();
+                }
                 for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
                     OptionBto optionBto = optionImpl.getOptionById(columnOptionBto.getFkOptionId());//option参数信息
                     TableResponse.OptionBean optionBean = new TableResponse.OptionBean(optionBto.getOptionId(), optionBto.getKind(), optionBto.getFieldText());
