@@ -18,9 +18,9 @@ public class MenuResponse {
     }
 
     public static class MenuItemBean {
-        private String menuId;
-        private String menuPath;
-        private String menuLink;
+        private String menuId="";
+        private String menuPath="";
+        private String menuLink="";
 
         public MenuItemBean() {
         }

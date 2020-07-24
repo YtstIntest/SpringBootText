@@ -395,22 +395,22 @@ public class TableController {
             }
             for (TableRequest.ItemBean itemBean : tableRequest.getToolbar().getItems()) {
                 ValidateHelper.validateNull(itemBean, new String[]{"itemId"});
-                if (itemImpl.getItemById(itemBean.getItemId()) != null) {
-                    throw new CustomException("该itemId已存在！");
+                ItemBto itemBto = itemImpl.getItemById(itemBean.getItemId());
+                if (itemBto == null) {
+                    throw new CustomException("该itemId不存在！");
                 }
                 if (itemBean.isSelect()) {//true关联
-                    ItemBto itemBto = new ItemBto(itemBean.getItemId());
-                    if (itemImpl.addItem(itemBto) != 1) {
+                    ItemBto itemBto1 = new ItemBto(itemBean.getItemId(), itemBto.getName(), itemBto.getFkItemId(), itemBto.getRemark(), itemBto.getIcon());
+                    if (itemImpl.addItem(itemBto1) != 1) {
                         throw new CustomException("存储items失败！");
                     }
                     ToolbarItemBto toolbarItemBto = new ToolbarItemBto(UUID.randomUUID() + "", toolbarBto.getToolbarId(), itemBean.getItemId());
                     if (toolbarItemImpl.addToolbarItem(toolbarItemBto) != 1) {
                         throw new CustomException("存储toolbar_item失败！");
                     }
-
                 } else {//不关联
-                    ItemBto itemBto = new ItemBto(itemBean.getItemId());
-                    if (itemImpl.addItem(itemBto) != 1) {
+                    ItemBto itemBto1 = new ItemBto(itemBean.getItemId(), itemBto.getName(), itemBto.getFkItemId(), itemBto.getRemark(), itemBto.getIcon());
+                    if (itemImpl.addItem(itemBto1) != 1) {
                         throw new CustomException("存储items失败！");
                     }
                 }

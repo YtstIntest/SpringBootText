@@ -1,13 +1,14 @@
 package com.example.asd.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ToolbarBto {
-    private String toolbarId;
+public class ToolbarBto implements Serializable {
+    private String toolbarId="";
 
     private Integer charecked;
 
-    private String remark;
+    private String remark="";
 
     private Integer isdelete = 1;
 
@@ -17,9 +18,9 @@ public class ToolbarBto {
 
     private Date updateat;
 
-    private String updateby;
+    private String updateby="";
 
-    private String fkTableId;
+    private String fkTableId="";
 
     public ToolbarBto(String toolbarId, Integer charecked, String remark, Integer isdelete, Date createat, String createby, Date updateat, String updateby, String fkTableId) {
         this.toolbarId = toolbarId;

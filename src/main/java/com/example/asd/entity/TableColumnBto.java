@@ -1,13 +1,14 @@
 package com.example.asd.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TableColumnBto {
-    private String tablecolumnId;
+public class TableColumnBto implements Serializable {
+    private String tablecolumnId="";
 
-    private String fkTableId;
+    private String fkTableId="";
 
-    private String fkColumnId;
+    private String fkColumnId="";
 
     private Integer orderNum;
 
@@ -27,7 +28,7 @@ public class TableColumnBto {
 
     private Date updateat;
 
-    private String updateby;
+    private String updateby="";
 
     public TableColumnBto(String tablecolumnId, String fkTableId, String fkColumnId, Integer orderNum, Integer width, Integer checked, String sort, Integer iscansort, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
         this.tablecolumnId = tablecolumnId;

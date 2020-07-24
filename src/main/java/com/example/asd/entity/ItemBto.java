@@ -1,15 +1,16 @@
 package com.example.asd.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ItemBto {
-    private String itemId;
+public class ItemBto implements Serializable {
+    private String itemId="";
 
-    private String name;
+    private String name="";
 
-    private String fkItemId;
+    private String fkItemId="";
 
-    private String remark;
+    private String remark="";
 
     private Integer isdelete=1;
 
@@ -19,9 +20,9 @@ public class ItemBto {
 
     private Date updateat;
 
-    private String updateby;
+    private String updateby="";
 
-    private String icon;
+    private String icon="";
 
     public ItemBto(String itemId, String name, String fkItemId, String remark, Integer isdelete, Date createat, String createby, Date updateat, String updateby, String icon) {
         this.itemId = itemId;
@@ -59,10 +60,7 @@ public class ItemBto {
                 ", icon='" + icon + '\'' +
                 '}';
     }
-
-    public ItemBto(String itemId) {
-        this.itemId = itemId;
-    }
+    
 
     public ItemBto() {
         super();

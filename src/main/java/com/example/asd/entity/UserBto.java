@@ -3,39 +3,40 @@ package com.example.asd.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @ApiModel("UserBto用户注册对象")
-public class UserBto {
+public class UserBto implements Serializable {
     @ApiModelProperty(value = "主键，账户ID")
-    private String userId;
+    private String userId="";
 
     @ApiModelProperty(value = "登录账号")
-    private String loginName;
+    private String loginName="";
 
     @ApiModelProperty(value = "登录密码")
-    private String loginPassword;
+    private String loginPassword="";
 
     @ApiModelProperty(value = "加密盐值")
-    private String csprng;
+    private String csprng="";
 
     @ApiModelProperty(value = "姓名")
-    private String realName;
+    private String realName="";
 
     @ApiModelProperty(value = "工号")
-    private String jobNumber;
+    private String jobNumber="";
 
     @ApiModelProperty(value = "手机")
-    private String mobile;
+    private String mobile="";
 
     @ApiModelProperty(value = "部门ID")
-    private String companyEmail;
+    private String companyEmail="";
 
     @ApiModelProperty(value = "性别（0-女 ；1-男；）")
     private Short sex;
 
     @ApiModelProperty(value = "备注")
-    private String note;
+    private String note="";
 
     @ApiModelProperty(value = "账号类型（1-系统用户账户；2-服务账户；）")
     private Short accountKind = 2;
@@ -56,13 +57,13 @@ public class UserBto {
     private Date createat;
 
     @ApiModelProperty(value = "创建人")
-    private String createby;
+    private String createby="";
 
     @ApiModelProperty(value = "修改时间")
     private Date updateat;
 
     @ApiModelProperty(value = "修改人")
-    private String updateby;
+    private String updateby="";
 
 
     public UserBto(String userId, String loginName, String loginPassword, String csprng, String realName, String jobNumber, String mobile, String companyEmail, Short sex, String note, Short accountKind, Date lastLoginat, Integer passwordRetryCount, Short accountStatus, Short isdelete, Date createat, String createby, Date updateat, String updateby) {

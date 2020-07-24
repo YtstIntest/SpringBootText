@@ -1,13 +1,14 @@
 package com.example.asd.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ColumnOptionBto {
-    private String columnoptionId;
+public class ColumnOptionBto implements Serializable {
+    private String columnoptionId = "";
 
-    private String fkOptionId;
+    private String fkOptionId = "";
 
-    private String fkColumnId;
+    private String fkColumnId = "";
 
     private Integer intdex = 1;
 
@@ -19,13 +20,13 @@ public class ColumnOptionBto {
 
     private Date updateat;
 
-    private String updateby;
+    private String updateby = "";
 
     public ColumnOptionBto(String columnoptionId, String fkOptionId, String fkColumnId, Integer intdex, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
         this.columnoptionId = columnoptionId;
         this.fkOptionId = fkOptionId;
         this.fkColumnId = fkColumnId;
-        intdex = intdex;
+        this.intdex = intdex;
         this.isdelete = isdelete;
         this.createat = createat;
         this.createby = createby;
