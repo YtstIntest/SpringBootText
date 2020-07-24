@@ -66,7 +66,7 @@ public class TableRequest {
 
         private int width;
 
-        private int checked;
+        private int isShow;
 
 
         private int isCanSort;
@@ -75,12 +75,12 @@ public class TableRequest {
 
         private List<OptionBean> option;
 
-        public ColumnBean(String columnId, String columnName, int orderNum, int width, int checked, int isCanSort, String fieldText, List<OptionBean> option) {
+        public ColumnBean(String columnId, String columnName, int orderNum, int width, int isShow, int isCanSort, String fieldText, List<OptionBean> option) {
             this.columnId = columnId;
             this.columnName = columnName;
             this.orderNum = orderNum;
             this.width = width;
-            this.checked = checked;
+            this.isShow = isShow;
             this.isCanSort = isCanSort;
             this.fieldText = fieldText;
             this.option = option;
@@ -118,12 +118,12 @@ public class TableRequest {
             this.width = width;
         }
 
-        public int getChecked() {
-            return checked;
+        public int getIsShow() {
+            return isShow;
         }
 
-        public void setChecked(int checked) {
-            this.checked = checked;
+        public void setIsShow(int isShow) {
+            this.isShow = isShow;
         }
 
         public int getIsCanSort() {
@@ -172,18 +172,15 @@ public class TableRequest {
 
         private String queryFields;
 
-        private String listoffilter;
-
-        private String value;
-
-        private String text;
+        private List<FieldItemBean> listoffilter;
 
         private int dateSourceKind;
 
         private String valueRange;
+
         private String fieldText;
 
-        public OptionBean(String optionId, int kind, int dateType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, String listoffilter, String value, String text,  int dateSourceKind, String valueRange,String fieldText) {
+        public OptionBean(String optionId, int kind, int dateType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, List<FieldItemBean> listoffilter, int dateSourceKind, String valueRange, String fieldText) {
             this.optionId = optionId;
             this.kind = kind;
             this.dateType = dateType;
@@ -195,11 +192,10 @@ public class TableRequest {
             this.dateFormat = dateFormat;
             this.queryFields = queryFields;
             this.listoffilter = listoffilter;
-            this.value = value;
-            this.text = text;
+
             this.dateSourceKind = dateSourceKind;
             this.valueRange = valueRange;
-            this.fieldText=fieldText;
+            this.fieldText = fieldText;
         }
 
         public String getOptionId() {
@@ -282,29 +278,14 @@ public class TableRequest {
             this.queryFields = queryFields;
         }
 
-        public String getListoffilter() {
+        public List<FieldItemBean> getListoffilter() {
             return listoffilter;
         }
 
-        public void setListoffilter(String listoffilter) {
+        public void setListoffilter(List<FieldItemBean> listoffilter) {
             this.listoffilter = listoffilter;
         }
 
-        public String getValue() {
-            return value;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
 
         public int getDateSourceKind() {
             return dateSourceKind;
@@ -380,6 +361,35 @@ public class TableRequest {
 
         public void setSelect(boolean select) {
             isSelect = select;
+        }
+    }
+
+    public static class FieldItemBean {
+        private String value;
+        private String text;
+
+        public FieldItemBean() {
+        }
+
+        public FieldItemBean(String value, String text) {
+            this.value = value;
+            this.text = text;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
         }
     }
 }

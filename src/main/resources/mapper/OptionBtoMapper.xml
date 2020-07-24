@@ -14,8 +14,6 @@
             <arg column="DATE_FORMAT" javaType="java.lang.String" jdbcType="NVARCHAR"/>
             <arg column="QUERY_FIELDS" javaType="java.lang.String" jdbcType="NVARCHAR"/>
             <arg column="LISTOFFILTER" javaType="java.lang.String" jdbcType="NVARCHAR"/>
-            <arg column="VALUE" javaType="java.lang.String" jdbcType="NVARCHAR"/>
-            <arg column="TEXT" javaType="java.lang.String" jdbcType="NVARCHAR"/>
             <arg column="DATE_SOURCE_KIND" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
             <arg column="VALUE_RANGE" javaType="java.lang.String" jdbcType="NVARCHAR"/>
             <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
@@ -28,7 +26,7 @@
     </resultMap>
     <sql id="Base_Column_List">
     OPTION_ID, KIND, DATE_TYPE, MAX_LENGTH, MIN_LENGTH, MAX_NUM, MIN_NUM, REGULAR_TEXT, 
-    DATE_FORMAT, QUERY_FIELDS, LISTOFFILTER, VALUE, TEXT, DATE_SOURCE_KIND, VALUE_RANGE, 
+    DATE_FORMAT, QUERY_FIELDS, LISTOFFILTER, DATE_SOURCE_KIND, VALUE_RANGE,
     ISDELETE, CREATEAT, CREATEBY, UPDATEAT, UPDATEBY, FIELD_TEXT
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -45,8 +43,8 @@
     insert into F_OPTION (OPTION_ID, KIND, DATE_TYPE, 
       MAX_LENGTH, MIN_LENGTH, MAX_NUM, 
       MIN_NUM, REGULAR_TEXT, DATE_FORMAT, 
-      QUERY_FIELDS, LISTOFFILTER, VALUE, 
-      TEXT, DATE_SOURCE_KIND, VALUE_RANGE, 
+      QUERY_FIELDS, LISTOFFILTER,
+       DATE_SOURCE_KIND, VALUE_RANGE,
       ISDELETE, CREATEAT, CREATEBY, 
       UPDATEAT, UPDATEBY, FIELD_TEXT
       )
@@ -95,12 +93,7 @@
             <if test="listoffilter != null">
                 LISTOFFILTER,
             </if>
-            <if test="value != null">
-                VALUE,
-            </if>
-            <if test="text != null">
-                TEXT,
-            </if>
+
             <if test="dateSourceKind != null">
                 DATE_SOURCE_KIND,
             </if>
@@ -225,12 +218,7 @@
             <if test="listoffilter != null">
                 LISTOFFILTER = #{listoffilter,jdbcType=NVARCHAR},
             </if>
-            <if test="value != null">
-                VALUE = #{value,jdbcType=NVARCHAR},
-            </if>
-            <if test="text != null">
-                TEXT = #{text,jdbcType=NVARCHAR},
-            </if>
+
             <if test="dateSourceKind != null">
                 DATE_SOURCE_KIND = #{dateSourceKind,jdbcType=NUMERIC},
             </if>
@@ -270,8 +258,6 @@
       DATE_FORMAT = #{dateFormat,jdbcType=NVARCHAR},
       QUERY_FIELDS = #{queryFields,jdbcType=NVARCHAR},
       LISTOFFILTER = #{listoffilter,jdbcType=NVARCHAR},
-      VALUE = #{value,jdbcType=NVARCHAR},
-      TEXT = #{text,jdbcType=NVARCHAR},
       DATE_SOURCE_KIND = #{dateSourceKind,jdbcType=NUMERIC},
       VALUE_RANGE = #{valueRange,jdbcType=NVARCHAR},
       ISDELETE = #{isdelete,jdbcType=NUMERIC},

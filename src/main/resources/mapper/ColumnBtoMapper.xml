@@ -7,7 +7,7 @@
             <arg column="COLUMN_NAME" javaType="java.lang.String" jdbcType="NVARCHAR"/>
             <arg column="ORDER_NUM" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
             <arg column="WIDTH" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
-            <arg column="CHECKED" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
+            <arg column="ISSHOW" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
             <arg column="SORT" javaType="java.lang.String" jdbcType="NVARCHAR"/>
             <arg column="ISCANSORT" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
             <arg column="ISDELETE" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
@@ -18,7 +18,7 @@
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    COLUMN_ID, COLUMN_NAME, ORDER_NUM, WIDTH, CHECKED, SORT, ISCANSORT, ISDELETE, CREATEAT, 
+    COLUMN_ID, COLUMN_NAME, ORDER_NUM, WIDTH, ISSHOW, SORT, ISCANSORT, ISDELETE, CREATEAT,
     CREATEBY, UPDATEAT, UPDATEBY
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -33,12 +33,12 @@
   </delete>
     <insert id="insert" parameterType="com.example.asd.entity.ColumnBto">
     insert into F_COLUMN (COLUMN_ID, COLUMN_NAME, ORDER_NUM, 
-      WIDTH, CHECKED, SORT, 
+      WIDTH, ISSHOW, SORT,
       ISCANSORT, ISDELETE, CREATEAT, 
       CREATEBY, UPDATEAT, UPDATEBY
       )
     values (#{columnId,jdbcType=CHAR}, #{columnName,jdbcType=NVARCHAR}, #{orderNum,jdbcType=NUMERIC}, 
-      #{width,jdbcType=NUMERIC}, #{checked,jdbcType=NUMERIC}, #{sort,jdbcType=NVARCHAR}, 
+      #{width,jdbcType=NUMERIC}, #{isshow,jdbcType=NUMERIC}, #{sort,jdbcType=NVARCHAR},
       #{iscansort,jdbcType=NUMERIC}, #{isdelete,jdbcType=NUMERIC}, #{createat,jdbcType=TIMESTAMP}, 
       #{createby,jdbcType=CHAR}, #{updateat,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}
       )
@@ -58,8 +58,8 @@
             <if test="width != null">
                 WIDTH,
             </if>
-            <if test="checked != null">
-                CHECKED,
+            <if test="isshow != null">
+                ISSHOW,
             </if>
             <if test="sort != null">
                 SORT,
@@ -96,8 +96,8 @@
             <if test="width != null">
                 #{width,jdbcType=NUMERIC},
             </if>
-            <if test="checked != null">
-                #{checked,jdbcType=NUMERIC},
+            <if test="isshow != null">
+                #{isshow,jdbcType=NUMERIC},
             </if>
             <if test="sort != null">
                 #{sort,jdbcType=NVARCHAR},
@@ -134,8 +134,8 @@
             <if test="width != null">
                 WIDTH = #{width,jdbcType=NUMERIC},
             </if>
-            <if test="checked != null">
-                CHECKED = #{checked,jdbcType=NUMERIC},
+            <if test="isshow != null">
+                ISSHOW = #{isshow,jdbcType=NUMERIC},
             </if>
             <if test="sort != null">
                 SORT = #{sort,jdbcType=NVARCHAR},
@@ -166,7 +166,7 @@
     set COLUMN_NAME = #{columnName,jdbcType=NVARCHAR},
       ORDER_NUM = #{orderNum,jdbcType=NUMERIC},
       WIDTH = #{width,jdbcType=NUMERIC},
-      CHECKED = #{checked,jdbcType=NUMERIC},
+      ISSHOW = #{isshow,jdbcType=NUMERIC},
       SORT = #{sort,jdbcType=NVARCHAR},
       ISCANSORT = #{iscansort,jdbcType=NUMERIC},
       ISDELETE = #{isdelete,jdbcType=NUMERIC},

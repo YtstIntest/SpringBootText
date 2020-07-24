@@ -25,10 +25,6 @@ public class OptionBto {
 
     private String listoffilter;
 
-    private String value;
-
-    private String text;
-
     private Integer dateSourceKind;
 
     private String valueRange;
@@ -46,7 +42,7 @@ public class OptionBto {
     private String fieldText;
 
 
-    public OptionBto(String optionId, Integer kind, Integer dateType, Integer maxLength, Integer minLength, Integer maxNum, Integer minNum, String regularText, String dateFormat, String queryFields, String listoffilter, String value, String text, Integer dateSourceKind, String valueRange, Integer isdelete, Date createat, String createby, Date updateat, String updateby, String fieldText) {
+    public OptionBto(String optionId, Integer kind, Integer dateType, Integer maxLength, Integer minLength, Integer maxNum, Integer minNum, String regularText, String dateFormat, String queryFields, String listoffilter, Integer dateSourceKind, String valueRange, Integer isdelete, Date createat, String createby, Date updateat, String updateby, String fieldText) {
         this.optionId = optionId;
         this.kind = kind;
         this.dateType = dateType;
@@ -58,8 +54,6 @@ public class OptionBto {
         this.dateFormat = dateFormat;
         this.queryFields = queryFields;
         this.listoffilter = listoffilter;
-        this.value = value;
-        this.text = text;
         this.dateSourceKind = dateSourceKind;
         this.valueRange = valueRange;
         this.isdelete = isdelete;
@@ -70,7 +64,7 @@ public class OptionBto {
         this.fieldText = fieldText;
     }
 
-    public OptionBto(String optionId, Integer kind, Integer dateType, Integer maxLength, Integer minLength, Integer maxNum, Integer minNum, String regularText, String dateFormat, String queryFields, String listoffilter, String value, String text, Integer dateSourceKind, String valueRange, String fieldText) {
+    public OptionBto(String optionId, Integer kind, Integer dateType, Integer maxLength, Integer minLength, Integer maxNum, Integer minNum, String regularText, String dateFormat, String queryFields, String listoffilter,  Integer dateSourceKind, String valueRange, String fieldText) {
         this.optionId = optionId;
         this.kind = kind;
         this.dateType = dateType;
@@ -82,8 +76,6 @@ public class OptionBto {
         this.dateFormat = dateFormat;
         this.queryFields = queryFields;
         this.listoffilter = listoffilter;
-        this.value = value;
-        this.text = text;
         this.dateSourceKind = dateSourceKind;
         this.valueRange = valueRange;
         this.fieldText = fieldText;
@@ -103,8 +95,6 @@ public class OptionBto {
                 ", dateFormat='" + dateFormat + '\'' +
                 ", queryFields='" + queryFields + '\'' +
                 ", listoffilter='" + listoffilter + '\'' +
-                ", value='" + value + '\'' +
-                ", text='" + text + '\'' +
                 ", dateSourceKind=" + dateSourceKind +
                 ", valueRange='" + valueRange + '\'' +
                 ", isdelete=" + isdelete +
@@ -206,22 +196,6 @@ public class OptionBto {
 
     public void setListoffilter(String listoffilter) {
         this.listoffilter = listoffilter == null ? null : listoffilter.trim();
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value == null ? null : value.trim();
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text == null ? null : text.trim();
     }
 
     public Integer getDateSourceKind() {
