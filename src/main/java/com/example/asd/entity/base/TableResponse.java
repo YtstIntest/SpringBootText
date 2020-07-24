@@ -74,14 +74,14 @@ public class TableResponse {
         private String columnName;
         private int orderNum;
         private int width;
-        private int isShow;
+        private boolean isShow;
         private boolean isCanSort;
         private List<OptionBean> option;
 
         public ColumnBean() {
         }
 
-        public ColumnBean(String columnId, String columnName, int orderNum, int width, int isShow, boolean isCanSort, List<OptionBean> option) {
+        public ColumnBean(String columnId, String columnName, int orderNum, int width, boolean isShow, boolean isCanSort, List<OptionBean> option) {
             this.columnId = columnId;
             this.columnName = columnName;
             this.orderNum = orderNum;
@@ -123,12 +123,12 @@ public class TableResponse {
             this.width = width;
         }
 
-        public int getIsShow() {
+        public boolean getIsShow() {
             return isShow;
         }
 
-        public void setIsShow(int checked) {
-            this.isShow = checked;
+        public void setIsShow(boolean isShow) {
+            this.isShow = isShow;
         }
 
         public boolean getIsCanSort() {

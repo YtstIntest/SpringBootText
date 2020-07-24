@@ -186,7 +186,7 @@ public class TableController {
                         TableResponse.OptionBean optionBean = new TableResponse.OptionBean(optionBto.getOptionId(), optionBto.getKind(), optionBto.getFieldText());
                         optionBeanList.add(optionBean);
                     }
-                    TableResponse.ColumnBean columnBean = new TableResponse.ColumnBean(columnBto.getColumnId(), columnBto.getColumnName(), columnBto.getOrderNum(), columnBto.getWidth(), columnBto.getIsshow(), columnBto.getIscansort()==1?true:false, optionBeanList);
+                    TableResponse.ColumnBean columnBean = new TableResponse.ColumnBean(columnBto.getColumnId(), columnBto.getColumnName(), columnBto.getOrderNum(), columnBto.getWidth(), columnBto.getIsshow() == 1 ? true : false, columnBto.getIscansort() == 1 ? true : false, optionBeanList);
                     columnBeanList.add(columnBean);
                 }
 
