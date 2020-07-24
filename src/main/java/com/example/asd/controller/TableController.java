@@ -172,8 +172,10 @@ public class TableController {
         List<TableResponse.TableBean> tableBeanList = new ArrayList<>();
         for (TableBto tableBto : tableBtoList) {
             List<TableColumnBto> tableColumnBtoList = tableColumnImpl.getTableColumnListById(tableBto.getTableId());
-            List<TableResponse.ToolbarBean> toolbarBeanList = new ArrayList<>();
-            List<TableResponse.ColumnBean> columnBeanList = new ArrayList<>();
+            List<TableResponse.ColumnBean> columnBeanList = null;
+            if (tableColumnBtoList.size() != 0) {
+                columnBeanList = new ArrayList<>();
+            }
             for (TableColumnBto tableColumnBto : tableColumnBtoList) {
                 ColumnBto columnBto = columnImpl.getColumnById(tableColumnBto.getFkColumnId());//colum列信息
                 List<ColumnOptionBto> columnOptionBtoList = columnOptionImpl.getColumnOptionAllById(columnBto.getColumnId());
@@ -189,19 +191,23 @@ public class TableController {
                 TableResponse.ColumnBean columnBean = new TableResponse.ColumnBean(columnBto.getColumnId(), columnBto.getColumnName(), columnBto.getOrderNum(), columnBto.getWidth(), columnBto.getIsshow(), columnBto.getIscansort(), optionBeanList);
                 columnBeanList.add(columnBean);
             }
+
+            ToolbarBto toolbarBto = toolbarImpl.getToolbarByTableId(tableBto.getTableId());
             List<ItemBto> itemBtoList = itemImpl.getAllItem();
+            List<TableResponse.ItemBean> item = new ArrayList<>();
             for (ItemBto itemBto : itemBtoList) {
                 ToolbarItemBto toolbarItemBto = toolbarItemImpl.getToolbarItemByItemId(itemBto.getItemId());
                 if (toolbarItemBto != null) {
-                    TableResponse.ToolbarBean toolbarBean = new TableResponse.ToolbarBean(itemBto.getItemId(), itemBto.getName(), itemBto.getIcon(), true);
-                    toolbarBeanList.add(toolbarBean);
+                    TableResponse.ItemBean itemBean = new TableResponse.ItemBean(itemBto.getItemId(), itemBto.getName(), true, itemBto.getIcon());
+                    item.add(itemBean);
                 } else {
-                    TableResponse.ToolbarBean toolbarBean = new TableResponse.ToolbarBean(itemBto.getItemId(), itemBto.getName(), itemBto.getIcon(), false);
-                    toolbarBeanList.add(toolbarBean);
+                    TableResponse.ItemBean itemBean = new TableResponse.ItemBean(itemBto.getItemId(), itemBto.getName(), false, itemBto.getIcon());
+                    item.add(itemBean);
                 }
-
             }
-            TableResponse.TableBean tableBean = new TableResponse.TableBean(tableBto.getTableId(), tableBto.getRemark(), toolbarBeanList, columnBeanList);
+            TableResponse.ToolbarBean toolbarBean = new TableResponse.ToolbarBean(toolbarBto.getCharecked() == 1 ? true : false, item);
+
+            TableResponse.TableBean tableBean = new TableResponse.TableBean(tableBto.getTableId(), tableBto.getRemark(), toolbarBean, columnBeanList);
             tableBeanList.add(tableBean);
         }
 

@@ -20,14 +20,14 @@ public class TableResponse {
     public static class TableBean {
         private String tableId;
         private String remark;
-        private List<ToolbarBean> toolbar;
+        private ToolbarBean toolbar;
         private List<ColumnBean> column;
 
 
         public TableBean() {
         }
 
-        public TableBean(String tableId, String remark, List<ToolbarBean> toolbar, List<ColumnBean> column) {
+        public TableBean(String tableId, String remark, ToolbarBean toolbar, List<ColumnBean> column) {
             this.tableId = tableId;
             this.remark = remark;
             this.toolbar = toolbar;
@@ -51,11 +51,11 @@ public class TableResponse {
             this.remark = remark;
         }
 
-        public List<ToolbarBean> getToolbar() {
+        public ToolbarBean getToolbar() {
             return toolbar;
         }
 
-        public void setToolbar(List<ToolbarBean> toolbar) {
+        public void setToolbar(ToolbarBean toolbar) {
             this.toolbar = toolbar;
         }
 
@@ -74,19 +74,19 @@ public class TableResponse {
         private String columnName;
         private int orderNum;
         private int width;
-        private int checked;
+        private int isShow;
         private int isCanSort;
         private List<OptionBean> option;
 
         public ColumnBean() {
         }
 
-        public ColumnBean(String columnId, String columnName, int orderNum, int width, int checked, int isCanSort, List<OptionBean> option) {
+        public ColumnBean(String columnId, String columnName, int orderNum, int width, int isShow, int isCanSort, List<OptionBean> option) {
             this.columnId = columnId;
             this.columnName = columnName;
             this.orderNum = orderNum;
             this.width = width;
-            this.checked = checked;
+            this.isShow = isShow;
             this.isCanSort = isCanSort;
             this.option = option;
         }
@@ -123,12 +123,12 @@ public class TableResponse {
             this.width = width;
         }
 
-        public int getChecked() {
-            return checked;
+        public int getIsShow() {
+            return isShow;
         }
 
-        public void setChecked(int checked) {
-            this.checked = checked;
+        public void setIsShow(int checked) {
+            this.isShow = checked;
         }
 
         public int getIsCanSort() {
@@ -186,20 +186,52 @@ public class TableResponse {
     }
 
     public static class ToolbarBean {
-        private String itemId;
-        private String name;
-        private String icon;
-        private boolean isSelect;
-
+        private boolean checked;
+        private List<ItemBean> items;
 
         public ToolbarBean() {
         }
 
-        public ToolbarBean(String itemId, String name, String icon, boolean isSelect) {
+        public ToolbarBean(boolean checked, List<ItemBean> items) {
+            this.checked = checked;
+            this.items = items;
+        }
+
+        public boolean isChecked() {
+            return checked;
+        }
+
+        public void setChecked(boolean checked) {
+            this.checked = checked;
+        }
+
+        public List<ItemBean> getItems() {
+            return items;
+        }
+
+        public void setItems(List<ItemBean> items) {
+            this.items = items;
+        }
+
+
+
+
+    }
+
+    public static class ItemBean {
+        private String itemId;
+        private String name;
+        private boolean isSelect;
+        private String icon;
+
+        public ItemBean() {
+        }
+
+        public ItemBean(String itemId, String name, boolean isSelect, String icon) {
             this.itemId = itemId;
             this.name = name;
-            this.icon = icon;
             this.isSelect = isSelect;
+            this.icon = icon;
         }
 
         public String getItemId() {
@@ -218,20 +250,19 @@ public class TableResponse {
             this.name = name;
         }
 
-        public String getIcon() {
-            return icon;
-        }
-
-        public void setIcon(String icon) {
-            this.icon = icon;
-        }
-
         public boolean isSelect() {
             return isSelect;
         }
 
         public void setSelect(boolean select) {
             isSelect = select;
+        }
+        public String getIcon() {
+            return icon;
+        }
+
+        public void setIcon(String icon) {
+            this.icon = icon;
         }
     }
 }
