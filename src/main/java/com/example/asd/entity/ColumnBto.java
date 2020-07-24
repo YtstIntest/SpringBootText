@@ -51,7 +51,6 @@ public class ColumnBto {
         this.width = width;
         this.isshow = isshow;
         this.iscansort = iscansort;
-
     }
 
     public ColumnBto() {

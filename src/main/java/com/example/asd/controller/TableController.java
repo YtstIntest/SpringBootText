@@ -170,17 +170,11 @@ public class TableController {
             tableBeanList = new ArrayList<>();
             for (TableBto tableBto : tableBtoList) {
                 List<TableColumnBto> tableColumnBtoList = tableColumnImpl.getTableColumnListById(tableBto.getTableId());
-                List<TableResponse.ColumnBean> columnBeanList = null;
-                if (tableColumnBtoList.size() != 0) {
-                    columnBeanList = new ArrayList<>();
-                }
+                List<TableResponse.ColumnBean> columnBeanList = new ArrayList<>();
                 for (TableColumnBto tableColumnBto : tableColumnBtoList) {
                     ColumnBto columnBto = columnImpl.getColumnById(tableColumnBto.getFkColumnId());//colum列信息
                     List<ColumnOptionBto> columnOptionBtoList = columnOptionImpl.getColumnOptionAllById(columnBto.getColumnId());
-                    List<TableResponse.OptionBean> optionBeanList = null;
-                    if (columnOptionBtoList.size() != 0) {
-                        optionBeanList = new ArrayList<>();
-                    }
+                    List<TableResponse.OptionBean> optionBeanList = new ArrayList<>();
                     for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
                         OptionBto optionBto = optionImpl.getOptionById(columnOptionBto.getFkOptionId());//option参数信息
                         TableResponse.OptionBean optionBean = new TableResponse.OptionBean(optionBto.getOptionId(), optionBto.getKind(), optionBto.getFieldText());
@@ -330,6 +324,9 @@ public class TableController {
 
             for (TableRequest.ItemBean itemBean : tableRequest.getToolbar().getItems()) {
                 ValidateHelper.validateNull(itemBean, new String[]{"itemId"});
+                if (itemImpl.getItemById(itemBean.getItemId()) == null) {
+                    throw new CustomException("该itemId不存在！");
+                }
                 if (itemBean.isSelect()) {
                     if (toolbarItemImpl.getToolbarItemByItemId(itemBean.getItemId()) == null) {
                         ToolbarItemBto toolbarItemBto = new ToolbarItemBto(UUID.randomUUID() + "", toolbarBto.getToolbarId(), itemBean.getItemId());
