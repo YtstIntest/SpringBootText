@@ -133,6 +133,11 @@ public class TableController {
     }
 
 
+    /**
+     * 获取全部菜单下拉框列表数据
+     *
+     * @return
+     */
     @RequestMapping(value = "/api/basic/table/getmenu", method = RequestMethod.GET)
     public ResponseBean getmenu() {
         List<MeunBto> meunBtos = meunImpl.getMeun();
@@ -148,74 +153,72 @@ public class TableController {
     }
 
 
-    public StringBuffer path(MeunBto meunBto, StringBuffer path) {
-        String name = meunBto.getMenudisplayname();
-        path.insert(0, name + "/");
-        if (StringUtils.isNotEmptyStr(meunBto.getFkMenuId())) {
-            MeunBto fatherMeun = meunImpl.getMeunById(meunBto.getFkMenuId());
-            if (fatherMeun == null) {
-                throw new CustomException("未找到上层MenuId！");
-            }
-            path(meunImpl.getMeunById(meunBto.getFkMenuId()), path);
-            return path;
-        } else {
-            return path;
-        }
-    }
-
+    /**
+     * 获取一个菜单下的全部表格基本数据
+     *
+     * @param menuId
+     * @return
+     */
     @RequestMapping(value = "/api/basic/table/gettableinfo", method = RequestMethod.GET)
     public ResponseBean gettableinfo(String menuId) {
         if (!StringUtils.isNotEmptyStr(menuId)) {
             throw new CustomException("menuId不能为空！");
         }
         List<TableBto> tableBtoList = editSaveTableImpl.getTableByMenuId(menuId);
-        List<TableResponse.TableBean> tableBeanList = new ArrayList<>();
-        for (TableBto tableBto : tableBtoList) {
-            List<TableColumnBto> tableColumnBtoList = tableColumnImpl.getTableColumnListById(tableBto.getTableId());
-            List<TableResponse.ColumnBean> columnBeanList = null;
-            if (tableColumnBtoList.size() != 0) {
-                columnBeanList = new ArrayList<>();
-            }
-            for (TableColumnBto tableColumnBto : tableColumnBtoList) {
-                ColumnBto columnBto = columnImpl.getColumnById(tableColumnBto.getFkColumnId());//colum列信息
-                List<ColumnOptionBto> columnOptionBtoList = columnOptionImpl.getColumnOptionAllById(columnBto.getColumnId());
-                List<TableResponse.OptionBean> optionBeanList = null;
-                if (columnOptionBtoList.size() != 0) {
-                    optionBeanList = new ArrayList<>();
+        List<TableResponse.TableBean> tableBeanList = null;
+        if (tableBtoList != null) {
+            tableBeanList = new ArrayList<>();
+            for (TableBto tableBto : tableBtoList) {
+                List<TableColumnBto> tableColumnBtoList = tableColumnImpl.getTableColumnListById(tableBto.getTableId());
+                List<TableResponse.ColumnBean> columnBeanList = null;
+                if (tableColumnBtoList.size() != 0) {
+                    columnBeanList = new ArrayList<>();
                 }
-                for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
-                    OptionBto optionBto = optionImpl.getOptionById(columnOptionBto.getFkOptionId());//option参数信息
-                    TableResponse.OptionBean optionBean = new TableResponse.OptionBean(optionBto.getOptionId(), optionBto.getKind(), optionBto.getFieldText());
-                    optionBeanList.add(optionBean);
+                for (TableColumnBto tableColumnBto : tableColumnBtoList) {
+                    ColumnBto columnBto = columnImpl.getColumnById(tableColumnBto.getFkColumnId());//colum列信息
+                    List<ColumnOptionBto> columnOptionBtoList = columnOptionImpl.getColumnOptionAllById(columnBto.getColumnId());
+                    List<TableResponse.OptionBean> optionBeanList = null;
+                    if (columnOptionBtoList.size() != 0) {
+                        optionBeanList = new ArrayList<>();
+                    }
+                    for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
+                        OptionBto optionBto = optionImpl.getOptionById(columnOptionBto.getFkOptionId());//option参数信息
+                        TableResponse.OptionBean optionBean = new TableResponse.OptionBean(optionBto.getOptionId(), optionBto.getKind(), optionBto.getFieldText());
+                        optionBeanList.add(optionBean);
+                    }
+                    TableResponse.ColumnBean columnBean = new TableResponse.ColumnBean(columnBto.getColumnId(), columnBto.getColumnName(), columnBto.getOrderNum(), columnBto.getWidth(), columnBto.getIsshow(), columnBto.getIscansort()==1?true:false, optionBeanList);
+                    columnBeanList.add(columnBean);
                 }
-                TableResponse.ColumnBean columnBean = new TableResponse.ColumnBean(columnBto.getColumnId(), columnBto.getColumnName(), columnBto.getOrderNum(), columnBto.getWidth(), columnBto.getIsshow(), columnBto.getIscansort(), optionBeanList);
-                columnBeanList.add(columnBean);
-            }
 
-            ToolbarBto toolbarBto = toolbarImpl.getToolbarByTableId(tableBto.getTableId());
-            List<ItemBto> itemBtoList = itemImpl.getAllItem();
-            List<TableResponse.ItemBean> item = new ArrayList<>();
-            for (ItemBto itemBto : itemBtoList) {
-                ToolbarItemBto toolbarItemBto = toolbarItemImpl.getToolbarItemByItemId(itemBto.getItemId());
-                if (toolbarItemBto != null) {
-                    TableResponse.ItemBean itemBean = new TableResponse.ItemBean(itemBto.getItemId(), itemBto.getName(), true, itemBto.getIcon());
-                    item.add(itemBean);
-                } else {
-                    TableResponse.ItemBean itemBean = new TableResponse.ItemBean(itemBto.getItemId(), itemBto.getName(), false, itemBto.getIcon());
-                    item.add(itemBean);
+                ToolbarBto toolbarBto = toolbarImpl.getToolbarByTableId(tableBto.getTableId());
+                List<ItemBto> itemBtoList = itemImpl.getAllItem();
+                List<TableResponse.ItemBean> item = new ArrayList<>();
+                for (ItemBto itemBto : itemBtoList) {
+                    ToolbarItemBto toolbarItemBto = toolbarItemImpl.getToolbarItemByItemId(itemBto.getItemId());
+                    if (toolbarItemBto != null) {
+                        TableResponse.ItemBean itemBean = new TableResponse.ItemBean(itemBto.getItemId(), itemBto.getName(), true, itemBto.getIcon());
+                        item.add(itemBean);
+                    } else {
+                        TableResponse.ItemBean itemBean = new TableResponse.ItemBean(itemBto.getItemId(), itemBto.getName(), false, itemBto.getIcon());
+                        item.add(itemBean);
+                    }
                 }
-            }
-            TableResponse.ToolbarBean toolbarBean = new TableResponse.ToolbarBean(toolbarBto.getCharecked() == 1 ? true : false, item);
+                TableResponse.ToolbarBean toolbarBean = new TableResponse.ToolbarBean(toolbarBto.getCharecked() == 1 ? true : false, item);
 
-            TableResponse.TableBean tableBean = new TableResponse.TableBean(tableBto.getTableId(), tableBto.getRemark(), toolbarBean, columnBeanList);
-            tableBeanList.add(tableBean);
+                TableResponse.TableBean tableBean = new TableResponse.TableBean(tableBto.getTableId(), tableBto.getRemark(), toolbarBean, columnBeanList);
+                tableBeanList.add(tableBean);
+            }
         }
-
         return new ResponseBean(1, "查询成功", new TableResponse(tableBeanList));
 
     }
 
-
+    /**
+     * 获取一个查询条件的编辑信息
+     *
+     * @param optionId
+     * @return
+     */
     @RequestMapping(value = "/api/basic/table/getquery", method = RequestMethod.GET)
     public ResponseBean getquery(@ApiParam String optionId) {
         if (!StringUtils.isNotEmptyStr(optionId)) {
@@ -228,6 +231,12 @@ public class TableController {
 
     }
 
+    /**
+     * 保存一个查询条件的编辑信息
+     *
+     * @param optionRequest
+     * @return
+     */
     @RequestMapping(value = "/api/basic/table/savequery", method = RequestMethod.POST)
     public ResponseBean savequery(@RequestBody OptionRequest optionRequest) {
         ValidateHelper.validateNull(optionRequest, new String[]{"optionId"});
@@ -253,7 +262,12 @@ public class TableController {
         }
     }
 
-
+    /**
+     * 保存一个表格数据信息
+     *
+     * @param tableRequest
+     * @return
+     */
     @RequestMapping(value = "/api/basic/table/savetable", method = RequestMethod.POST)
     public ResponseBean savetable(@RequestBody TableRequest tableRequest) {
         ValidateHelper.validateNull(tableRequest, new String[]{"menuId", "toolbar", "column"});
@@ -402,6 +416,21 @@ public class TableController {
             } else {
                 return new ResponseBean(0, "保存失败", new TableEditResponse(0));
             }
+        }
+    }
+
+    public StringBuffer path(MeunBto meunBto, StringBuffer path) {
+        String name = meunBto.getMenudisplayname();
+        path.insert(0, name + "/");
+        if (StringUtils.isNotEmptyStr(meunBto.getFkMenuId())) {
+            MeunBto fatherMeun = meunImpl.getMeunById(meunBto.getFkMenuId());
+            if (fatherMeun == null) {
+                throw new CustomException("未找到上层MenuId！");
+            }
+            path(meunImpl.getMeunById(meunBto.getFkMenuId()), path);
+            return path;
+        } else {
+            return path;
         }
     }
 

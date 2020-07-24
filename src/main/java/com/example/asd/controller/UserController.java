@@ -68,19 +68,21 @@ public class UserController {
             }
             userBto.setPasswordRetryCount(errorNumber);
             userService.updateUser(userBto);
-            return new ResponseBean(1, "密码错误(Passworld Failure)", new LoginResponse(2, "", errorNumber));
+//            return new ResponseBean(1, "密码错误(Passworld Failure)", new LoginResponse(2, "", errorNumber));
+            return  null;
         }
         userBto.setPasswordRetryCount(5);
         userService.updateUser(userBto);
         if (JedisUtil.exists(Constant.PREFIX_SHIRO_CACHE + userName)) {
             Object token = JedisUtil.getObject(Constant.PREFIX_SHIRO_CACHE + userName);
-            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token + "", 0));
-
+//            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token + "", 0));
+            return  null;
         } else {
             String token = bcrptTokenGenerator.generate(userName);
             JedisUtil.setObject(Constant.PREFIX_SHIRO_CACHE + userName, token, Constant.EXRP_DAY);
             JedisUtil.setObject(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token, userName, Constant.EXRP_DAY);
-            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token, 0));
+//            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token, 0));
+            return  null;
         }
     }
 
