@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class TableBto implements Serializable {
-    private String tableId="";
+    private String tableId;
 
-    private String fkMenuId="";
+    private String fkMenuId;
 
-    private String remark="";
+    private String remark;
 
     private Integer isdelete = 1;
 
@@ -18,7 +18,7 @@ public class TableBto implements Serializable {
 
     private Date updateat;
 
-    private String updateby="";
+    private String updateby;
 
     public TableBto(String tableId, String fkMenuId, String remark, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
         this.tableId = tableId;

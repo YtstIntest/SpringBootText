@@ -6,10 +6,10 @@ import com.example.asd.config.helper.ValidateHelper;
 import com.example.asd.config.jwt.AuthToken;
 import com.example.asd.config.jwt.BcrptTokenGenerator;
 import com.example.asd.config.redis.JedisUtil;
-import com.example.asd.dto.LoginResponse;
-import com.example.asd.dto.LoginOutResponse;
+import com.example.asd.entity.base.LoginOutResponse;
 import com.example.asd.entity.MeunBto;
 import com.example.asd.entity.UserBto;
+import com.example.asd.entity.base.LoginResponse;
 import com.example.asd.entity.base.UserRequest;
 import com.example.asd.exception.CustomException;
 import com.example.asd.service.impl.MeunImpl;
@@ -21,12 +21,12 @@ import com.example.asd.util.CheckPwd;
 import com.example.asd.util.common.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -74,26 +74,55 @@ public class UserController {
             }
             userBto.setPasswordRetryCount(errorNumber);
             userService.updateUser(userBto);
-//            return new ResponseBean(1, "密码错误(Passworld Failure)", new LoginResponse(2, "", errorNumber));
-            return null;
+            return new ResponseBean(1, "密码错误(Passworld Failure)", new LoginResponse(2, "", errorNumber, null));
         }
         userBto.setPasswordRetryCount(5);
         userService.updateUser(userBto);
         List<MeunBto> meunBtoList = meunImpl.getMeun();
-//        for ()
+        List<LoginResponse.MenusItemBean> menus = new ArrayList<>();
+        for (MeunBto meunBto : meunBtoList) {
+            LoginResponse.MenusItemBean menusItemBean = new LoginResponse.MenusItemBean();
+            menusItemBean.setId(meunBto.getMenuId());
+            menusItemBean.setPage(meunBto.getIspage() == 1 ? true : false);
+            menusItemBean.setShow(meunBto.getIsshow() == 1 ? true : false);
+            menusItemBean.setLink(meunBto.getMenulink());
+            menusItemBean.setpId(meunBto.getFkMenuId());
+            menusItemBean.setPermissionId("");
+            menusItemBean.setText(meunBto.getMenudisplayname());
+            List<LoginResponse.MenusItemBean> children = new ArrayList<>();
+            if (StringUtils.isNotEmptyStr(meunBto.getFkMenuId())) {
+                for (MeunBto meunBto2 : meunBtoList) {
+                    if (meunBto.getFkMenuId().equals(meunBto2.getMenuId())) {
+                        LoginResponse.MenusItemBean fatherItemBean = new LoginResponse.MenusItemBean();
+                        fatherItemBean.setId(meunBto2.getMenuId());
+                        fatherItemBean.setPage(meunBto2.getIspage() == 1 ? true : false);
+                        fatherItemBean.setShow(meunBto2.getIsshow() == 1 ? true : false);
+                        fatherItemBean.setLink(meunBto2.getMenulink());
+                        fatherItemBean.setpId(meunBto2.getFkMenuId());
+                        fatherItemBean.setPermissionId("");
+                        fatherItemBean.setChildren(new ArrayList<>());
+                        fatherItemBean.setText(meunBto2.getMenudisplayname());
+                        children.add(fatherItemBean);
+                    }
+                }
+            } else {
+                menusItemBean.setChildren(children);
+            }
+            menusItemBean.setChildren(children);
+            menus.add(menusItemBean);
+        }
 
         if (JedisUtil.exists(Constant.PREFIX_SHIRO_CACHE + userName)) {
             Object token = JedisUtil.getObject(Constant.PREFIX_SHIRO_CACHE + userName);
-//            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token + "", 0));
-            return null;
+            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token + "", 0, menus));
         } else {
             String token = bcrptTokenGenerator.generate(userName);
             JedisUtil.setObject(Constant.PREFIX_SHIRO_CACHE + userName, token, Constant.EXRP_DAY);
             JedisUtil.setObject(Constant.PREFIX_SHIRO_ACCESS_TOKEN + token, userName, Constant.EXRP_DAY);
-//            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token, 0));
-            return null;
+            return new ResponseBean(1, "登陆成功", new LoginResponse(1, token, 0, menus));
         }
     }
+
 
     /**
      * 用户登出
@@ -127,7 +156,7 @@ public class UserController {
     public ResponseBean inRegister(@RequestBody UserBto userBto) {
         String account = userBto.getLoginName();
         String passworld = userBto.getLoginPassword();
-        ValidateHelper.validateNull(userBto, new String[]{"loginName", "loginPassword", "accountKind", "isdelete", "createby"});
+        ValidateHelper.validateNull(userBto, new String[]{"loginName", "loginPassword", "accountKind", "accountStatus", "isdelete", "createby"});
         if (account.equals(passworld)) {
             throw new CustomException("密码不可与用户名一致");
         }

@@ -1,4 +1,4 @@
-package com.example.asd.dto;
+package com.example.asd.entity.base;
 
 
 public class TableEditResponse {

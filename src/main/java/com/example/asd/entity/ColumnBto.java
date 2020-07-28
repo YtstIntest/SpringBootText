@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 public class ColumnBto implements Serializable {
-    private String columnId="";
+    private String columnId;
 
-    private String columnName="";
+    private String columnName;
 
     private Integer orderNum;
 
@@ -27,7 +27,7 @@ public class ColumnBto implements Serializable {
 
     private Date updateat;
 
-    private String updateby="";
+    private String updateby;
 
 
     public ColumnBto(String columnId, String columnName, Integer orderNum, Integer width, Integer isshow, String sort, Integer iscansort, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {

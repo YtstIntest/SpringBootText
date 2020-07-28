@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class MeunBto implements Serializable {
-    private String menuId="";
+    private String menuId;
 
-    private String fkMenuId="";
+    private String fkMenuId;
 
-    private String menudisplayname="";
+    private String menudisplayname;
 
-    private String menulink="";
+    private String menulink;
 
-    private String icon="";
+    private String icon;
 
     private Integer isshow;
 
@@ -20,17 +20,17 @@ public class MeunBto implements Serializable {
 
     private Integer orderno;
 
-    private String note="";
+    private String note;
 
     private Integer isdelete;
 
     private Date createat;
 
-    private String createby="";
+    private String createby;
 
     private Date updateat;
 
-    private String updateby="";
+    private String updateby;
 
     public MeunBto(String menuId, String fkMenuId, String menudisplayname, String menulink, String icon, Integer isshow, Integer ispage, Integer orderno, String note, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
         this.menuId = menuId;

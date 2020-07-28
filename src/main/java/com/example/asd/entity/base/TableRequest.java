@@ -3,9 +3,9 @@ package com.example.asd.entity.base;
 import java.util.List;
 
 public class TableRequest {
-    private String menuId="";
-    private String tableId="";
-    private String remark="";
+    private String menuId;
+    private String tableId;
+    private String remark;
     private List<ColumnBean> column;
     private ToolbarBean toolbar;
 
@@ -58,9 +58,9 @@ public class TableRequest {
     }
 
     public static class ColumnBean {
-        private String columnId="";
+        private String columnId;
 
-        private String columnName="";
+        private String columnName;
 
         private int orderNum;
 
@@ -71,7 +71,7 @@ public class TableRequest {
 
         private boolean isCanSort;
 
-        private String fieldText="";
+        private String fieldText;
 
         private List<OptionBean> option;
 
@@ -152,7 +152,7 @@ public class TableRequest {
     }
 
     public static class OptionBean {
-        private String optionId="";
+        private String optionId;
 
         private int kind;
 
@@ -166,19 +166,19 @@ public class TableRequest {
 
         private int minNum;
 
-        private String regularText="";
+        private String regularText;
 
-        private String dateFormat="";
+        private String dateFormat;
 
-        private String queryFields="";
+        private String queryFields;
 
         private List<FieldItemBean> listoffilter;
 
         private int dateSourceKind;
 
-        private String valueRange="";
+        private String valueRange;
 
-        private String fieldText="";
+        private String fieldText;
 
         public OptionBean(String optionId, int kind, int dateType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, List<FieldItemBean> listoffilter, int dateSourceKind, String valueRange, String fieldText) {
             this.optionId = optionId;
@@ -339,7 +339,7 @@ public class TableRequest {
     }
 
     public static class ItemBean {
-        private String itemId="";
+        private String itemId;
         private boolean isSelect;
 
         public ItemBean(String itemId, boolean isSelect) {
@@ -365,8 +365,8 @@ public class TableRequest {
     }
 
     public static class FieldItemBean {
-        private String value="";
-        private String text="";
+        private String value;
+        private String text;
 
         public FieldItemBean() {
         }

@@ -3,9 +3,9 @@ package com.example.asd.entity.base;
 import java.util.List;
 
 public class ColumnItemResponse {
-    private String columnId="";
-    private String title="";
-    private String dataPropertyName="";
+    private String columnId;
+    private String title;
+    private String dataPropertyName;
     private StyleItemBean style;
     private List<QueryItemBean> queryList;
 
@@ -72,9 +72,9 @@ public class ColumnItemResponse {
     public static class QueryItemBean<T> {
         private int kind;
         private int index;
-        private String queryFields="";
-        private String optionId="";
-        private String fieldText="";
+        private String queryFields;
+        private String optionId;
+        private String fieldText;
         private T options;
 
         public QueryItemBean() {
@@ -143,8 +143,8 @@ public class ColumnItemResponse {
         private int maxLength;
         private int maxNum;
         private int minNum;
-        private String regularText="";
-        private String dateFormat="";
+        private String regularText;
+        private String dateFormat;
 
         public OneItemBean() {
         }

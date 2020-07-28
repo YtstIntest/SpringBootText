@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class OptionBto implements Serializable {
-    private String optionId = "";
+    private String optionId ;
 
     private Integer kind;
 
@@ -18,17 +18,17 @@ public class OptionBto implements Serializable {
 
     private Integer minNum;
 
-    private String regularText = "";
+    private String regularText ;
 
-    private String dateFormat = "";
+    private String dateFormat ;
 
-    private String queryFields = "";
+    private String queryFields ;
 
-    private String listoffilter = "";
+    private String listoffilter ;
 
     private Integer dateSourceKind;
 
-    private String valueRange = "";
+    private String valueRange ;
 
     private Integer isdelete = 1;
 
@@ -38,9 +38,9 @@ public class OptionBto implements Serializable {
 
     private Date updateat;
 
-    private String updateby = "";
+    private String updateby ;
 
-    private String fieldText = "";
+    private String fieldText ;
 
 
     public OptionBto(String optionId, Integer kind, Integer dateType, Integer maxLength, Integer minLength, Integer maxNum, Integer minNum, String regularText, String dateFormat, String queryFields, String listoffilter, Integer dateSourceKind, String valueRange, Integer isdelete, Date createat, String createby, Date updateat, String updateby, String fieldText) {

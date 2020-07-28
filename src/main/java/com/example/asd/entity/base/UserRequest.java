@@ -1,8 +1,8 @@
 package com.example.asd.entity.base;
 
 public class UserRequest {
-    private String userName="";
-    private String password="";
+    private String userName;
+    private String password;
 
     public UserRequest(String userName, String password) {
         this.userName = userName;

@@ -3,20 +3,20 @@ package com.example.asd.entity.base;
 import java.util.List;
 
 public class OptionResponse {
-    private String optionId="";
+    private String optionId;
     private int Kind;
     private int dataType;
     private int maxLength;
     private int minLength;
     private int maxNum;
     private int minNum;
-    private String regularText="";
-    private String dateFormat="";
-    private String queryFields="";
+    private String regularText;
+    private String dateFormat;
+    private String queryFields;
     private List<ListFilter> listOfFilter;
 
     private int dataSourceKind;
-    private String valueRange="";
+    private String valueRange;
 
     public OptionResponse() {
     }
@@ -142,8 +142,8 @@ public class OptionResponse {
     }
 
     public static class ListFilter {
-        private String value="";
-        private String text="";
+        private String value;
+        private String text;
 
         public ListFilter() {
         }

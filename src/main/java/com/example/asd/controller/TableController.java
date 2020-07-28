@@ -3,7 +3,7 @@ package com.example.asd.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.example.asd.common.ResponseBean;
 import com.example.asd.config.helper.ValidateHelper;
-import com.example.asd.dto.TableEditResponse;
+import com.example.asd.entity.base.TableEditResponse;
 import com.example.asd.entity.*;
 import com.example.asd.entity.base.*;
 import com.example.asd.exception.CustomException;
@@ -400,18 +400,9 @@ public class TableController {
                     throw new CustomException("该itemId不存在！");
                 }
                 if (itemBean.isSelect()) {//true关联
-                    ItemBto itemBto1 = new ItemBto(itemBean.getItemId(), itemBto.getName(), itemBto.getFkItemId(), itemBto.getRemark(), itemBto.getIcon());
-                    if (itemImpl.addItem(itemBto1) != 1) {
-                        throw new CustomException("存储items失败！");
-                    }
                     ToolbarItemBto toolbarItemBto = new ToolbarItemBto(UUID.randomUUID() + "", toolbarBto.getToolbarId(), itemBean.getItemId());
                     if (toolbarItemImpl.addToolbarItem(toolbarItemBto) != 1) {
                         throw new CustomException("存储toolbar_item失败！");
-                    }
-                } else {//不关联
-                    ItemBto itemBto1 = new ItemBto(itemBean.getItemId(), itemBto.getName(), itemBto.getFkItemId(), itemBto.getRemark(), itemBto.getIcon());
-                    if (itemImpl.addItem(itemBto1) != 1) {
-                        throw new CustomException("存储items失败！");
                     }
                 }
             }

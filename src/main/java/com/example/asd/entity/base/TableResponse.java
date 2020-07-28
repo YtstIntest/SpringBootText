@@ -18,8 +18,8 @@ public class TableResponse {
     }
 
     public static class TableBean {
-        private String tableId="";
-        private String remark="";
+        private String tableId;
+        private String remark;
         private ToolbarBean toolbar;
         private List<ColumnBean> column;
 
@@ -70,8 +70,8 @@ public class TableResponse {
 
 
     public static class ColumnBean {
-        private String columnId="";
-        private String columnName="";
+        private String columnId;
+        private String columnName;
         private int orderNum;
         private int width;
         private boolean isShow;
@@ -149,9 +149,9 @@ public class TableResponse {
     }
 
     public static class OptionBean {
-        private String optionId="";
+        private String optionId;
         private int kind;
-        private String fieldText="";
+        private String fieldText;
 
 
         public OptionBean(String optionId, int kind, String fieldText) {
@@ -219,10 +219,10 @@ public class TableResponse {
     }
 
     public static class ItemBean {
-        private String itemId="";
-        private String name="";
+        private String itemId;
+        private String name;
         private boolean isSelect;
-        private String icon="";
+        private String icon;
 
         public ItemBean() {
         }

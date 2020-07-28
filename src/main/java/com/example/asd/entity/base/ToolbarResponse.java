@@ -41,9 +41,9 @@ public class ToolbarResponse {
     }
 
     public static class ToolbarItem {
-        private String toolId="";
-        private String name="";
-        private String icon="";
+        private String toolId;
+        private String name;
+        private String icon;
 
 
         public ToolbarItem() {

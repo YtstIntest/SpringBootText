@@ -3,7 +3,7 @@ package com.example.asd.entity.base;
 import java.util.List;
 
 public class ColumnRequest {
-    private String tableId="";
+    private String tableId;
     private List<StyleBean> style;
 
     public ColumnRequest() {
@@ -31,12 +31,12 @@ public class ColumnRequest {
     }
 
     public static class StyleBean {
-        private String columnId="";
-        private String columnName="";
+        private String columnId;
+        private String columnName;
         private int orderNum;
         private int width;
         private boolean checked;
-        private String sort="";
+        private String sort;
         private boolean IsCanSort;
 
 

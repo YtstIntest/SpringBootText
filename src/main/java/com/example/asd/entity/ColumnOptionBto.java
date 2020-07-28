@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ColumnOptionBto implements Serializable {
-    private String columnoptionId = "";
+    private String columnoptionId ;
 
-    private String fkOptionId = "";
+    private String fkOptionId ;
 
-    private String fkColumnId = "";
+    private String fkColumnId ;
 
     private Integer intdex = 1;
 
@@ -20,7 +20,7 @@ public class ColumnOptionBto implements Serializable {
 
     private Date updateat;
 
-    private String updateby = "";
+    private String updateby ;
 
     public ColumnOptionBto(String columnoptionId, String fkOptionId, String fkColumnId, Integer intdex, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
         this.columnoptionId = columnoptionId;

@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ToolbarItemBto implements Serializable {
-    private String toolbaritemId="";
+    private String toolbaritemId;
 
-    private String fkToolbarId="";
+    private String fkToolbarId;
 
-    private String fkItemId="";
+    private String fkItemId;
 
     private Integer intdex = 1;
 
@@ -20,7 +20,7 @@ public class ToolbarItemBto implements Serializable {
 
     private Date updateat;
 
-    private String updateby="";
+    private String updateby;
 
     public ToolbarItemBto(String toolbaritemId, String fkToolbarId, String fkItemId, Integer intdex, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
         this.toolbaritemId = toolbaritemId;
