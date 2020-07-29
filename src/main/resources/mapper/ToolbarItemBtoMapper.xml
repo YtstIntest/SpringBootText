@@ -37,6 +37,12 @@
         from F_TOOLBARITEM
         where FK_ITEM_ID = #{fkItemId,jdbcType=CHAR}
     </select>
+
+    <select id="selectToolbarList"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from F_TOOLBARITEM
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from F_TOOLBARITEM
     where TOOLBARITEM_ID = #{toolbaritemId,jdbcType=CHAR}

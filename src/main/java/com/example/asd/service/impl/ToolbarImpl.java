@@ -6,6 +6,7 @@ import com.example.asd.service.ToolbarService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ToolbarImpl implements ToolbarService {
@@ -19,6 +20,11 @@ public class ToolbarImpl implements ToolbarService {
     @Override
     public ToolbarBto getToolbarByTableId(String tableId) {
         return toolbarBtoMapper.selectByTableId(tableId);
+    }
+
+    @Override
+    public List<ToolbarBto> getToolbarList() {
+        return toolbarBtoMapper.selectToolbarList();
     }
 
     @Override

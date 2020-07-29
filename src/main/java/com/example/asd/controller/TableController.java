@@ -414,6 +414,21 @@ public class TableController {
         }
     }
 
+    @RequestMapping(value = "/api/basic/table/new", method = RequestMethod.GET)
+    public ResponseBean news() {
+        List<ItemBto> itemBtoList = itemImpl.getAllItem();
+        List<ItemsResponse.itemBean> items = new ArrayList<>();
+        if (itemBtoList == null || itemBtoList.size() == 0) {
+            throw new CustomException("数据库未保存item值！");
+        }
+        for (ItemBto itemBto : itemBtoList) {
+            ItemsResponse.itemBean itemBean = new ItemsResponse.itemBean(itemBto.getItemId(), itemBto.getName(), itemBto.getIcon());
+            items.add(itemBean);
+        }
+        return new ResponseBean(1, "成功", new ItemsResponse(items));
+
+    }
+
     public StringBuffer path(MeunBto meunBto, StringBuffer path) {
         String name = meunBto.getMenudisplayname();
         path.insert(0, name + "/");
