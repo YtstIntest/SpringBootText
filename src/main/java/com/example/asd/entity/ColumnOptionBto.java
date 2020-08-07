@@ -14,7 +14,7 @@ public class ColumnOptionBto implements Serializable {
 
     private Integer isdelete = 1;
 
-    private Date createat = new Date();
+    private Date createat =new Date();
 
     private String createby = "admin";
 
@@ -33,6 +33,8 @@ public class ColumnOptionBto implements Serializable {
         this.updateat = updateat;
         this.updateby = updateby;
     }
+
+
 
     public ColumnOptionBto(String columnoptionId, String fkOptionId, String fkColumnId) {
         this.columnoptionId = columnoptionId;

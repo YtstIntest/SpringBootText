@@ -15,11 +15,12 @@
             <arg column="CREATEBY" javaType="java.lang.String" jdbcType="CHAR"/>
             <arg column="UPDATEAT" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
             <arg column="UPDATEBY" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="DATAPROPERTYNAME" javaType="java.lang.String" jdbcType="NVARCHAR"/>
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
     COLUMN_ID, COLUMN_NAME, ORDER_NUM, WIDTH, ISSHOW, SORT, ISCANSORT, ISDELETE, CREATEAT,
-    CREATEBY, UPDATEAT, UPDATEBY
+    CREATEBY, UPDATEAT, UPDATEBY,DATAPROPERTYNAME
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -35,12 +36,12 @@
     insert into F_COLUMN (COLUMN_ID, COLUMN_NAME, ORDER_NUM, 
       WIDTH, ISSHOW, SORT,
       ISCANSORT, ISDELETE, CREATEAT, 
-      CREATEBY, UPDATEAT, UPDATEBY
+      CREATEBY, UPDATEAT, UPDATEBY,DATAPROPERTYNAME
       )
     values (#{columnId,jdbcType=CHAR}, #{columnName,jdbcType=NVARCHAR}, #{orderNum,jdbcType=NUMERIC}, 
       #{width,jdbcType=NUMERIC}, #{isshow,jdbcType=NUMERIC}, #{sort,jdbcType=NVARCHAR},
       #{iscansort,jdbcType=NUMERIC}, #{isdelete,jdbcType=NUMERIC}, #{createat,jdbcType=TIMESTAMP}, 
-      #{createby,jdbcType=CHAR}, #{updateat,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}
+      #{createby,jdbcType=CHAR}, #{updateat,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR},#{dataPropertyName,jdbcType=CHAR}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.example.asd.entity.ColumnBto">
@@ -82,6 +83,9 @@
             <if test="updateby != null">
                 UPDATEBY,
             </if>
+            <if test="dataPropertyName != null">
+                DATAPROPERTYNAME,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="columnId != null">
@@ -119,6 +123,9 @@
             </if>
             <if test="updateby != null">
                 #{updateby,jdbcType=CHAR},
+            </if>
+            <if test="dataPropertyName != null">
+                #{dataPropertyName,jdbcType=NVARCHAR},
             </if>
         </trim>
     </insert>
@@ -158,6 +165,9 @@
             <if test="updateby != null">
                 UPDATEBY = #{updateby,jdbcType=CHAR},
             </if>
+            <if test="dataPropertyName != null">
+                DATAPROPERTYNAME = #{dataPropertyName,jdbcType=NVARCHAR},
+            </if>
         </set>
         where COLUMN_ID = #{columnId,jdbcType=CHAR}
     </update>
@@ -173,7 +183,8 @@
       CREATEAT = #{createat,jdbcType=TIMESTAMP},
       CREATEBY = #{createby,jdbcType=CHAR},
       UPDATEAT = #{updateat,jdbcType=TIMESTAMP},
-      UPDATEBY = #{updateby,jdbcType=CHAR}
+      UPDATEBY = #{updateby,jdbcType=CHAR},
+      DATAPROPERTYNAME = #{dataPropertyName,jdbcType=NVARCHAR}
     where COLUMN_ID = #{columnId,jdbcType=CHAR}
   </update>
 </mapper>

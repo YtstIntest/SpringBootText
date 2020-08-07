@@ -3,6 +3,7 @@ package com.example.asd.entity.base;
 import java.util.List;
 
 public class OptionRequest {
+    private String columnId;
     private String optionId;
     private int Kind;
     private int dataType;
@@ -16,10 +17,12 @@ public class OptionRequest {
     private List<ListFilter> listOfFilter;
 
     private int dataSourceKind;
-    private String valueRange;
+    private List valueRange;
+    private String fieldText;
 
 
-    public OptionRequest(String optionId, int kind, int dataType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, List<ListFilter> listOfFilter, int dataSourceKind, String valueRange) {
+    public OptionRequest(String columnId, String optionId, int kind, int dataType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, List<ListFilter> listOfFilter, int dataSourceKind, List valueRange, String fieldText) {
+        this.columnId = columnId;
         this.optionId = optionId;
         Kind = kind;
         this.dataType = dataType;
@@ -33,8 +36,16 @@ public class OptionRequest {
         this.listOfFilter = listOfFilter;
         this.dataSourceKind = dataSourceKind;
         this.valueRange = valueRange;
+        this.fieldText = fieldText;
     }
 
+    public String getColumnId() {
+        return columnId;
+    }
+
+    public void setColumnId(String columnId) {
+        this.columnId = columnId;
+    }
 
     public String getOptionId() {
         return optionId;
@@ -133,12 +144,20 @@ public class OptionRequest {
         this.dataSourceKind = dataSourceKind;
     }
 
-    public String getValueRange() {
+    public List getValueRange() {
         return valueRange;
     }
 
-    public void setValueRange(String valueRange) {
+    public void setValueRange(List valueRange) {
         this.valueRange = valueRange;
+    }
+
+    public String getFieldText() {
+        return fieldText;
+    }
+
+    public void setFieldText(String fieldText) {
+        this.fieldText = fieldText;
     }
 
     public static class ListFilter {
@@ -169,4 +188,5 @@ public class OptionRequest {
             this.text = text;
         }
     }
+
 }

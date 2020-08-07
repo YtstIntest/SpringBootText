@@ -1,5 +1,6 @@
 package com.example.asd.entity.base;
 
+import java.util.Date;
 import java.util.List;
 
 public class TableResponse {
@@ -73,6 +74,7 @@ public class TableResponse {
         private String columnId;
         private String columnName;
         private int orderNum;
+        private String dataPropertyName;
         private int width;
         private boolean isShow;
         private boolean isCanSort;
@@ -81,7 +83,7 @@ public class TableResponse {
         public ColumnBean() {
         }
 
-        public ColumnBean(String columnId, String columnName, int orderNum, int width, boolean isShow, boolean isCanSort, List<OptionBean> option) {
+        public ColumnBean(String columnId, String columnName, int orderNum, int width, boolean isShow, boolean isCanSort, List<OptionBean> option,String dataPropertyName) {
             this.columnId = columnId;
             this.columnName = columnName;
             this.orderNum = orderNum;
@@ -89,6 +91,7 @@ public class TableResponse {
             this.isShow = isShow;
             this.isCanSort = isCanSort;
             this.option = option;
+            this.dataPropertyName=dataPropertyName;
         }
 
         public String getColumnId() {
@@ -146,17 +149,65 @@ public class TableResponse {
         public void setOption(List<OptionBean> option) {
             this.option = option;
         }
+
+        public String getDataPropertyName() {
+            return dataPropertyName;
+        }
+
+        public void setDataPropertyName(String dataPropertyName) {
+            this.dataPropertyName = dataPropertyName;
+        }
     }
 
     public static class OptionBean {
         private String optionId;
-        private int kind;
+
+        private Integer kind;
+
+        private Integer dataType;
+
+        private Integer maxLength;
+
+        private Integer minLength;
+
+        private Integer maxNum;
+
+        private Integer minNum;
+
+        private String regularText;
+
+        private String dateFormat;
+
+        private String queryFields;
+
+        private List<ListItemFilterBean> listoffilter;
+
+        private Integer dateSourceKind;
+
+        private List valueRange;
+
+        private Integer isdelete;
+
         private String fieldText;
 
+        public OptionBean() {
+        }
 
-        public OptionBean(String optionId, int kind, String fieldText) {
+        public OptionBean(String optionId, Integer kind, Integer dataType, Integer maxLength, Integer minLength, Integer maxNum, Integer minNum, String regularText, String dateFormat, String queryFields, List<ListItemFilterBean> listoffilter, Integer dateSourceKind, List valueRange, Integer isdelete, String fieldText) {
             this.optionId = optionId;
             this.kind = kind;
+            this.dataType = dataType;
+            this.maxLength = maxLength;
+            this.minLength = minLength;
+            this.maxNum = maxNum;
+            this.minNum = minNum;
+            this.regularText = regularText;
+            this.dateFormat = dateFormat;
+            this.queryFields = queryFields;
+            this.listoffilter = listoffilter;
+            this.dateSourceKind = dateSourceKind;
+            this.valueRange = valueRange;
+            this.isdelete = isdelete;
             this.fieldText = fieldText;
         }
 
@@ -168,12 +219,108 @@ public class TableResponse {
             this.optionId = optionId;
         }
 
-        public int getKind() {
+        public Integer getKind() {
             return kind;
         }
 
-        public void setKind(int kind) {
+        public void setKind(Integer kind) {
             this.kind = kind;
+        }
+
+        public Integer getDataType() {
+            return dataType;
+        }
+
+        public void setDataType(Integer dataType) {
+            this.dataType = dataType;
+        }
+
+        public Integer getMaxLength() {
+            return maxLength;
+        }
+
+        public void setMaxLength(Integer maxLength) {
+            this.maxLength = maxLength;
+        }
+
+        public Integer getMinLength() {
+            return minLength;
+        }
+
+        public void setMinLength(Integer minLength) {
+            this.minLength = minLength;
+        }
+
+        public Integer getMaxNum() {
+            return maxNum;
+        }
+
+        public void setMaxNum(Integer maxNum) {
+            this.maxNum = maxNum;
+        }
+
+        public Integer getMinNum() {
+            return minNum;
+        }
+
+        public void setMinNum(Integer minNum) {
+            this.minNum = minNum;
+        }
+
+        public String getRegularText() {
+            return regularText;
+        }
+
+        public void setRegularText(String regularText) {
+            this.regularText = regularText;
+        }
+
+        public String getDateFormat() {
+            return dateFormat;
+        }
+
+        public void setDateFormat(String dateFormat) {
+            this.dateFormat = dateFormat;
+        }
+
+        public String getQueryFields() {
+            return queryFields;
+        }
+
+        public void setQueryFields(String queryFields) {
+            this.queryFields = queryFields;
+        }
+
+        public List<ListItemFilterBean> getListoffilter() {
+            return listoffilter;
+        }
+
+        public void setListoffilter(List<ListItemFilterBean> listoffilter) {
+            this.listoffilter = listoffilter;
+        }
+
+        public Integer getDateSourceKind() {
+            return dateSourceKind;
+        }
+
+        public void setDateSourceKind(Integer dateSourceKind) {
+            this.dateSourceKind = dateSourceKind;
+        }
+
+        public List getValueRange() {
+            return valueRange;
+        }
+
+        public void setValueRange(List valueRange) {
+            this.valueRange = valueRange;
+        }
+
+        public Integer getIsdelete() {
+            return isdelete;
+        }
+
+        public void setIsdelete(Integer isdelete) {
+            this.isdelete = isdelete;
         }
 
         public String getFieldText() {
@@ -182,6 +329,35 @@ public class TableResponse {
 
         public void setFieldText(String fieldText) {
             this.fieldText = fieldText;
+        }
+    }
+
+    public static class ListItemFilterBean {
+        private String value;
+        private String text;
+
+        public ListItemFilterBean() {
+        }
+
+        public ListItemFilterBean(String value, String text) {
+            this.value = value;
+            this.text = text;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
         }
     }
 
@@ -212,8 +388,6 @@ public class TableResponse {
         public void setItems(List<ItemBean> items) {
             this.items = items;
         }
-
-
 
 
     }
@@ -250,13 +424,14 @@ public class TableResponse {
             this.name = name;
         }
 
-        public boolean isSelect() {
+        public boolean getIsSelect() {
             return isSelect;
         }
 
-        public void setSelect(boolean select) {
-            isSelect = select;
+        public void setIsSelect(boolean isSelect) {
+            this.isSelect = isSelect;
         }
+
         public String getIcon() {
             return icon;
         }

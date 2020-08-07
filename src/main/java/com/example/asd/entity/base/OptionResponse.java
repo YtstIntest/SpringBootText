@@ -14,14 +14,14 @@ public class OptionResponse {
     private String dateFormat;
     private String queryFields;
     private List<ListFilter> listOfFilter;
-
     private int dataSourceKind;
-    private String valueRange;
+    private List valueRange;
+    private String fieldText ;
 
     public OptionResponse() {
     }
 
-    public OptionResponse(String optionId, int kind, int dataType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, List<ListFilter> listOfFilter, int dataSourceKind, String valueRange) {
+    public OptionResponse(String optionId, int kind, int dataType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, List<ListFilter> listOfFilter, int dataSourceKind, List valueRange,String fieldText) {
         this.optionId = optionId;
         Kind = kind;
         this.dataType = dataType;
@@ -35,6 +35,7 @@ public class OptionResponse {
         this.listOfFilter = listOfFilter;
         this.dataSourceKind = dataSourceKind;
         this.valueRange = valueRange;
+        this.fieldText = fieldText;
     }
 
     public String getOptionId() {
@@ -133,12 +134,20 @@ public class OptionResponse {
         this.dataSourceKind = dataSourceKind;
     }
 
-    public String getValueRange() {
+    public List getValueRange() {
         return valueRange;
     }
 
-    public void setValueRange(String valueRange) {
+    public void setValueRange(List valueRange) {
         this.valueRange = valueRange;
+    }
+
+    public String getFieldText() {
+        return fieldText;
+    }
+
+    public void setFieldText(String fieldText) {
+        this.fieldText = fieldText;
     }
 
     public static class ListFilter {

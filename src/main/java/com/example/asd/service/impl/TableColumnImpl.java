@@ -14,8 +14,8 @@ public class TableColumnImpl implements TableColumnService {
     TableColumnBtoMapper  tableColumnBtoMapper;
 
     @Override
-    public List<TableColumnBto> getTableColumnListById(String tableColumnId) {
-        return tableColumnBtoMapper.selectListByPrimaryKey(tableColumnId);
+    public List<TableColumnBto> getTableColumnListById(String tableId) {
+        return tableColumnBtoMapper.selectListByPrimaryKey(tableId);
     }
 
     @Override

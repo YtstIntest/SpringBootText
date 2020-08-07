@@ -14,19 +14,19 @@ public class ToolbarItemBto implements Serializable {
 
     private Integer isdelete = 1;
 
-    private Date createat = new Date();
+    private Date createat =new Date();
 
     private String createby = "admin";
 
     private Date updateat;
 
-    private String updateby;
+    private String updateby="";
 
     public ToolbarItemBto(String toolbaritemId, String fkToolbarId, String fkItemId, Integer intdex, Integer isdelete, Date createat, String createby, Date updateat, String updateby) {
         this.toolbaritemId = toolbaritemId;
         this.fkToolbarId = fkToolbarId;
         this.fkItemId = fkItemId;
-        intdex = intdex;
+        this.intdex = intdex;
         this.isdelete = isdelete;
         this.createat = createat;
         this.createby = createby;

@@ -9,6 +9,8 @@ import java.util.List;
 public interface ColumnOptionBtoMapper {
     int deleteByPrimaryKey(String columnoptionId);
 
+    int deleteByOptionId(String optionId);
+
     int insert(ColumnOptionBto record);
 
     int insertSelective(ColumnOptionBto record);
@@ -16,6 +18,8 @@ public interface ColumnOptionBtoMapper {
     List<ColumnOptionBto> selectAllByPrimaryKey(String columnoptionId);
 
     ColumnOptionBto selectByPrimaryKey(String columnoptionId);
+
+    ColumnOptionBto selectByOptionId(String optionId);
 
     int updateByPrimaryKeySelective(ColumnOptionBto record);
 

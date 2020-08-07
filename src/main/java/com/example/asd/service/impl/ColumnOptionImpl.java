@@ -24,6 +24,11 @@ public class ColumnOptionImpl implements ColumnOptionService {
     }
 
     @Override
+    public ColumnOptionBto getColumnOptionByOptionId(String optionId) {
+        return columnOptionBtoMapper.selectByOptionId(optionId);
+    }
+
+    @Override
     public int addColumnOption(ColumnOptionBto columnOptionBto) {
         return columnOptionBtoMapper.insert(columnOptionBto);
     }
@@ -36,5 +41,10 @@ public class ColumnOptionImpl implements ColumnOptionService {
     @Override
     public int deleteColumnOption(String columnOptionId) {
         return columnOptionBtoMapper.deleteByPrimaryKey(columnOptionId);
+    }
+
+    @Override
+    public int deleteColumnOptionByOptionId(String optionId) {
+        return columnOptionBtoMapper.deleteByOptionId(optionId);
     }
 }

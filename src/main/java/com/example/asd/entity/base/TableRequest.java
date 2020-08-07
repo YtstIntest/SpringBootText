@@ -62,20 +62,20 @@ public class TableRequest {
 
         private String columnName;
 
+        private String dataPropertyName;
+
         private int orderNum;
 
         private int width;
 
         private boolean isShow;
 
-
         private boolean isCanSort;
 
         private String fieldText;
 
-        private List<OptionBean> option;
 
-        public ColumnBean(String columnId, String columnName, int orderNum, int width, boolean isShow, boolean isCanSort, String fieldText, List<OptionBean> option) {
+        public ColumnBean(String columnId, String columnName, int orderNum, int width, boolean isShow, boolean isCanSort, String fieldText,String dataPropertyName) {
             this.columnId = columnId;
             this.columnName = columnName;
             this.orderNum = orderNum;
@@ -83,7 +83,7 @@ public class TableRequest {
             this.isShow = isShow;
             this.isCanSort = isCanSort;
             this.fieldText = fieldText;
-            this.option = option;
+            this.dataPropertyName=dataPropertyName;
         }
 
         public String getColumnId() {
@@ -142,173 +142,12 @@ public class TableRequest {
             this.fieldText = fieldText;
         }
 
-        public List<OptionBean> getOption() {
-            return option;
+        public String getDataPropertyName() {
+            return dataPropertyName;
         }
 
-        public void setOption(List<OptionBean> option) {
-            this.option = option;
-        }
-    }
-
-    public static class OptionBean {
-        private String optionId;
-
-        private int kind;
-
-        private int dateType;
-
-        private int maxLength;
-
-        private int minLength;
-
-        private int maxNum;
-
-        private int minNum;
-
-        private String regularText;
-
-        private String dateFormat;
-
-        private String queryFields;
-
-        private List<FieldItemBean> listoffilter;
-
-        private int dateSourceKind;
-
-        private String valueRange;
-
-        private String fieldText;
-
-        public OptionBean(String optionId, int kind, int dateType, int maxLength, int minLength, int maxNum, int minNum, String regularText, String dateFormat, String queryFields, List<FieldItemBean> listoffilter, int dateSourceKind, String valueRange, String fieldText) {
-            this.optionId = optionId;
-            this.kind = kind;
-            this.dateType = dateType;
-            this.maxLength = maxLength;
-            this.minLength = minLength;
-            this.maxNum = maxNum;
-            this.minNum = minNum;
-            this.regularText = regularText;
-            this.dateFormat = dateFormat;
-            this.queryFields = queryFields;
-            this.listoffilter = listoffilter;
-
-            this.dateSourceKind = dateSourceKind;
-            this.valueRange = valueRange;
-            this.fieldText = fieldText;
-        }
-
-        public String getOptionId() {
-            return optionId;
-        }
-
-        public void setOptionId(String optionId) {
-            this.optionId = optionId;
-        }
-
-        public int getKind() {
-            return kind;
-        }
-
-        public void setKind(int kind) {
-            this.kind = kind;
-        }
-
-        public int getDateType() {
-            return dateType;
-        }
-
-        public void setDateType(int dateType) {
-            this.dateType = dateType;
-        }
-
-        public int getMaxLength() {
-            return maxLength;
-        }
-
-        public void setMaxLength(int maxLength) {
-            this.maxLength = maxLength;
-        }
-
-        public int getMinLength() {
-            return minLength;
-        }
-
-        public void setMinLength(int minLength) {
-            this.minLength = minLength;
-        }
-
-        public int getMaxNum() {
-            return maxNum;
-        }
-
-        public void setMaxNum(int maxNum) {
-            this.maxNum = maxNum;
-        }
-
-        public int getMinNum() {
-            return minNum;
-        }
-
-        public void setMinNum(int minNum) {
-            this.minNum = minNum;
-        }
-
-        public String getRegularText() {
-            return regularText;
-        }
-
-        public void setRegularText(String regularText) {
-            this.regularText = regularText;
-        }
-
-        public String getDateFormat() {
-            return dateFormat;
-        }
-
-        public void setDateFormat(String dateFormat) {
-            this.dateFormat = dateFormat;
-        }
-
-        public String getQueryFields() {
-            return queryFields;
-        }
-
-        public void setQueryFields(String queryFields) {
-            this.queryFields = queryFields;
-        }
-
-        public List<FieldItemBean> getListoffilter() {
-            return listoffilter;
-        }
-
-        public void setListoffilter(List<FieldItemBean> listoffilter) {
-            this.listoffilter = listoffilter;
-        }
-
-
-        public int getDateSourceKind() {
-            return dateSourceKind;
-        }
-
-        public void setDateSourceKind(int dateSourceKind) {
-            this.dateSourceKind = dateSourceKind;
-        }
-
-        public String getValueRange() {
-            return valueRange;
-        }
-
-        public void setValueRange(String valueRange) {
-            this.valueRange = valueRange;
-        }
-
-        public String getFieldText() {
-            return fieldText;
-        }
-
-        public void setFieldText(String fieldText) {
-            this.fieldText = fieldText;
+        public void setDataPropertyName(String dataPropertyName) {
+            this.dataPropertyName = dataPropertyName;
         }
     }
 

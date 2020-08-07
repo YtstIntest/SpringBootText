@@ -54,82 +54,185 @@ public class TableController {
 
     @RequestMapping(value = "/api/basic/table/gettoolbar", method = RequestMethod.GET)
     public ResponseBean gettoolbar(String tableId) {
-        ToolbarBto toolbarBto = toolbarImpl.getToolbarByTableId(tableId);
-        List<ItemBto> itemBtoList = itemImpl.getAllItem();
-        List<ToolbarResponse.ToolbarItem> toolbar = new ArrayList<>();
-        List<ToolbarResponse.StyleItem> style = new ArrayList<>();
-        List<ToolbarResponse.ToolbarItem> subItem = null;
-        for (ItemBto itemBto : itemBtoList) {
-            ToolbarResponse.ToolbarItem toolbarItem = new ToolbarResponse.ToolbarItem(toolbarBto.getToolbarId(), itemBto.getName(), itemBto.getIcon());
-            toolbar.add(toolbarItem);
-            if (StringUtils.isNotEmptyStr(itemBto.getFkItemId())) {
-                subItem = new ArrayList<>();
-                ItemBto itemBto1 = itemImpl.getItemById(itemBto.getFkItemId());
-                ToolbarResponse.ToolbarItem item = new ToolbarResponse.ToolbarItem(toolbarBto.getToolbarId(), itemBto1.getName(), itemBto1.getIcon());
-                subItem.add(item);
-            }
+        if (!StringUtils.isNotEmptyStr(tableId)) {
+            throw new CustomException("tableId不能为空！");
         }
-        ToolbarResponse.StyleItem styleItem = new ToolbarResponse.StyleItem(toolbarBto.getCharecked() == 1 ? true : false);
-        style.add(styleItem);
-        return new ResponseBean(1, "查询成功", new ToolbarResponse(toolbar, style, subItem));
+        ToolbarBto toolbarBto = toolbarImpl.getToolbarByTableId(tableId);
+        if (toolbarBto == null) {
+            throw new CustomException("toolbar未找到！");
+        }
+        List<ToolbarItemBto> toolbarItemBtoList = toolbarItemImpl.getToolbarAllItemById(toolbarBto.getToolbarId());
+        if (toolbarItemBtoList.size() == 0 || toolbarItemBtoList == null) {
+            throw new CustomException("toolbarItem未找到！");
+        }
+        List<ItemBto> itemBtoList = new ArrayList<>();
+        for (ToolbarItemBto toolbarItemBto : toolbarItemBtoList) {
+            ItemBto itemBto = itemImpl.getItemById(toolbarItemBto.getFkItemId());
+            if (itemBto == null) {
+                throw new CustomException("item未找到！");
+            }
+            itemBtoList.add(itemBto);
+        }
+        List<ToolbarResponse.ItemBean> items = new ArrayList<>();
+        for (ItemBto itemBto : itemBtoList) {
+            List<ToolbarResponse.SubItemBean> subItem = new ArrayList<>();
+            ToolbarResponse.ItemBean itemBean = new ToolbarResponse.ItemBean(itemBto.getItemId(), itemBto.getName(), itemBto.getIcon());
+            if (StringUtils.isNotEmptyStr(itemBto.getFkItemId())) {
+                ItemBto itemBto1 = itemImpl.getItemById(itemBto.getFkItemId());
+                ToolbarResponse.SubItemBean subItemBean = new ToolbarResponse.SubItemBean(itemBto1.getItemId(), itemBto1.getName(), itemBto1.getIcon());
+                subItem.add(subItemBean);
+            }
+            itemBean.setSubItem(subItem);
+            items.add(itemBean);
+        }
+
+        return new ResponseBean(1, "查询成功", new ToolbarResponse(toolbarBto.getToolbarId(), toolbarBto.getCharecked() == 1 ? true : false, items));
     }
 
-    @RequestMapping(value = "/api/basic/table/gettoolbar", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/basic/table/selectcolumn", method = RequestMethod.POST)
     public ResponseBean getcolumn(@RequestBody ColumnRequest columnRequest) {
-//        TableBto tableBto = editSaveTableImpl.getTableByID(columnRequest.getTableId());
         List<ColumnItemResponse> columnItemResponseList = new ArrayList<>();
-        List<ColumnRequest.StyleBean> styleBeanList = columnRequest.getStyle();
-        for (ColumnRequest.StyleBean styleBean : styleBeanList) {
-            ColumnBto columnBto = columnImpl.getColumnById(styleBean.getColumnId());
-            columnBto.setColumnName(styleBean.getColumnName());
-            columnBto.setOrderNum(styleBean.getOrderNum());
-            columnBto.setWidth(styleBean.getWidth());
-            columnBto.setIsshow(styleBean.isChecked() ? 1 : 0);
-            columnBto.setSort(styleBean.getSort());
-            columnBto.setIscansort(styleBean.isCanSort() ? 1 : 0);
-            columnImpl.updateColumn(columnBto);
-
-            ColumnItemResponse.StyleItemBean styleItemBean = new ColumnItemResponse.StyleItemBean();
-            styleItemBean.setOrderNum(columnBto.getOrderNum());
-            styleItemBean.setWidth(columnBto.getWidth());
-            styleItemBean.setChecked(columnBto.getIsshow() == 1 ? true : false);
-            styleItemBean.setCanSort(columnBto.getIscansort() == 1 ? true : false);
-            styleItemBean.setSort(columnBto.getSort().equals("null"));
-            List<ColumnItemResponse.QueryItemBean> queryItemBeanList = new ArrayList<>();
-            List<ColumnOptionBto> columnOptionBtoList = columnOptionImpl.getColumnOptionAllById(columnBto.getColumnId());
-            for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
-                OptionBto optionBto = optionImpl.getOptionById(columnOptionBto.getFkOptionId());
-                ColumnItemResponse.QueryItemBean queryItemBean = new ColumnItemResponse.QueryItemBean();
-                queryItemBean.setKind(optionBto.getKind());
-                queryItemBean.setIndex(columnOptionBto.getIntdex());
-                queryItemBean.setQueryFields(optionBto.getQueryFields());
-                queryItemBean.setOptionId(optionBto.getOptionId());
-                switch (optionBto.getKind()) {
-                    case 1:
-                        ColumnItemResponse.OneItemBean oneItemBean = new ColumnItemResponse.OneItemBean();
-                        oneItemBean.setDataType(optionBto.getDateType());
-                        oneItemBean.setMaxLength(optionBto.getMaxLength());
-                        oneItemBean.setMaxNum(optionBto.getMaxNum());
-                        oneItemBean.setRegularText(optionBto.getRegularText());
-                        queryItemBean.setOptions(oneItemBean);
-
-                        break;
-                    case 2:
-                        ColumnItemResponse.TwoItemBean twoItemBean = new ColumnItemResponse.TwoItemBean();
-                        twoItemBean.setDataSourceKind(optionBto.getDateSourceKind());
-                        List<ColumnItemResponse.TwoItemFilterBean> listFilter = JSONArray.parseArray(optionBto.getListoffilter(), ColumnItemResponse.TwoItemFilterBean.class);
-                        twoItemBean.setListOfFilter(listFilter);
-                        queryItemBean.setOptions(twoItemBean);
-                        break;
-                    case 3:
-                        break;
-                    default:
-                        break;
+        if (columnRequest.getStyle() == null || columnRequest.getStyle().size() == 0) {
+            List<TableColumnBto> tableColumnBtoList = tableColumnImpl.getTableColumnListById(columnRequest.getTableId());
+            for (TableColumnBto tableColumnBto : tableColumnBtoList) {
+                ColumnBto columnBto = columnImpl.getColumnById(tableColumnBto.getFkColumnId());
+                ColumnItemResponse columnItemResponse = new ColumnItemResponse();
+                columnItemResponse.setColumnId(columnBto.getColumnId());
+                columnItemResponse.setDataPropertyName(columnBto.getDataPropertyName());
+                columnItemResponse.setTitle(columnBto.getColumnName());
+                ColumnItemResponse.StyleItemBean styleItemBean = new ColumnItemResponse.StyleItemBean(columnBto.getOrderNum(), columnBto.getWidth(), columnBto.getIsshow() == 1 ? true : false, columnBto.getIscansort() == 1 ? true : false, columnBto.getSort());
+                columnItemResponse.setStyle(styleItemBean);
+                List<ColumnItemResponse.QueryItemBean> queryList = new ArrayList<>();
+                List<ColumnOptionBto> columnOptionBtoList = columnOptionImpl.getColumnOptionAllById(columnBto.getColumnId());
+                if (columnOptionBtoList.size() != 0 && columnOptionBtoList != null) {
+                    for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
+                        ColumnItemResponse.QueryItemBean queryItemBean = new ColumnItemResponse.QueryItemBean();
+                        OptionBto optionBto = optionImpl.getOptionById(columnOptionBto.getFkOptionId());
+                        if (optionBto == null) {
+                            throw new CustomException("option不存在！");
+                        }
+                        queryItemBean.setKind(optionBto.getKind());
+                        queryItemBean.setIndex(columnOptionBto.getIntdex());
+                        queryItemBean.setQueryFields(optionBto.getQueryFields());
+                        queryItemBean.setOptionId(optionBto.getOptionId());
+                        queryItemBean.setFieldText(optionBto.getFieldText());
+                        switch (optionBto.getKind()) {
+                            case 1:
+                                ColumnItemResponse.OneItemBean oneItemBean = new ColumnItemResponse.OneItemBean();
+                                oneItemBean.setDataType(optionBto.getDateType());
+                                oneItemBean.setMaxLength(optionBto.getMaxLength());
+                                oneItemBean.setMaxNum(optionBto.getMaxNum());
+                                oneItemBean.setMinNum(optionBto.getMinNum());
+                                oneItemBean.setRegularText(optionBto.getRegularText());
+                                oneItemBean.setDateFormat(optionBto.getDateFormat());
+                                queryItemBean.setOptions(oneItemBean);
+                                break;
+                            case 2:
+                                ColumnItemResponse.TwoItemBean twoItemBean = new ColumnItemResponse.TwoItemBean();
+                                twoItemBean.setDataSourceKind(optionBto.getDateSourceKind());
+                                List<ColumnItemResponse.TwoItemFilterBean> listFilter = new ArrayList<>();
+                                if (StringUtils.isNotEmptyStr(optionBto.getListoffilter())) {
+                                    listFilter = JSONArray.parseArray(optionBto.getListoffilter(), ColumnItemResponse.TwoItemFilterBean.class);
+                                }
+                                twoItemBean.setListOfFilter(listFilter);
+                                queryItemBean.setOptions(twoItemBean);
+                                break;
+                            case 3:
+                                ColumnItemResponse.ThreeItemBean threeItemBean = new ColumnItemResponse.ThreeItemBean();
+                                if (StringUtils.isNotEmptyStr(optionBto.getValueRange())) {
+                                    threeItemBean.setValueRange(JSONArray.parseArray(optionBto.getValueRange()));
+                                } else {
+                                    threeItemBean.setValueRange(new ArrayList());
+                                }
+                                threeItemBean.setDataType(optionBto.getDateType());
+                                threeItemBean.setQueryFields(optionBto.getQueryFields());
+                                threeItemBean.setDateFormat(optionBto.getDateFormat());
+                                queryItemBean.setOptions(threeItemBean);
+                                break;
+                        }
+                        queryList.add(queryItemBean);
+                    }
                 }
+                columnItemResponse.setQueryList(queryList);
+                columnItemResponseList.add(columnItemResponse);
+            }
+        } else {
+            for (ColumnRequest.StyleBean styleBean : columnRequest.getStyle()) {
+                ColumnBto columnBto = columnImpl.getColumnById(styleBean.getColumnId());
+                if (columnBto == null) {
+                    throw new CustomException("未找到对应column！");
+                }
+                columnBto.setOrderNum(styleBean.getOrderNum());
+                columnBto.setWidth(styleBean.getWidth());
+                columnBto.setIsshow(styleBean.isShow() ? 1 : 0);
+                columnBto.setSort(styleBean.getSort());
+                if (columnImpl.updateColumn(columnBto) != 1) {
+                    throw new CustomException("更新column失败！");
+                }
+                ColumnItemResponse columnItemResponse = new ColumnItemResponse();
+                columnItemResponse.setColumnId(columnBto.getColumnId());
+                columnItemResponse.setDataPropertyName(columnBto.getDataPropertyName());
+                columnItemResponse.setTitle(columnBto.getColumnName());
+                ColumnItemResponse.StyleItemBean styleItemBean = new ColumnItemResponse.StyleItemBean(styleBean.getOrderNum(), styleBean.getWidth(), styleBean.isShow(), columnBto.getIscansort() == 1 ? true : false, styleBean.getSort());
+                columnItemResponse.setStyle(styleItemBean);
 
+                List<ColumnItemResponse.QueryItemBean> queryList = new ArrayList<>();
+                List<ColumnOptionBto> columnOptionBtoList = columnOptionImpl.getColumnOptionAllById(columnBto.getColumnId());
+                if (columnOptionBtoList.size() == 0 || columnOptionBtoList == null) {
+                    throw new CustomException("columnOptionImpl不存在！");
+                }
+                for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
+                    ColumnItemResponse.QueryItemBean queryItemBean = new ColumnItemResponse.QueryItemBean();
+                    OptionBto optionBto = optionImpl.getOptionById(columnOptionBto.getFkOptionId());
+                    if (optionBto == null) {
+                        throw new CustomException("option不存在！");
+                    }
+                    queryItemBean.setKind(optionBto.getKind());
+                    queryItemBean.setIndex(columnOptionBto.getIntdex());
+                    queryItemBean.setQueryFields(optionBto.getQueryFields());
+                    queryItemBean.setOptionId(optionBto.getOptionId());
+                    queryItemBean.setFieldText(optionBto.getFieldText());
+                    switch (optionBto.getKind()) {
+                        case 1:
+                            ColumnItemResponse.OneItemBean oneItemBean = new ColumnItemResponse.OneItemBean();
+                            oneItemBean.setDataType(optionBto.getDateType());
+                            oneItemBean.setMaxLength(optionBto.getMaxLength());
+                            oneItemBean.setMaxNum(optionBto.getMaxNum());
+                            oneItemBean.setMinNum(optionBto.getMinNum());
+                            oneItemBean.setRegularText(optionBto.getRegularText());
+                            oneItemBean.setDateFormat(optionBto.getDateFormat());
+                            queryItemBean.setOptions(oneItemBean);
+                            break;
+                        case 2:
+                            ColumnItemResponse.TwoItemBean twoItemBean = new ColumnItemResponse.TwoItemBean();
+                            twoItemBean.setDataSourceKind(optionBto.getDateSourceKind());
+                            List<ColumnItemResponse.TwoItemFilterBean> listFilter = new ArrayList<>();
+                            if (StringUtils.isNotEmptyStr(optionBto.getListoffilter())) {
+                                listFilter = JSONArray.parseArray(optionBto.getListoffilter(), ColumnItemResponse.TwoItemFilterBean.class);
+                            }
+                            twoItemBean.setListOfFilter(listFilter);
+                            queryItemBean.setOptions(twoItemBean);
+                            break;
+                        case 3:
+                            ColumnItemResponse.ThreeItemBean threeItemBean = new ColumnItemResponse.ThreeItemBean();
+                            if (StringUtils.isNotEmptyStr(optionBto.getValueRange())) {
+                                threeItemBean.setValueRange(JSONArray.parseArray(optionBto.getValueRange()));
+                            } else {
+                                threeItemBean.setValueRange(new ArrayList());
+                            }
+                            threeItemBean.setDataType(optionBto.getDateType());
+                            threeItemBean.setQueryFields(optionBto.getQueryFields());
+                            threeItemBean.setDateFormat(optionBto.getDateFormat());
+                            queryItemBean.setOptions(threeItemBean);
+                            break;
+                    }
+                    queryList.add(queryItemBean);
+                }
+                columnItemResponse.setQueryList(queryList);
+                columnItemResponseList.add(columnItemResponse);
             }
         }
-        return null;
+        return new ResponseBean(1, "查询成功", columnItemResponseList);
     }
 
 
@@ -177,24 +280,35 @@ public class TableController {
                     List<TableResponse.OptionBean> optionBeanList = new ArrayList<>();
                     for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
                         OptionBto optionBto = optionImpl.getOptionById(columnOptionBto.getFkOptionId());//option参数信息
-                        TableResponse.OptionBean optionBean = new TableResponse.OptionBean(optionBto.getOptionId(), optionBto.getKind(), optionBto.getFieldText());
+                        List<TableResponse.ListItemFilterBean> listItemFilterBeanList = new ArrayList<>();
+                        if (StringUtils.isNotEmptyStr(optionBto.getListoffilter())) {
+                            listItemFilterBeanList = JSONArray.parseArray(optionBto.getListoffilter(), TableResponse.ListItemFilterBean.class);
+                        }
+                        List valueRangeList = new ArrayList();
+                        if (StringUtils.isNotEmptyStr(optionBto.getValueRange())) {
+                            valueRangeList = JSONArray.parseArray(optionBto.getValueRange());
+                        }
+                        TableResponse.OptionBean optionBean = new TableResponse.OptionBean(optionBto.getOptionId(), optionBto.getKind(), optionBto.getDateType(), optionBto.getMaxLength(), optionBto.getMinLength(), optionBto.getMaxNum(), optionBto.getMinNum(), optionBto.getRegularText(), optionBto.getDateFormat(), optionBto.getQueryFields(), listItemFilterBeanList, optionBto.getDateSourceKind(), valueRangeList, optionBto.getIsdelete(), optionBto.getFieldText());
                         optionBeanList.add(optionBean);
                     }
-                    TableResponse.ColumnBean columnBean = new TableResponse.ColumnBean(columnBto.getColumnId(), columnBto.getColumnName(), columnBto.getOrderNum(), columnBto.getWidth(), columnBto.getIsshow() == 1 ? true : false, columnBto.getIscansort() == 1 ? true : false, optionBeanList);
+                    TableResponse.ColumnBean columnBean = new TableResponse.ColumnBean(columnBto.getColumnId(), columnBto.getColumnName(), columnBto.getOrderNum(), columnBto.getWidth(), columnBto.getIsshow() == 1 ? true : false, columnBto.getIscansort() == 1 ? true : false, optionBeanList, columnBto.getDataPropertyName());
                     columnBeanList.add(columnBean);
                 }
 
                 ToolbarBto toolbarBto = toolbarImpl.getToolbarByTableId(tableBto.getTableId());
+                List<ToolbarItemBto> toolbarItemBtoList = toolbarItemImpl.getToolbarAllItemById(toolbarBto.getToolbarId());
+
                 List<ItemBto> itemBtoList = itemImpl.getAllItem();
                 List<TableResponse.ItemBean> item = new ArrayList<>();
                 for (ItemBto itemBto : itemBtoList) {
-                    ToolbarItemBto toolbarItemBto = toolbarItemImpl.getToolbarItemByItemId(itemBto.getItemId());
-                    if (toolbarItemBto != null) {
-                        TableResponse.ItemBean itemBean = new TableResponse.ItemBean(itemBto.getItemId(), itemBto.getName(), true, itemBto.getIcon());
-                        item.add(itemBean);
-                    } else {
-                        TableResponse.ItemBean itemBean = new TableResponse.ItemBean(itemBto.getItemId(), itemBto.getName(), false, itemBto.getIcon());
-                        item.add(itemBean);
+                    TableResponse.ItemBean itemBean = new TableResponse.ItemBean(itemBto.getItemId(), itemBto.getName(), false, itemBto.getIcon());
+                    item.add(itemBean);
+                }
+                for (TableResponse.ItemBean itemBean : item) {
+                    for (ToolbarItemBto toolbarItemBto : toolbarItemBtoList) {
+                        if (itemBean.getItemId().equals(toolbarItemBto.getFkItemId())) {
+                            itemBean.setIsSelect(true);
+                        }
                     }
                 }
                 TableResponse.ToolbarBean toolbarBean = new TableResponse.ToolbarBean(toolbarBto.getCharecked() == 1 ? true : false, item);
@@ -219,8 +333,14 @@ public class TableController {
             throw new CustomException("optionId不能为空！");
         }
         OptionBto optionBto = optionImpl.getOptionById(optionId);
-        List<OptionResponse.ListFilter> listFilter = JSONArray.parseArray(optionBto.getListoffilter(), OptionResponse.ListFilter.class);
-        OptionResponse optionResponse = new OptionResponse(optionBto.getOptionId(), optionBto.getKind(), optionBto.getDateType(), optionBto.getMaxLength(), optionBto.getMinLength(), optionBto.getMaxNum(), optionBto.getMinNum(), optionBto.getRegularText(), optionBto.getDateFormat(), optionBto.getQueryFields(), listFilter, optionBto.getDateSourceKind(), optionBto.getValueRange());
+        if (optionBto == null) {
+            throw new CustomException("该optionId不存在！");
+        }
+        List<OptionResponse.ListFilter> listFilter = new ArrayList<>();
+        if (StringUtils.isNotEmptyStr(optionBto.getListoffilter())) {
+            listFilter = JSONArray.parseArray(optionBto.getListoffilter(), OptionResponse.ListFilter.class);
+        }
+        OptionResponse optionResponse = new OptionResponse(optionBto.getOptionId(), optionBto.getKind(), optionBto.getDateType(), optionBto.getMaxLength(), optionBto.getMinLength(), optionBto.getMaxNum(), optionBto.getMinNum(), optionBto.getRegularText(), optionBto.getDateFormat(), optionBto.getQueryFields(), listFilter, optionBto.getDateSourceKind(), JSONArray.parseArray(optionBto.getValueRange()), optionBto.getFieldText());
         return new ResponseBean(1, "查询成功", optionResponse);
 
     }
@@ -233,31 +353,67 @@ public class TableController {
      */
     @RequestMapping(value = "/api/basic/table/savequery", method = RequestMethod.POST)
     public ResponseBean savequery(@RequestBody OptionRequest optionRequest) {
-        ValidateHelper.validateNull(optionRequest, new String[]{"optionId"});
+        ValidateHelper.validateNull(optionRequest, new String[]{"optionId", "columnId", "Kind"});
         OptionBto optionBto = optionImpl.getOptionById(optionRequest.getOptionId());
         if (optionBto == null) {
-            throw new CustomException("该optionId不存在！");
-        }
-        optionBto.setKind(optionRequest.getKind());
-        optionBto.setDateType(optionRequest.getDataType());
-        optionBto.setMaxLength(optionRequest.getMaxLength());
-        optionBto.setMinLength(optionRequest.getMinLength());
-        optionBto.setMaxNum(optionRequest.getMaxNum());
-        optionBto.setRegularText(optionRequest.getRegularText());
-        optionBto.setDateFormat(optionRequest.getDateFormat());
-        optionBto.setQueryFields(optionRequest.getQueryFields());
-        optionBto.setListoffilter(JSONArray.toJSONString(optionRequest.getListOfFilter()));
-        optionBto.setDateSourceKind(optionRequest.getDataSourceKind());
-        optionBto.setValueRange(optionRequest.getValueRange());
-        if (optionImpl.updateOption(optionBto) == 1) {
-            return new ResponseBean(1, "保存成功", new TableEditResponse(1));
+            OptionBto optionBto2 = new OptionBto(optionRequest.getOptionId(), optionRequest.getKind(), optionRequest.getDataType(), optionRequest.getMaxLength(), optionRequest.getMinLength(), optionRequest.getMaxNum(), optionRequest.getMinNum(), optionRequest.getRegularText(), optionRequest.getDateFormat(), optionRequest.getQueryFields(), JSONArray.toJSONString(optionRequest.getListOfFilter()), optionRequest.getDataSourceKind(), JSONArray.toJSONString(optionRequest.getValueRange()), optionRequest.getFieldText());
+            if (columnOptionImpl.addColumnOption(new ColumnOptionBto(UUID.randomUUID() + "", optionRequest.getOptionId(), optionRequest.getColumnId())) != 1) {
+                throw new CustomException("存储columnOption失败！");
+            }
+            if (optionImpl.addOption(optionBto2) == 1) {
+                return new ResponseBean(1, "保存成功", new TableEditResponse(1));
+            } else {
+                return new ResponseBean(0, "保存失败", new TableEditResponse(0));
+            }
         } else {
-            return new ResponseBean(0, "保存失败", new TableEditResponse(0));
+            optionBto.setKind(optionRequest.getKind());
+            optionBto.setDateType(optionRequest.getDataType());
+            optionBto.setMaxLength(optionRequest.getMaxLength());
+            optionBto.setMinLength(optionRequest.getMinLength());
+            optionBto.setMaxNum(optionRequest.getMaxNum());
+            optionBto.setRegularText(optionRequest.getRegularText());
+            optionBto.setDateFormat(optionRequest.getDateFormat());
+            optionBto.setQueryFields(optionRequest.getQueryFields());
+            optionBto.setListoffilter(JSONArray.toJSONString(optionRequest.getListOfFilter()));
+            optionBto.setDateSourceKind(optionRequest.getDataSourceKind());
+            optionBto.setValueRange(JSONArray.toJSONString(optionRequest.getValueRange()));
+            if (optionImpl.updateOption(optionBto) == 1) {
+                return new ResponseBean(1, "修改成功", new TableEditResponse(1));
+            } else {
+                return new ResponseBean(0, "修改失败", new TableEditResponse(0));
+            }
         }
     }
 
+
     /**
-     * 保存一个表格数据信息
+     * 删除一个查询条件的编辑信息
+     *
+     * @param optionId
+     * @return
+     */
+    @RequestMapping(value = "/api/basic/table/deletequery", method = RequestMethod.GET)
+    public ResponseBean deletequery(@ApiParam String optionId) {
+        if (!StringUtils.isNotEmptyStr(optionId)) {
+            throw new CustomException("optionId不能为空！");
+        }
+        if (optionImpl.getOptionById(optionId) != null) {
+            if (optionImpl.deleteOption(optionId) != 1) {
+                throw new CustomException("删除optionId失败！");
+            }
+            ColumnOptionBto columnOptionBto = columnOptionImpl.getColumnOptionByOptionId(optionId);
+            if (columnOptionBto != null) {
+                if (columnOptionImpl.deleteColumnOption(columnOptionBto.getColumnoptionId()) != 1) {
+                    throw new CustomException("删除columnOption失败！");
+                }
+            }
+        }
+        return new ResponseBean(1, "保存成功", null);
+
+    }
+
+    /**
+     * 新建一个表格数据信息
      *
      * @param tableRequest
      * @return
@@ -268,150 +424,145 @@ public class TableController {
         if (meunImpl.getMeunById(tableRequest.getMenuId()) == null) {
             throw new CustomException("该menuId不存在！");
         }
-        if (StringUtils.isNotEmptyStr(tableRequest.getTableId())) {//修改
-            TableBto newTableBto = editSaveTableImpl.getTableByID(tableRequest.getTableId());
-            if (newTableBto == null) {
-                throw new CustomException("该tableID不存在！");
+        if (StringUtils.isNotEmptyStr(tableRequest.getTableId())) {
+            throw new CustomException("tableId要为空！");
+        }
+        TableBto tableBto = new TableBto(UUID.randomUUID() + "", tableRequest.getMenuId(), tableRequest.getRemark());
+        for (TableRequest.ColumnBean column : tableRequest.getColumn()) {
+            ValidateHelper.validateNull(column, new String[]{"columnId", "columnName"});
+            ColumnBto columnBto = new ColumnBto(column.getColumnId(), column.getColumnName(), column.getDataPropertyName(), column.getOrderNum(), column.getWidth(), column.getIsShow() ? 1 : 0, column.getIsCanSort() ? 1 : 0);
+            if (columnImpl.getColumnById(column.getColumnId()) != null) {
+                throw new CustomException("columnId已经存在！");
             }
-            for (TableRequest.ColumnBean column : tableRequest.getColumn()) {
-                ValidateHelper.validateNull(column, new String[]{"columnId", "columnName"});
-                if (columnImpl.getColumnById(column.getColumnId()) == null) {
-                    throw new CustomException("您输入的columnId不存在！");
-                }
-                ColumnBto columnBto = new ColumnBto(column.getColumnId(), column.getColumnName(), column.getOrderNum(), column.getWidth() == 0 ? 40 : column.getWidth(), column.getIsShow() ? 1 : 0, column.getIsCanSort() ? 1 : 0);
-                if (columnImpl.updateColumn(columnBto) != 1) {
-                    throw new CustomException("修改columnId失败！");
-                }
-                if (column.getOption() != null) {
-                    for (TableRequest.OptionBean optionBean : column.getOption()) {
-                        ValidateHelper.validateNull(optionBean, new String[]{"optionId"});
-                        if (optionImpl.getOptionById(optionBean.getOptionId()) == null) {
-                            throw new CustomException("您输入的optionId不存在！");
-                        }
-                        String beanList = null;
-                        if (optionBean.getListoffilter() != null) {
-                            beanList = JSONArray.toJSONString(optionBean.getListoffilter());
-                        }
-                        OptionBto optionBto = new OptionBto(optionBean.getOptionId(), optionBean.getKind(), optionBean.getDateType(), optionBean.getMaxLength(), optionBean.getMinLength(), optionBean.getMaxNum(), optionBean.getMinNum(), optionBean.getRegularText(), optionBean.getDateFormat(), optionBean.getQueryFields(), beanList, optionBean.getDateSourceKind(), optionBean.getValueRange(), optionBean.getFieldText());
-                        if (optionImpl.updateOption(optionBto) != 1) {
-                            throw new CustomException("修改option失败！");
-                        }
-                    }
-                    /**
-                     * 修改Column与option关联表
-                     * **/
-                    TableColumnBto tableColumnBto = tableColumnImpl.getTableColumnByColumnId(column.getColumnId());
-                    if (tableColumnBto == null) {
-                        throw new CustomException("table_option数据不存在！");
-                    }
-                    tableColumnBto.setChecked(column.getIsShow() ? 1 : 0);
-                    tableColumnBto.setIscansort(column.getIsCanSort() ? 1 : 0);
-                    tableColumnBto.setWidth(column.getWidth());
-                    tableColumnBto.setOrderNum(column.getOrderNum());
-                    if (tableColumnImpl.updateTableColumn(tableColumnBto) != 1) {
-                        throw new CustomException("修改table_option数据失败！");
-                    }
+            if (columnImpl.addColumn(columnBto) != 1) {
+                throw new CustomException("存储column数据失败！");
+            }
+            TableColumnBto tableColumnBto = new TableColumnBto(UUID.randomUUID() + "", tableBto.getTableId(), column.getColumnId(), column.getOrderNum(), column.getWidth(), column.getIsShow() ? 1 : 0, column.getIsCanSort() ? 1 : 0);
+            if (tableColumnImpl.addTableColumn(tableColumnBto) != 1) {
+                throw new CustomException("存储table_column数据失败！");
+            }
+        }
+        ToolbarBto toolbarBto = new ToolbarBto(UUID.randomUUID() + "", tableRequest.getToolbar().isChecked() ? 1 : 0, tableRequest.getRemark(), tableBto.getTableId());
+        if (toolbarImpl.addToolbar(toolbarBto) != 1) {
+            throw new CustomException("存储toolbar失败！");
+        }
+        for (TableRequest.ItemBean itemBean : tableRequest.getToolbar().getItems()) {
+            ValidateHelper.validateNull(itemBean, new String[]{"itemId"});
+            ItemBto itemBto = itemImpl.getItemById(itemBean.getItemId());
+            if (itemBto == null) {
+                throw new CustomException("该itemId不存在！");
+            }
+            if (itemBean.isSelect()) {//true关联
+                ToolbarItemBto toolbarItemBto = new ToolbarItemBto(UUID.randomUUID() + "", toolbarBto.getToolbarId(), itemBean.getItemId());
+                if (toolbarItemImpl.addToolbarItem(toolbarItemBto) != 1) {
+                    throw new CustomException("存储toolbar_item失败！");
                 }
             }
-            ToolbarBto toolbarBto = toolbarImpl.getToolbarByTableId(tableRequest.getTableId());
-            if (toolbarBto == null) {
-                throw new CustomException("您输入toolbar不存在！");
-            }
-            toolbarBto.setCharecked(tableRequest.getToolbar().isChecked() ? 1 : 0);
-            if (toolbarImpl.updateToolbar(toolbarBto) != 1) {
-                throw new CustomException("修改列toolbar失败！");
-            }
+        }
+        if (editSaveTableImpl.addTable(tableBto) == 1) {
+            return new ResponseBean(1, "保存成功", new TableEditResponse(1));
+        } else {
+            return new ResponseBean(0, "保存失败", new TableEditResponse(0));
+        }
+    }
 
-            for (TableRequest.ItemBean itemBean : tableRequest.getToolbar().getItems()) {
-                ValidateHelper.validateNull(itemBean, new String[]{"itemId"});
-                if (itemImpl.getItemById(itemBean.getItemId()) == null) {
-                    throw new CustomException("该itemId不存在！");
-                }
-                if (itemBean.isSelect()) {
-                    if (toolbarItemImpl.getToolbarItemByItemId(itemBean.getItemId()) == null) {
-                        ToolbarItemBto toolbarItemBto = new ToolbarItemBto(UUID.randomUUID() + "", toolbarBto.getToolbarId(), itemBean.getItemId());
-                        if (toolbarItemImpl.addToolbarItem(toolbarItemBto) != 1) {
-                            throw new CustomException("toolbar_item失败！");
-                        }
-                    }
-                } else {
-                    ToolbarItemBto toolbarItemBto = toolbarItemImpl.getToolbarItemByItemId(itemBean.getItemId());
-                    if (toolbarItemBto != null) {
-                        if (toolbarItemImpl.deleteToolbarItem(toolbarItemBto.getToolbaritemId()) != 1) {
-                            throw new CustomException("取消toolbar_item失败！");
-                        }
-                    }
-                }
-            }
-            TableBto tableBto = new TableBto(tableRequest.getTableId(), tableRequest.getMenuId(), tableRequest.getRemark());
-            if (editSaveTableImpl.updateTable(tableBto) == 1) {
-                return new ResponseBean(1, "修改成功", new TableEditResponse(1));
-            } else {
-                return new ResponseBean(0, "修改失败", new TableEditResponse(0));
-            }
-        } else {//新建
-            ValidateHelper.validateNull(tableRequest, new String[]{"menuId", "column", "toolbar"});
-            if (meunImpl.getMeunById(tableRequest.getMenuId()) == null) {
-                throw new CustomException("您输入的menuId不存在！");
-            }
-            TableBto tableBto = new TableBto(UUID.randomUUID() + "", tableRequest.getMenuId(), tableRequest.getRemark());
-            for (TableRequest.ColumnBean column : tableRequest.getColumn()) {
-                ValidateHelper.validateNull(column, new String[]{"columnId", "columnName"});
-                ColumnBto columnBto = new ColumnBto(column.getColumnId(), column.getColumnName(), column.getOrderNum(), column.getWidth(), column.getIsShow() ? 1 : 0, column.getIsCanSort() ? 1 : 0);
-                if (columnImpl.getColumnById(column.getColumnId()) != null) {
-                    throw new CustomException("columnId已经存在！");
-                }
+    /**
+     * 修改一个表格数据信息
+     *
+     * @param tableRequest
+     * @return
+     */
+    @RequestMapping(value = "/api/basic/table/revisetable", method = RequestMethod.POST)
+    public ResponseBean revisetable(@RequestBody TableRequest tableRequest) {
+        ValidateHelper.validateNull(tableRequest, new String[]{"menuId", "toolbar", "column"});
+        if (meunImpl.getMeunById(tableRequest.getMenuId()) == null) {
+            throw new CustomException("该menuId不存在！");
+        }
+        TableBto newTableBto = editSaveTableImpl.getTableByID(tableRequest.getTableId());
+        if (newTableBto == null) {
+            throw new CustomException("该tableID不存在！");
+        }
+        for (TableRequest.ColumnBean column : tableRequest.getColumn()) {
+            ValidateHelper.validateNull(column, new String[]{"columnId", "columnName"});
+            ColumnBto columnBto = new ColumnBto(column.getColumnId(), column.getColumnName(), column.getDataPropertyName(), column.getOrderNum(), column.getWidth() == 0 ? 40 : column.getWidth(), column.getIsShow() ? 1 : 0, column.getIsCanSort() ? 1 : 0);
+            if (columnImpl.getColumnById(column.getColumnId()) == null) {
                 if (columnImpl.addColumn(columnBto) != 1) {
                     throw new CustomException("存储column数据失败！");
                 }
-                if (column.getOption() != null) {
-                    for (TableRequest.OptionBean optionBean : column.getOption()) {
-                        ValidateHelper.validateNull(optionBean, new String[]{"optionId"});
-                        String beanList = null;
-                        if (optionBean.getListoffilter() != null) {
-                            beanList = JSONArray.toJSONString(optionBean.getListoffilter());
-                        }
-                        OptionBto optionBto = new OptionBto(optionBean.getOptionId(), optionBean.getKind(), optionBean.getDateType(), optionBean.getMaxLength(), optionBean.getMinLength(), optionBean.getMaxNum(), optionBean.getMinNum(), optionBean.getRegularText(), optionBean.getDateFormat(), optionBean.getQueryFields(), beanList, optionBean.getDateSourceKind(), optionBean.getValueRange(), optionBean.getFieldText());
-                        if (optionImpl.getOptionById(optionBean.getOptionId()) != null) {
-                            throw new CustomException("optionId已经存在！");
-                        }
-                        if (optionImpl.addOption(optionBto) != 1) {
-                            throw new CustomException("存储option数据失败！");
-                        }
-                        ColumnOptionBto columnOptionBto = new ColumnOptionBto(UUID.randomUUID() + "", optionBean.getOptionId(), column.getColumnId());
-                        if (columnOptionImpl.addColumnOption(columnOptionBto) != 1) {
-                            throw new CustomException("存储column_option数据失败！");
-                        }
-                    }
-                    TableColumnBto tableColumnBto = new TableColumnBto(UUID.randomUUID() + "", tableBto.getTableId(), column.getColumnId(), column.getOrderNum(), column.getWidth(), column.getIsShow() ? 1 : 0, column.getIsCanSort() ? 1 : 0);
-                    if (tableColumnImpl.addTableColumn(tableColumnBto) != 1) {
-                        throw new CustomException("存储table_column数据失败！");
-                    }
+                TableColumnBto tableColumnBto = new TableColumnBto(UUID.randomUUID() + "", tableRequest.getTableId(), column.getColumnId(), column.getOrderNum(), column.getWidth(), column.getIsShow() ? 1 : 0, column.getIsCanSort() ? 1 : 0);
+                if (tableColumnImpl.addTableColumn(tableColumnBto) != 1) {
+                    throw new CustomException("存储table_column数据失败！");
                 }
-            }
-            ToolbarBto toolbarBto = new ToolbarBto(UUID.randomUUID() + "", tableRequest.getToolbar().isChecked() ? 1 : 0, tableRequest.getRemark(), tableBto.getTableId());
-            if (toolbarImpl.addToolbar(toolbarBto) != 1) {
-                throw new CustomException("存储toolbar失败！");
-            }
-            for (TableRequest.ItemBean itemBean : tableRequest.getToolbar().getItems()) {
-                ValidateHelper.validateNull(itemBean, new String[]{"itemId"});
-                ItemBto itemBto = itemImpl.getItemById(itemBean.getItemId());
-                if (itemBto == null) {
-                    throw new CustomException("该itemId不存在！");
-                }
-                if (itemBean.isSelect()) {//true关联
-                    ToolbarItemBto toolbarItemBto = new ToolbarItemBto(UUID.randomUUID() + "", toolbarBto.getToolbarId(), itemBean.getItemId());
-                    if (toolbarItemImpl.addToolbarItem(toolbarItemBto) != 1) {
-                        throw new CustomException("存储toolbar_item失败！");
-                    }
-                }
-            }
-            if (editSaveTableImpl.addTable(tableBto) == 1) {
-                return new ResponseBean(1, "保存成功", new TableEditResponse(1));
             } else {
-                return new ResponseBean(0, "保存失败", new TableEditResponse(0));
+                if (columnImpl.updateColumn(columnBto) != 1) {
+                    throw new CustomException("修改columnId失败！");
+                }
             }
         }
+        ToolbarBto toolbarBto = toolbarImpl.getToolbarByTableId(tableRequest.getTableId());
+        if (toolbarBto == null) {
+            throw new CustomException("您输入toolbar不存在！");
+        }
+        toolbarBto.setCharecked(tableRequest.getToolbar().isChecked() ? 1 : 0);
+        if (toolbarImpl.updateToolbar(toolbarBto) != 1) {
+            throw new CustomException("修改列toolbar失败！");
+        }
+        List<ToolbarItemBto> toolbarItemBtoList = toolbarItemImpl.getToolbarAllItemById(toolbarBto.getToolbarId());
+        for (ToolbarItemBto toolbarItemBto : toolbarItemBtoList) {
+            toolbarItemImpl.deleteToolbarItem(toolbarItemBto.getToolbaritemId());
+        }
+        for (TableRequest.ItemBean itemBean : tableRequest.getToolbar().getItems()) {
+            if (itemBean.isSelect()) {//true关联
+                ToolbarItemBto toolbarItemBto = new ToolbarItemBto(UUID.randomUUID() + "", toolbarBto.getToolbarId(), itemBean.getItemId());
+                if (toolbarItemImpl.addToolbarItem(toolbarItemBto) != 1) {
+                    throw new CustomException("存储toolbar_item失败！");
+                }
+            }
+        }
+        TableBto tableBto = new TableBto(tableRequest.getTableId(), tableRequest.getMenuId(), tableRequest.getRemark(), newTableBto.getCreateat());
+        if (editSaveTableImpl.updateTable(tableBto) == 1) {
+            return new ResponseBean(1, "修改成功", new TableEditResponse(1));
+        } else {
+            return new ResponseBean(0, "修改失败", new TableEditResponse(0));
+        }
+    }
+
+    /**
+     * 删除一个表格的列信息
+     *
+     * @param columnId
+     * @return
+     */
+    @RequestMapping(value = "/api/basic/table/deletecolumn", method = RequestMethod.GET)
+    public ResponseBean deletecolumn(@ApiParam String columnId) {
+        if (!StringUtils.isNotEmptyStr(columnId)) {
+            throw new CustomException("columnId不能为空！");
+        }
+        if (columnImpl.getColumnById(columnId) == null) {
+            throw new CustomException("columnId不存在！");
+        }
+        if (columnImpl.deleteColumn(columnId) != 1) {
+            throw new CustomException("删除column信息失败！");
+        }
+        TableColumnBto tableColumnBto = tableColumnImpl.getTableColumnByColumnId(columnId);
+        if (tableColumnBto == null) {
+            throw new CustomException("tableColumn不存在！");
+        }
+        if (tableColumnImpl.deleteTableColumn(tableColumnBto.getTablecolumnId()) != 1) {
+            throw new CustomException("删除tableColumn失败！");
+        }
+        List<ColumnOptionBto> columnOptionBtoList = columnOptionImpl.getColumnOptionAllById(columnId);
+        if (columnOptionBtoList.size() > 0 || columnOptionBtoList != null) {
+            for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
+                if (columnOptionImpl.deleteColumnOption(columnOptionBto.getColumnoptionId()) != 1) {
+                    throw new CustomException("删除columnOption失败！");
+                }
+                if (optionImpl.deleteOption(columnOptionBto.getFkOptionId()) != 1) {
+                    throw new CustomException("删除option失败！");
+                }
+            }
+        }
+        return new ResponseBean(1, "删除成功", null);
     }
 
     @RequestMapping(value = "/api/basic/table/new", method = RequestMethod.GET)
@@ -426,6 +577,43 @@ public class TableController {
             items.add(itemBean);
         }
         return new ResponseBean(1, "成功", new ItemsResponse(items));
+
+    }
+
+    @RequestMapping(value = "/api/basic/table/delete", method = RequestMethod.GET)
+    public ResponseBean deleteTable(String tableId) {
+        if (editSaveTableImpl.getTableByID(tableId) == null) {
+            throw new CustomException("该tableId不存在！");
+        }
+        if (editSaveTableImpl.deleteTable(tableId) != 1) {
+            throw new CustomException("删除表格失败！");
+        }
+
+        List<TableColumnBto> tableColumnBtoList = tableColumnImpl.getTableColumnListById(tableId);
+        for (TableColumnBto tableColumnBto : tableColumnBtoList) {
+            if (tableColumnImpl.deleteTableColumn(tableColumnBto.getTablecolumnId()) != 1) {
+                throw new CustomException("删除table_column失败！");
+            }
+            if (columnImpl.deleteColumn(tableColumnBto.getFkColumnId()) != 1) {
+                throw new CustomException("删除column失败！");
+            }
+
+            List<ColumnOptionBto> columnOptionBtoList = columnOptionImpl.getColumnOptionAllById(tableColumnBto.getFkColumnId());
+            if (columnOptionBtoList != null && columnOptionBtoList.size() > 0) {
+                for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
+                    OptionBto optionBto = optionImpl.getOptionById(columnOptionBto.getFkOptionId());
+                    optionImpl.deleteOption(optionBto.getOptionId());
+                    columnOptionImpl.deleteColumnOptionByOptionId(optionBto.getOptionId());
+                }
+            }
+        }
+        ToolbarBto toolbarBto = toolbarImpl.getToolbarByTableId(tableId);
+        toolbarImpl.deleteToolbar(toolbarBto.getToolbarId());
+        List<ToolbarItemBto> toolbarItemBtos = toolbarItemImpl.getToolbarAllItemById(toolbarBto.getToolbarId());
+        for (ToolbarItemBto toolbarItemBto : toolbarItemBtos) {
+            toolbarItemImpl.deleteToolbarItem(toolbarItemBto.getToolbaritemId());
+        }
+        return new ResponseBean(1, "成功", new DeleteTableResponse(true, ""));
 
     }
 

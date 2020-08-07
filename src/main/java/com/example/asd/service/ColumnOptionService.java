@@ -9,9 +9,14 @@ public interface ColumnOptionService {
 
     ColumnOptionBto getColumnOptionById(String columnOptionId);
 
+    ColumnOptionBto getColumnOptionByOptionId(String optionId);
+
+
     int addColumnOption(ColumnOptionBto ColumnOptionBto);
 
     int updateColumnOption(ColumnOptionBto ColumnOptionBto);
 
     int deleteColumnOption(String columnOptionId);
+
+    int deleteColumnOptionByOptionId(String optionId);
 }

@@ -32,7 +32,7 @@
         select
         <include refid="Base_Column_List"/>
         from F_TABLECOLUMN
-        where FK_TABLE_ID = #{fkTableId,jdbcType=CHAR}
+        where FK_TABLE_ID = #{fkTableId,jdbcType=CHAR} ORDER BY ORDER_NUM
     </select>
     <select id="selectByColumnId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select

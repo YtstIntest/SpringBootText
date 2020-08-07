@@ -3,64 +3,118 @@ package com.example.asd.entity.base;
 import java.util.List;
 
 public class ToolbarResponse {
-    private List<ToolbarItem> toolbar;
-    private List<StyleItem> style;
-    private List<ToolbarItem> subItem;
+    private String toolId;
+    private boolean checked;
+    private List<ItemBean> items;
 
     public ToolbarResponse() {
     }
 
-    public ToolbarResponse(List<ToolbarItem> toolbar, List<StyleItem> style, List<ToolbarItem> subItem) {
-        this.toolbar = toolbar;
-        this.style = style;
-        this.subItem = subItem;
+    public ToolbarResponse(String toolId, boolean checked, List<ItemBean> items) {
+        this.toolId = toolId;
+        this.checked = checked;
+        this.items = items;
     }
 
-    public List<ToolbarItem> getToolbar() {
-        return toolbar;
+    public String getToolId() {
+        return toolId;
     }
 
-    public void setToolbar(List<ToolbarItem> toolbar) {
-        this.toolbar = toolbar;
+    public void setToolId(String toolId) {
+        this.toolId = toolId;
     }
 
-    public List<StyleItem> getStyle() {
-        return style;
+    public boolean isChecked() {
+        return checked;
     }
 
-    public void setStyle(List<StyleItem> style) {
-        this.style = style;
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
-    public List<ToolbarItem> getSubItem() {
-        return subItem;
+    public List<ItemBean> getItems() {
+        return items;
     }
 
-    public void setSubItem(List<ToolbarItem> subItem) {
-        this.subItem = subItem;
+    public void setItems(List<ItemBean> items) {
+        this.items = items;
     }
 
-    public static class ToolbarItem {
-        private String toolId;
+    public static class ItemBean {
+        private String itemId;
         private String name;
         private String icon;
+        private List<SubItemBean> subItem;
 
-
-        public ToolbarItem() {
+        public ItemBean() {
         }
 
-        public ToolbarItem(String toolId, String name, String icon) {
-            this.toolId = toolId;
+        public ItemBean(String itemId, String name, String icon) {
+            this.itemId = itemId;
             this.name = name;
             this.icon = icon;
         }
 
-        public String getToolId() {
-            return toolId;
+        public ItemBean(String itemId, String name, String icon, List<SubItemBean> subItem) {
+            this.itemId = itemId;
+            this.name = name;
+            this.icon = icon;
+            this.subItem = subItem;
         }
 
-        public void setToolId(String toolId) {
-            this.toolId = toolId;
+        public String getItemId() {
+            return itemId;
+        }
+
+        public void setItemId(String itemId) {
+            this.itemId = itemId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getIcon() {
+            return icon;
+        }
+
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
+
+        public List<SubItemBean> getSubItem() {
+            return subItem;
+        }
+
+        public void setSubItem(List<SubItemBean> subItem) {
+            this.subItem = subItem;
+        }
+    }
+
+    public static class SubItemBean {
+        private String itemId;
+        private String name;
+        private String icon;
+
+        public SubItemBean(String itemId, String name, String icon) {
+            this.itemId = itemId;
+            this.name = name;
+            this.icon = icon;
+        }
+
+        public SubItemBean() {
+        }
+
+        public String getItemId() {
+            return itemId;
+        }
+
+        public void setItemId(String itemId) {
+            this.itemId = itemId;
         }
 
         public String getName() {
@@ -80,22 +134,5 @@ public class ToolbarResponse {
         }
     }
 
-    public static class StyleItem {
-        private boolean checked;
 
-        public StyleItem() {
-        }
-
-        public StyleItem(boolean checked) {
-            this.checked = checked;
-        }
-
-        public boolean isChecked() {
-            return checked;
-        }
-
-        public void setChecked(boolean checked) {
-            this.checked = checked;
-        }
-    }
 }

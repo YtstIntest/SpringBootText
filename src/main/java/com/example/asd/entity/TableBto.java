@@ -12,7 +12,7 @@ public class TableBto implements Serializable {
 
     private Integer isdelete = 1;
 
-    private Date createat = new Date();
+    private Date createat=new Date();
 
     private String createby = "admin";
 
@@ -37,6 +37,12 @@ public class TableBto implements Serializable {
         this.remark = remark;
     }
 
+    public TableBto(String tableId, String fkMenuId, String remark, Date createat) {
+        this.tableId = tableId;
+        this.fkMenuId = fkMenuId;
+        this.remark = remark;
+        this.createat = createat;
+    }
 
     public TableBto() {
         super();

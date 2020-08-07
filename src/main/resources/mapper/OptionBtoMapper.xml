@@ -51,8 +51,7 @@
     values (#{optionId,jdbcType=CHAR}, #{kind,jdbcType=NUMERIC}, #{dateType,jdbcType=NUMERIC}, 
       #{maxLength,jdbcType=NUMERIC}, #{minLength,jdbcType=NUMERIC}, #{maxNum,jdbcType=NUMERIC}, 
       #{minNum,jdbcType=NUMERIC}, #{regularText,jdbcType=NVARCHAR}, #{dateFormat,jdbcType=NVARCHAR}, 
-      #{queryFields,jdbcType=NVARCHAR}, #{listoffilter,jdbcType=NVARCHAR}, #{value,jdbcType=NVARCHAR}, 
-      #{text,jdbcType=NVARCHAR}, #{dateSourceKind,jdbcType=NUMERIC}, #{valueRange,jdbcType=NVARCHAR}, 
+      #{queryFields,jdbcType=NVARCHAR}, #{listoffilter,jdbcType=NVARCHAR}, #{dateSourceKind,jdbcType=NUMERIC}, #{valueRange,jdbcType=NVARCHAR},
       #{isdelete,jdbcType=NUMERIC}, #{createat,jdbcType=TIMESTAMP}, #{createby,jdbcType=CHAR}, 
       #{updateat,jdbcType=TIMESTAMP}, #{updateby,jdbcType=CHAR}, #{fieldText,jdbcType=NVARCHAR}
       )

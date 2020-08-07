@@ -32,25 +32,21 @@ public class ColumnRequest {
 
     public static class StyleBean {
         private String columnId;
-        private String columnName;
         private int orderNum;
         private int width;
-        private boolean checked;
+        private boolean isShow;
         private String sort;
-        private boolean IsCanSort;
 
 
         public StyleBean() {
         }
 
-        public StyleBean(String columnId, String columnName, int orderNum, int width, boolean checked, String sort, boolean isCanSort) {
+        public StyleBean(String columnId, int orderNum, int width, boolean isShow, String sort) {
             this.columnId = columnId;
-            this.columnName = columnName;
             this.orderNum = orderNum;
             this.width = width;
-            this.checked = checked;
+            this.isShow = isShow;
             this.sort = sort;
-            IsCanSort = isCanSort;
         }
 
         public String getColumnId() {
@@ -61,13 +57,6 @@ public class ColumnRequest {
             this.columnId = columnId;
         }
 
-        public String getColumnName() {
-            return columnName;
-        }
-
-        public void setColumnName(String columnName) {
-            this.columnName = columnName;
-        }
 
         public int getOrderNum() {
             return orderNum;
@@ -85,12 +74,12 @@ public class ColumnRequest {
             this.width = width;
         }
 
-        public boolean isChecked() {
-            return checked;
+        public boolean isShow() {
+            return isShow;
         }
 
-        public void setChecked(boolean checked) {
-            this.checked = checked;
+        public void setShow(boolean show) {
+            isShow = show;
         }
 
         public String getSort() {
@@ -101,12 +90,5 @@ public class ColumnRequest {
             this.sort = sort;
         }
 
-        public boolean isCanSort() {
-            return IsCanSort;
-        }
-
-        public void setCanSort(boolean canSort) {
-            IsCanSort = canSort;
-        }
     }
 }

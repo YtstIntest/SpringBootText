@@ -26,7 +26,7 @@
         select
         <include refid="Base_Column_List"/>
         from F_TABLE
-        where FK_MENU_ID = #{fkMenuId,jdbcType=CHAR}
+        where FK_MENU_ID = #{fkMenuId,jdbcType=CHAR} ORDER BY CREATEAT
     </select>
 
     <select id="getAllTable" resultMap="BaseResultMap">

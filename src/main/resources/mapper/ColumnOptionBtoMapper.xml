@@ -30,9 +30,21 @@
         from F_COLUMNOPTION
         where FK_COLUMN_ID = #{fkColumnId,jdbcType=CHAR}
     </select>
+    <select id="selectByOptionId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from F_COLUMNOPTION
+        where FK_OPTION_ID = #{fkOptionId,jdbcType=CHAR}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from F_COLUMNOPTION
     where COLUMNOPTION_ID = #{columnoptionId,jdbcType=CHAR}
+  </delete>
+
+    <delete id="deleteByOptionId" parameterType="java.lang.String">
+    delete from F_COLUMNOPTION
+    where FK_OPTION_ID = #{fkOptionId,jdbcType=CHAR}
   </delete>
     <insert id="insert" parameterType="com.example.asd.entity.ColumnOptionBto">
     insert into F_COLUMNOPTION (COLUMNOPTION_ID, FK_OPTION_ID, FK_COLUMN_ID, 

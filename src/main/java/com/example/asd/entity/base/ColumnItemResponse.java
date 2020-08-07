@@ -9,22 +9,72 @@ public class ColumnItemResponse {
     private StyleItemBean style;
     private List<QueryItemBean> queryList;
 
+    public ColumnItemResponse() {
+    }
+
+    public ColumnItemResponse(String columnId, String title, String dataPropertyName, StyleItemBean style, List<QueryItemBean> queryList) {
+        this.columnId = columnId;
+        this.title = title;
+        this.dataPropertyName = dataPropertyName;
+        this.style = style;
+        this.queryList = queryList;
+    }
+
+    public String getColumnId() {
+        return columnId;
+    }
+
+    public void setColumnId(String columnId) {
+        this.columnId = columnId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDataPropertyName() {
+        return dataPropertyName;
+    }
+
+    public void setDataPropertyName(String dataPropertyName) {
+        this.dataPropertyName = dataPropertyName;
+    }
+
+    public StyleItemBean getStyle() {
+        return style;
+    }
+
+    public void setStyle(StyleItemBean style) {
+        this.style = style;
+    }
+
+    public List<QueryItemBean> getQueryList() {
+        return queryList;
+    }
+
+    public void setQueryList(List<QueryItemBean> queryList) {
+        this.queryList = queryList;
+    }
 
     public static class StyleItemBean {
         private int orderNum;
         private int width;
-        private boolean checked;
+        private boolean isShow;
         private boolean IsCanSort;
-        private boolean sort;
+        private String sort;
 
         public StyleItemBean() {
         }
 
-        public StyleItemBean(int orderNum, int width, boolean checked, boolean isCanSort, boolean sort) {
+        public StyleItemBean(int orderNum, int width, boolean isShow, boolean IsCanSort, String sort) {
             this.orderNum = orderNum;
             this.width = width;
-            this.checked = checked;
-            IsCanSort = isCanSort;
+            this.isShow = isShow;
+            this.IsCanSort = IsCanSort;
             this.sort = sort;
         }
 
@@ -44,27 +94,27 @@ public class ColumnItemResponse {
             this.width = width;
         }
 
-        public boolean isChecked() {
-            return checked;
+        public boolean getisShow() {
+            return isShow;
         }
 
-        public void setChecked(boolean checked) {
-            this.checked = checked;
+        public void setisShow(boolean isShow) {
+            isShow = isShow;
         }
 
-        public boolean isCanSort() {
+        public boolean getIsCanSort() {
             return IsCanSort;
         }
 
-        public void setCanSort(boolean canSort) {
-            IsCanSort = canSort;
+        public void setIsCanSort(boolean IsCanSort) {
+            this.IsCanSort = IsCanSort;
         }
 
-        public boolean isSort() {
+        public String getSort() {
             return sort;
         }
 
-        public void setSort(boolean sort) {
+        public void setSort(String sort) {
             this.sort = sort;
         }
     }
@@ -237,10 +287,52 @@ public class ColumnItemResponse {
     }
 
     public static class ThreeItemBean {
-        //        private List<> valueRange;
+        private List valueRange;
         private String queryFields;
         private int dataType;
         private String dateFormat;
+
+        public ThreeItemBean() {
+        }
+
+        public ThreeItemBean(List valueRange, String queryFields, int dataType, String dateFormat) {
+            this.valueRange = valueRange;
+            this.queryFields = queryFields;
+            this.dataType = dataType;
+            this.dateFormat = dateFormat;
+        }
+
+        public List getValueRange() {
+            return valueRange;
+        }
+
+        public void setValueRange(List valueRange) {
+            this.valueRange = valueRange;
+        }
+
+        public String getQueryFields() {
+            return queryFields;
+        }
+
+        public void setQueryFields(String queryFields) {
+            this.queryFields = queryFields;
+        }
+
+        public int getDataType() {
+            return dataType;
+        }
+
+        public void setDataType(int dataType) {
+            this.dataType = dataType;
+        }
+
+        public String getDateFormat() {
+            return dateFormat;
+        }
+
+        public void setDateFormat(String dateFormat) {
+            this.dateFormat = dateFormat;
+        }
     }
 
     public static class TwoItemFilterBean {
