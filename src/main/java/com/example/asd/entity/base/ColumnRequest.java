@@ -74,12 +74,12 @@ public class ColumnRequest {
             this.width = width;
         }
 
-        public boolean isShow() {
+        public boolean getIsShow() {
             return isShow;
         }
 
-        public void setShow(boolean show) {
-            isShow = show;
+        public void setIsShow(boolean isShow) {
+            this.isShow = isShow;
         }
 
         public String getSort() {

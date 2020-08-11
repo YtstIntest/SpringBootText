@@ -164,7 +164,7 @@ public class TableController {
                 }
                 columnBto.setOrderNum(styleBean.getOrderNum());
                 columnBto.setWidth(styleBean.getWidth());
-                columnBto.setIsshow(styleBean.isShow() ? 1 : 0);
+                columnBto.setIsshow(styleBean.getIsShow() ? 1 : 0);
                 columnBto.setSort(styleBean.getSort());
                 if (columnImpl.updateColumn(columnBto) != 1) {
                     throw new CustomException("更新column失败！");
@@ -173,60 +173,59 @@ public class TableController {
                 columnItemResponse.setColumnId(columnBto.getColumnId());
                 columnItemResponse.setDataPropertyName(columnBto.getDataPropertyName());
                 columnItemResponse.setTitle(columnBto.getColumnName());
-                ColumnItemResponse.StyleItemBean styleItemBean = new ColumnItemResponse.StyleItemBean(styleBean.getOrderNum(), styleBean.getWidth(), styleBean.isShow(), columnBto.getIscansort() == 1 ? true : false, styleBean.getSort());
+                ColumnItemResponse.StyleItemBean styleItemBean = new ColumnItemResponse.StyleItemBean(styleBean.getOrderNum(), styleBean.getWidth(), styleBean.getIsShow(), columnBto.getIscansort() == 1 ? true : false, styleBean.getSort());
                 columnItemResponse.setStyle(styleItemBean);
 
                 List<ColumnItemResponse.QueryItemBean> queryList = new ArrayList<>();
                 List<ColumnOptionBto> columnOptionBtoList = columnOptionImpl.getColumnOptionAllById(columnBto.getColumnId());
-                if (columnOptionBtoList.size() == 0 || columnOptionBtoList == null) {
-                    throw new CustomException("columnOptionImpl不存在！");
-                }
-                for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
-                    ColumnItemResponse.QueryItemBean queryItemBean = new ColumnItemResponse.QueryItemBean();
-                    OptionBto optionBto = optionImpl.getOptionById(columnOptionBto.getFkOptionId());
-                    if (optionBto == null) {
-                        throw new CustomException("option不存在！");
+                if (columnOptionBtoList.size() != 0 || columnOptionBtoList != null) {
+                    for (ColumnOptionBto columnOptionBto : columnOptionBtoList) {
+                        ColumnItemResponse.QueryItemBean queryItemBean = new ColumnItemResponse.QueryItemBean();
+                        OptionBto optionBto = optionImpl.getOptionById(columnOptionBto.getFkOptionId());
+                        if (optionBto == null) {
+                            throw new CustomException("option不存在！");
+                        }
+                        queryItemBean.setKind(optionBto.getKind());
+                        queryItemBean.setIndex(columnOptionBto.getIntdex());
+                        queryItemBean.setQueryFields(optionBto.getQueryFields());
+                        queryItemBean.setOptionId(optionBto.getOptionId());
+                        queryItemBean.setFieldText(optionBto.getFieldText());
+                        switch (optionBto.getKind()) {
+                            case 1:
+                                ColumnItemResponse.OneItemBean oneItemBean = new ColumnItemResponse.OneItemBean();
+                                oneItemBean.setDataType(optionBto.getDateType());
+                                oneItemBean.setMaxLength(optionBto.getMaxLength());
+                                oneItemBean.setMaxNum(optionBto.getMaxNum());
+                                oneItemBean.setMinNum(optionBto.getMinNum());
+                                oneItemBean.setRegularText(optionBto.getRegularText());
+                                oneItemBean.setDateFormat(optionBto.getDateFormat());
+                                queryItemBean.setOptions(oneItemBean);
+                                break;
+                            case 2:
+                                ColumnItemResponse.TwoItemBean twoItemBean = new ColumnItemResponse.TwoItemBean();
+                                twoItemBean.setDataSourceKind(optionBto.getDateSourceKind());
+                                List<ColumnItemResponse.TwoItemFilterBean> listFilter = new ArrayList<>();
+                                if (StringUtils.isNotEmptyStr(optionBto.getListoffilter())) {
+                                    listFilter = JSONArray.parseArray(optionBto.getListoffilter(), ColumnItemResponse.TwoItemFilterBean.class);
+                                }
+                                twoItemBean.setListOfFilter(listFilter);
+                                queryItemBean.setOptions(twoItemBean);
+                                break;
+                            case 3:
+                                ColumnItemResponse.ThreeItemBean threeItemBean = new ColumnItemResponse.ThreeItemBean();
+                                if (StringUtils.isNotEmptyStr(optionBto.getValueRange())) {
+                                    threeItemBean.setValueRange(JSONArray.parseArray(optionBto.getValueRange()));
+                                } else {
+                                    threeItemBean.setValueRange(new ArrayList());
+                                }
+                                threeItemBean.setDataType(optionBto.getDateType());
+                                threeItemBean.setQueryFields(optionBto.getQueryFields());
+                                threeItemBean.setDateFormat(optionBto.getDateFormat());
+                                queryItemBean.setOptions(threeItemBean);
+                                break;
+                        }
+                        queryList.add(queryItemBean);
                     }
-                    queryItemBean.setKind(optionBto.getKind());
-                    queryItemBean.setIndex(columnOptionBto.getIntdex());
-                    queryItemBean.setQueryFields(optionBto.getQueryFields());
-                    queryItemBean.setOptionId(optionBto.getOptionId());
-                    queryItemBean.setFieldText(optionBto.getFieldText());
-                    switch (optionBto.getKind()) {
-                        case 1:
-                            ColumnItemResponse.OneItemBean oneItemBean = new ColumnItemResponse.OneItemBean();
-                            oneItemBean.setDataType(optionBto.getDateType());
-                            oneItemBean.setMaxLength(optionBto.getMaxLength());
-                            oneItemBean.setMaxNum(optionBto.getMaxNum());
-                            oneItemBean.setMinNum(optionBto.getMinNum());
-                            oneItemBean.setRegularText(optionBto.getRegularText());
-                            oneItemBean.setDateFormat(optionBto.getDateFormat());
-                            queryItemBean.setOptions(oneItemBean);
-                            break;
-                        case 2:
-                            ColumnItemResponse.TwoItemBean twoItemBean = new ColumnItemResponse.TwoItemBean();
-                            twoItemBean.setDataSourceKind(optionBto.getDateSourceKind());
-                            List<ColumnItemResponse.TwoItemFilterBean> listFilter = new ArrayList<>();
-                            if (StringUtils.isNotEmptyStr(optionBto.getListoffilter())) {
-                                listFilter = JSONArray.parseArray(optionBto.getListoffilter(), ColumnItemResponse.TwoItemFilterBean.class);
-                            }
-                            twoItemBean.setListOfFilter(listFilter);
-                            queryItemBean.setOptions(twoItemBean);
-                            break;
-                        case 3:
-                            ColumnItemResponse.ThreeItemBean threeItemBean = new ColumnItemResponse.ThreeItemBean();
-                            if (StringUtils.isNotEmptyStr(optionBto.getValueRange())) {
-                                threeItemBean.setValueRange(JSONArray.parseArray(optionBto.getValueRange()));
-                            } else {
-                                threeItemBean.setValueRange(new ArrayList());
-                            }
-                            threeItemBean.setDataType(optionBto.getDateType());
-                            threeItemBean.setQueryFields(optionBto.getQueryFields());
-                            threeItemBean.setDateFormat(optionBto.getDateFormat());
-                            queryItemBean.setOptions(threeItemBean);
-                            break;
-                    }
-                    queryList.add(queryItemBean);
                 }
                 columnItemResponse.setQueryList(queryList);
                 columnItemResponseList.add(columnItemResponse);
